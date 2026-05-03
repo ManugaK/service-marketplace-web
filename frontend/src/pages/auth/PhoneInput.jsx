@@ -1,6 +1,6 @@
 import React from 'react';
-import { AuthLayout } from '../components/auth/AuthLayout';
-import workerTablet from '../assets/worker_tablet.png';
+import { AuthLayout } from '../../components/auth/AuthLayout';
+import workerTablet from '../../assets/worker_tablet.png';
 
 const PhoneInput = ({ onSendOTP }) => {
   return (
@@ -53,3 +53,6 @@ const PhoneInput = ({ onSendOTP }) => {
 };
 
 export default PhoneInput;
+
+
+

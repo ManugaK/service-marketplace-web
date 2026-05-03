@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { AuthLayout } from '../components/auth/AuthLayout';
+import { AuthLayout } from '../../components/auth/AuthLayout';
 
 const PhoneVerification = ({ phoneNumber = "+94 77 123 4567", onVerify, onChangePhone }) => {
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
@@ -86,3 +86,6 @@ const PhoneVerification = ({ phoneNumber = "+94 77 123 4567", onVerify, onChange
 };
 
 export default PhoneVerification;
+
+
+

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { AuthLayout } from '../components/auth/AuthLayout';
-import workersTeam from '../assets/workers_team.png';
+import { AuthLayout } from '../../components/auth/AuthLayout';
+import workersTeam from '../../assets/workers_team.png';
 
 const RoleSelection = ({ onContinue }) => {
   const [role, setRole] = useState('customer');
@@ -74,3 +74,6 @@ const RoleSelection = ({ onContinue }) => {
 };
 
 export default RoleSelection;
+
+
+
