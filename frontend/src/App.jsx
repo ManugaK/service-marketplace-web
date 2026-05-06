@@ -6,6 +6,8 @@ import SearchPage from './pages/search/SearchPage';
 import CustomerDashboard from './pages/customer/CustomerDashboard';
 import WorkerDashboard from './pages/worker/WorkerDashboard';
 import WorkerProfile from './pages/worker/WorkerProfile';
+import WorkerReviews from './pages/worker/WorkerReviews';
+import WorkerSubscription from './pages/worker/WorkerSubscription';
 import ChatPage from './pages/chat/ChatPage';
 import BookingDetails from './pages/booking/BookingDetails';
 import BookingReview from './pages/booking/BookingReview';
@@ -33,7 +35,12 @@ function App() {
           {/* User Routes */}
           <Route path="/customer/profile" element={<CustomerProfile />} />
           <Route path="/customer/dashboard" element={<CustomerDashboard />} />
+          
+          {/* Worker Routes */}
           <Route path="/worker/dashboard" element={<WorkerDashboard />} />
+          <Route path="/worker/profile" element={<WorkerProfile />} />
+          <Route path="/worker/reviews" element={<WorkerReviews />} />
+          <Route path="/worker/subscription" element={<WorkerSubscription />} />
           
           {/* Auth Routes */}
           <Route path="/login" element={<AuthFlow initialView="login" />} />
