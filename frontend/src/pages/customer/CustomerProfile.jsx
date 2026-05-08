@@ -34,7 +34,7 @@ const CustomerProfile = () => {
     <div className="min-h-screen bg-white">
       <Navbar isLoggedIn={true} />
       
-      <main className="max-w-7xl mx-auto pt-32 pb-20 px-6">
+      <main className="max-w-screen-2xl mx-auto pt-32 pb-20 px-6">
         {/* Header Section */}
         <section className="flex flex-col md:flex-row items-center justify-between gap-8 pb-12 border-b border-gray-100 mb-12">
            <div className="flex flex-col md:flex-row items-center gap-8 text-center md:text-left">

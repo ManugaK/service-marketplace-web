@@ -68,7 +68,7 @@ const SearchPage = () => {
     <div className="min-h-screen bg-[#F8FAFC]">
       <Navbar isLoggedIn={true} />
       
-      <div className="max-w-7xl mx-auto pt-28 pb-20 px-6 flex gap-8">
+      <div className="max-w-screen-2xl mx-auto pt-28 pb-20 px-6 flex gap-8">
         {/* Sidebar Filters */}
         <aside className="w-64 flex-shrink-0">
           <h2 className="text-xl font-bold text-gray-900 mb-1">Filters</h2>

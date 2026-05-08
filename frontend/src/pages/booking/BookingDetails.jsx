@@ -13,7 +13,7 @@ const Stepper = ({ currentStep }) => {
   ];
 
   return (
-    <div className="max-w-4xl mx-auto mb-12">
+    <div className="max-w-screen-2xl mx-auto mb-12">
       <div className="flex items-center justify-between relative">
         <div className="absolute top-1/2 left-0 w-full h-0.5 bg-gray-100 -translate-y-1/2 -z-10"></div>
         {steps.map((step) => (
@@ -44,14 +44,14 @@ const BookingDetails = () => {
     <div className="min-h-screen bg-[#F8FAFC]">
       <Navbar isLoggedIn={true} />
       
-      <main className="max-w-7xl mx-auto pt-32 pb-20 px-6">
+      <main className="max-w-screen-2xl mx-auto pt-32 pb-20 px-6">
         <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-gray-400 hover:text-gray-600 font-bold mb-8 transition-colors">
           <HiOutlineArrowLeft /> Back
         </button>
 
         <Stepper currentStep={2} />
 
-        <div className="flex flex-col lg:flex-row gap-12">
+        <div className="max-w-screen-2xl mx-auto flex flex-col lg:flex-row gap-12">
           {/* Main Form */}
           <div className="flex-grow space-y-8">
              <h1 className="text-3xl font-black text-gray-900 mb-8">Provide Job Details</h1>

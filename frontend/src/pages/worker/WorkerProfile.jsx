@@ -30,7 +30,7 @@ const WorkerProfile = () => {
 
   return (
     <WorkerLayout>
-      <div className="max-w-6xl mx-auto pb-20">
+      <div className="max-w-screen-2xl mx-auto pb-20">
         {/* Hero Section */}
         <div className="relative mb-12">
           <div className="h-64 rounded-[2.5rem] overflow-hidden relative group">

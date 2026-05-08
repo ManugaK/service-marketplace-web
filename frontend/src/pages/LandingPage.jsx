@@ -73,7 +73,7 @@ const LandingPage = () => {
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 px-6 overflow-hidden bg-gradient-to-br from-emerald-50/40 via-white to-white">
-        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16">
+        <div className="max-w-screen-2xl mx-auto flex flex-col lg:flex-row items-center gap-16">
           <div className="flex-1 text-center lg:text-left">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-50 text-[#1B5E44] font-bold text-xs mb-8">
                <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
@@ -155,7 +155,7 @@ const LandingPage = () => {
 
       {/* Stats Bar */}
       <div className="bg-white border-y border-gray-50 py-10 px-6">
-        <div className="max-w-7xl mx-auto flex flex-wrap justify-between gap-12 text-center md:text-left">
+        <div className="max-w-screen-2xl mx-auto flex flex-wrap justify-between gap-12 text-center md:text-left">
            {[
              { label: 'Customers', value: '1,000+' },
              { label: 'Verified Workers', value: '200+' },
@@ -172,7 +172,7 @@ const LandingPage = () => {
 
       {/* Categories Grid */}
       <section className="py-24 px-6 bg-gray-50/30">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-screen-2xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-black text-gray-900 mb-4 tracking-tight">Browse Service Categories</h2>
             <p className="text-gray-500 font-medium">Find the right expert for any home maintenance task.</p>
@@ -193,7 +193,7 @@ const LandingPage = () => {
 
       {/* How It Works */}
       <section className="py-24 px-6">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-screen-2xl mx-auto">
            <div className="text-center mb-20">
               <h2 className="text-4xl font-black text-gray-900 mb-4 tracking-tight">How It Works</h2>
               <p className="text-gray-500 font-medium">Three simple steps to get your work done.</p>
@@ -219,7 +219,7 @@ const LandingPage = () => {
 
       {/* Top Rated Professionals */}
       <section className="py-24 px-6 bg-gray-50/30">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-screen-2xl mx-auto">
           <div className="flex items-end justify-between mb-16">
             <div>
               <h2 className="text-4xl font-black text-gray-900 mb-4 tracking-tight">Top Rated Professionals</h2>
@@ -259,7 +259,7 @@ const LandingPage = () => {
 
       {/* Worker Incentive Section */}
       <section className="py-24 px-6">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-screen-2xl mx-auto">
           <div className="bg-gray-900 rounded-[3rem] p-12 lg:p-20 flex flex-col lg:flex-row items-center gap-20 overflow-hidden relative">
             {/* Background pattern */}
             <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#1B5E44_1px,transparent_1px)] [background-size:20px_20px]"></div>
@@ -334,7 +334,7 @@ const LandingPage = () => {
 
       {/* Pricing Section */}
       <section className="py-24 px-6 bg-gray-50/30">
-        <div className="max-w-7xl mx-auto text-center">
+        <div className="max-w-screen-2xl mx-auto text-center">
            <h2 className="text-4xl font-black text-gray-900 mb-4 tracking-tight">Simple, transparent pricing for workers</h2>
            <p className="text-gray-500 font-medium mb-20">Choose a plan that fits your business goals.</p>
 
@@ -381,7 +381,7 @@ const LandingPage = () => {
 
       {/* Testimonials */}
       <section className="py-24 px-6">
-        <div className="max-w-7xl mx-auto">
+        <div className="max-w-screen-2xl mx-auto">
           <div className="text-center mb-20">
             <h2 className="text-4xl font-black text-gray-900 mb-4 tracking-tight">What our customers say</h2>
             <p className="text-gray-500 font-medium">Hear from over 2,100+ happy customers across Sri Lanka.</p>

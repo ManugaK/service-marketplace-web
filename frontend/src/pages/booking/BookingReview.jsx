@@ -12,7 +12,7 @@ const BookingReview = () => {
     <div className="min-h-screen bg-[#F8FAFC]">
       <Navbar isLoggedIn={true} />
       
-      <main className="max-w-7xl mx-auto pt-32 pb-20 px-6">
+      <main className="max-w-screen-2xl mx-auto pt-32 pb-20 px-6">
         <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-gray-400 hover:text-gray-600 font-bold mb-8 transition-colors">
           <HiOutlineArrowLeft /> Back
         </button>

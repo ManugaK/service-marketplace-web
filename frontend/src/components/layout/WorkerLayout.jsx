@@ -155,8 +155,10 @@ const WorkerLayout = ({ children }) => {
         </header>
 
         {/* Page Content */}
-        <main className="flex-grow p-10 overflow-y-auto">
-          {children}
+        <main className="flex-grow overflow-y-auto">
+          <div className="max-w-screen-2xl mx-auto p-10">
+            {children}
+          </div>
         </main>
 
         {/* Footer */}

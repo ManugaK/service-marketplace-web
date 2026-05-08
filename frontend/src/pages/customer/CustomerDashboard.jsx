@@ -19,7 +19,7 @@ const CustomerDashboard = () => {
     <div className="min-h-screen bg-[#F8FAFC]">
       <Navbar isLoggedIn={true} />
       
-      <main className="max-w-7xl mx-auto pt-32 pb-20 px-6">
+      <main className="max-w-screen-2xl mx-auto pt-32 pb-20 px-6">
         <header className="mb-12">
            <h1 className="text-4xl font-black text-gray-900 mb-2">Welcome back, Traveler! 👋</h1>
            <p className="text-gray-500 font-medium">Manage your bookings and find new professionals.</p>

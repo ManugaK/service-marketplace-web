@@ -58,7 +58,7 @@ const WorkerReviews = () => {
 
   return (
     <WorkerLayout>
-      <div className="max-w-5xl mx-auto">
+      <div className="max-w-screen-2xl mx-auto">
         {/* Header */}
         <div className="flex items-center gap-6 mb-10">
           <button 

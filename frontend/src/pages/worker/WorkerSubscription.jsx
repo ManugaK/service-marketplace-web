@@ -26,7 +26,7 @@ const WorkerSubscription = () => {
 
   return (
     <WorkerLayout>
-      <div className="max-w-5xl mx-auto pb-20">
+      <div className="max-w-screen-2xl mx-auto pb-20">
         <header className="mb-12 flex justify-between items-end">
            <div>
               <h1 className="text-4xl font-black text-gray-900 mb-4">Subscription & Plan</h1>
