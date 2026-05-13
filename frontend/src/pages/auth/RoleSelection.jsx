@@ -1,79 +1,134 @@
-import React, { useState } from 'react';
-import { AuthLayout } from '../../components/auth/AuthLayout';
-import workersTeam from '../../assets/workers_team.png';
+import React, { useEffect, useState } from 'react';
+import { BadgeCheck, HardHat, UserRound } from 'lucide-react';
+import { FcGoogle } from 'react-icons/fc';
+import OnboardingLayout from './OnboardingLayout';
 
-const RoleSelection = ({ onContinue }) => {
-  const [role, setRole] = useState('customer');
+export default function RoleSelection({
+  onBack,
+  onContinue,
+  selectedRole: initialSelectedRole = 'customer',
+}) {
+  const [selectedRole, setSelectedRole] = useState(initialSelectedRole);
+
+  useEffect(() => {
+    setSelectedRole(initialSelectedRole);
+  }, [initialSelectedRole]);
+
+  const handleContinue = () => {
+    if (onContinue) {
+      onContinue(selectedRole);
+    }
+  };
 
   return (
-    <AuthLayout 
-      title="Sri Lanka's most trusted skilled worker platform."
-      heroImage={workersTeam}
-    >
-      <div className="mb-10">
-        <h3 className="text-3xl font-bold text-gray-900 mb-2">Welcome to SkilledLK</h3>
-        <p className="text-gray-500">How will you use the app?</p>
-      </div>
+    <OnboardingLayout onBack={onBack}>
+      <div>
+        <h1 className="text-[25px] font-medium tracking-tight text-slate-900">
+          Welcome to SkilledLK
+        </h1>
 
-      <div className="space-y-4 mb-8">
-        <button 
-          onClick={() => setRole('customer')}
-          className={`w-full p-6 rounded-2xl border-2 text-left transition-all flex items-center gap-6 ${role === 'customer' ? 'border-[#1B5E44] bg-emerald-50 shadow-md' : 'border-gray-100 hover:border-gray-200'}`}
+        <p className="mt-1.5 text-[13px] text-slate-500">
+          How will you use the app?
+        </p>
+
+        <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <button
+            type="button"
+            onClick={() => setSelectedRole('customer')}
+            className={`cursor-pointer rounded-xl border p-5 text-center transition ${
+              selectedRole === 'customer'
+                ? 'border-[#08785d] bg-[#e3f4ee]'
+                : 'border-slate-200 bg-white hover:border-[#08785d]/50 hover:bg-emerald-50'
+            }`}
+          >
+            <div
+              className={`mx-auto flex h-[44px] w-[44px] items-center justify-center rounded-full ${
+                selectedRole === 'customer'
+                  ? 'bg-[#c7eee1] text-[#08785d]'
+                  : 'bg-slate-100 text-slate-500'
+              }`}
+            >
+              <UserRound size={22} />
+            </div>
+
+            <h3 className="mt-3 text-[13px] font-extrabold text-slate-900">
+              I need a worker
+            </h3>
+
+            <p className="mt-1 text-[12px] text-slate-500">Customer</p>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => setSelectedRole('worker')}
+            className={`cursor-pointer rounded-xl border p-5 text-center transition ${
+              selectedRole === 'worker'
+                ? 'border-[#08785d] bg-[#e3f4ee]'
+                : 'border-slate-200 bg-white hover:border-[#08785d]/50 hover:bg-emerald-50'
+            }`}
+          >
+            <div
+              className={`mx-auto flex h-[44px] w-[44px] items-center justify-center rounded-full ${
+                selectedRole === 'worker'
+                  ? 'bg-[#c7eee1] text-[#08785d]'
+                  : 'bg-slate-100 text-slate-500'
+              }`}
+            >
+              <HardHat size={22} />
+            </div>
+
+            <h3 className="mt-3 text-[13px] font-extrabold text-slate-900">
+              I&apos;m a worker
+            </h3>
+
+            <p className="mt-1 text-[12px] text-slate-500">Professional</p>
+          </button>
+        </div>
+
+        <button
+          type="button"
+          onClick={handleContinue}
+          className="mt-5 h-[44px] w-full cursor-pointer rounded-lg bg-[#08785d] text-[14px] font-extrabold text-white transition hover:bg-[#066b53]"
         >
-          <div className={`w-14 h-14 rounded-xl flex items-center justify-center ${role === 'customer' ? 'bg-[#1B5E44] text-white' : 'bg-gray-100 text-gray-400'}`}>
-            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-            </svg>
-          </div>
-          <div>
-            <p className={`font-bold text-lg ${role === 'customer' ? 'text-[#1B5E44]' : 'text-gray-900'}`}>I need a worker</p>
-            <p className="text-gray-500 text-sm">Customer</p>
-          </div>
+          Continue
         </button>
 
-        <button 
-          onClick={() => setRole('worker')}
-          className={`w-full p-6 rounded-2xl border-2 text-left transition-all flex items-center gap-6 ${role === 'worker' ? 'border-[#1B5E44] bg-emerald-50 shadow-md' : 'border-gray-100 hover:border-gray-200'}`}
+        <div className="my-4 flex items-center gap-4">
+          <div className="h-px flex-1 bg-slate-200" />
+          <span className="text-[11px] text-slate-400">OR</span>
+          <div className="h-px flex-1 bg-slate-200" />
+        </div>
+
+        <button
+          type="button"
+          className="flex h-[44px] w-full cursor-pointer items-center justify-center gap-3 rounded-lg border border-slate-200 bg-white text-[14px] font-extrabold text-slate-800 transition hover:bg-slate-50"
         >
-          <div className={`w-14 h-14 rounded-xl flex items-center justify-center ${role === 'worker' ? 'bg-[#1B5E44] text-white' : 'bg-gray-100 text-gray-400'}`}>
-            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-            </svg>
-          </div>
-          <div>
-            <p className={`font-bold text-lg ${role === 'worker' ? 'text-[#1B5E44]' : 'text-gray-900'}`}>I'm a worker</p>
-            <p className="text-gray-500 text-sm">Professional</p>
-          </div>
+          <FcGoogle size={20} />
+          Continue with Google
         </button>
+
+        <div className="mt-5 rounded-xl bg-emerald-50 p-4 lg:hidden">
+          <div className="space-y-2.5">
+            {['ID-verified workers', 'Secure payments', '2,100+ happy customers'].map((item) => (
+              <div key={item} className="flex items-center gap-3">
+                <BadgeCheck size={17} className="text-[#08785d]" />
+                <span className="text-[13px] font-medium text-slate-700">{item}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-5 text-center text-[13px] text-slate-400">
+          <div className="flex justify-center gap-6">
+            <a href="/privacy" className="hover:text-slate-700">Privacy Policy</a>
+            <a href="/terms" className="hover:text-slate-700">Terms of Service</a>
+          </div>
+
+          <p className="mt-3 text-[9px] uppercase tracking-[0.2em]">
+            © 2026 SkilledLK. All rights reserved.
+          </p>
+        </div>
       </div>
-
-      <button 
-        onClick={() => onContinue(role)}
-        className="w-full bg-[#006B44] text-white py-4 rounded-xl font-bold text-lg shadow-lg shadow-emerald-900/20 hover:bg-[#005a39] transition-all active:scale-[0.98]"
-      >
-        Continue
-      </button>
-
-      <div className="relative flex py-6 items-center">
-        <div className="flex-grow border-t border-gray-100"></div>
-        <span className="flex-shrink mx-4 text-gray-400 text-xs font-bold tracking-widest uppercase">OR</span>
-        <div className="flex-grow border-t border-gray-100"></div>
-      </div>
-
-      <button type="button" className="w-full border border-gray-200 py-3.5 rounded-xl flex items-center justify-center gap-3 font-semibold text-gray-700 hover:bg-gray-50 transition-all active:scale-[0.98]">
-        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" className="w-5 h-5" alt="Google" />
-        Continue with Google
-      </button>
-
-      <div className="mt-12 flex justify-center gap-6 text-[10px] text-gray-400 font-medium">
-        <a href="#" className="hover:text-gray-600 transition-colors">Privacy Policy</a>
-        <a href="#" className="hover:text-gray-600 transition-colors">Terms of Service</a>
-      </div>
-    </AuthLayout>
+    </OnboardingLayout>
   );
-};
-
-export default RoleSelection;
-
-
-
+}
