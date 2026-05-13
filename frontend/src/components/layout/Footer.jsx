@@ -1,82 +1,120 @@
 import React from 'react';
-import { FaApple, FaGooglePlay, FaTwitter, FaLinkedin, FaInstagram, FaFacebook } from 'react-icons/fa';
+import { Smartphone, Play } from 'lucide-react';
 
-const Footer = () => {
+export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-white pt-24 pb-12 px-6">
-      <div className="max-w-screen-2xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16 mb-20">
-          {/* Brand Column */}
-          <div className="space-y-8">
-            <div className="text-3xl font-black tracking-tighter text-white">SkilledLK</div>
-            <p className="text-gray-400 font-medium leading-relaxed max-w-xs">
-              Sri Lanka's leading marketplace for skilled professionals. 
-              Connecting talent with opportunity since 2026.
+    <footer className="bg-[#071812] text-white">
+      <div className="mx-auto w-full max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
+        <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-12">
+          <div>
+            <h2 className="text-2xl font-extrabold tracking-tight">
+              SkilledLK
+            </h2>
+
+            <p className="mt-6 max-w-xs text-sm leading-7 text-slate-500">
+              Sri Lanka&apos;s most trusted marketplace for verified
+              professional services. Quality work, guaranteed.
             </p>
-            <div className="flex gap-4">
-              {[FaTwitter, FaLinkedin, FaInstagram, FaFacebook].map((Icon, i) => (
-                <button key={i} className="w-10 h-10 rounded-full border border-gray-800 flex items-center justify-center text-gray-400 hover:text-[#34D399] hover:border-[#34D399] transition-all">
-                  <Icon />
-                </button>
-              ))}
-            </div>
           </div>
 
-          {/* Quick Links */}
           <div>
-            <h4 className="text-lg font-black mb-8 uppercase tracking-widest text-emerald-400">Platform</h4>
-            <ul className="space-y-4 text-gray-400 font-medium">
-              <li><a href="#" className="hover:text-white transition-colors">Browse Categories</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Find Professionals</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Post a Request</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Success Stories</a></li>
+            <h3 className="text-base font-medium text-white">Explore</h3>
+
+            <ul className="mt-6 space-y-4 text-sm text-slate-500">
+              <li>
+                <a href="#categories" className="transition hover:text-white">
+                  Browse Categories
+                </a>
+              </li>
+              <li>
+                <a href="#top-professionals" className="transition hover:text-white">
+                  Success Stories
+                </a>
+              </li>
+              <li>
+                <a href="#services" className="transition hover:text-white">
+                  Safety &amp; Trust
+                </a>
+              </li>
+              <li>
+                <a href="#pricing" className="transition hover:text-white">
+                  Partner Program
+                </a>
+              </li>
             </ul>
           </div>
 
-          {/* Company */}
           <div>
-            <h4 className="text-lg font-black mb-8 uppercase tracking-widest text-emerald-400">Company</h4>
-            <ul className="space-y-4 text-gray-400 font-medium">
-              <li><a href="#" className="hover:text-white transition-colors">About Us</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
-              <li><a href="#" className="hover:text-white transition-colors">Terms of Service</a></li>
+            <h3 className="text-base font-medium text-white">Company</h3>
+
+            <ul className="mt-6 space-y-4 text-sm text-slate-500">
+              <li>
+                <a href="#services" className="transition hover:text-white">
+                  About Us
+                </a>
+              </li>
+              <li>
+                <a href="#pricing" className="transition hover:text-white">
+                  Pricing
+                </a>
+              </li>
+              <li>
+                <a href="#testimonials" className="transition hover:text-white">
+                  Privacy Policy
+                </a>
+              </li>
+              <li>
+                <a href="#testimonials" className="transition hover:text-white">
+                  Terms of Service
+                </a>
+              </li>
             </ul>
           </div>
 
-          {/* Download App */}
           <div>
-            <h4 className="text-lg font-black mb-8 uppercase tracking-widest text-emerald-400">Download App</h4>
-            <div className="space-y-4">
-              <button className="w-full bg-gray-800 hover:bg-gray-700 p-4 rounded-2xl flex items-center gap-4 transition-all group">
-                <FaApple className="text-3xl" />
-                <div className="text-left">
-                  <p className="text-[10px] font-bold text-gray-400 uppercase leading-none">Download on the</p>
-                  <p className="text-lg font-black leading-none group-hover:text-white transition-colors">App Store</p>
+            <h3 className="text-base font-medium text-white">Download App</h3>
+
+            <div className="mt-6 space-y-4">
+              <a
+                href="#app-store"
+                className="flex h-14 w-full max-w-[240px] items-center gap-4 rounded-lg bg-[#1d2a3f] px-4 transition hover:bg-[#25344d]"
+              >
+                <Smartphone size={22} className="text-white" />
+
+                <div>
+                  <p className="text-[10px] uppercase tracking-wide text-slate-400">
+                    Download on
+                  </p>
+                  <p className="text-sm font-bold text-white">App Store</p>
                 </div>
-              </button>
-              <button className="w-full bg-gray-800 hover:bg-gray-700 p-4 rounded-2xl flex items-center gap-4 transition-all group">
-                <FaGooglePlay className="text-3xl" />
-                <div className="text-left">
-                  <p className="text-[10px] font-bold text-gray-400 uppercase leading-none">Get it on</p>
-                  <p className="text-lg font-black leading-none group-hover:text-white transition-colors">Google Play</p>
+              </a>
+
+              <a
+                href="#google-play"
+                className="flex h-14 w-full max-w-[240px] items-center gap-4 rounded-lg bg-[#1d2a3f] px-4 transition hover:bg-[#25344d]"
+              >
+                <Play size={20} className="text-white" />
+
+                <div>
+                  <p className="text-[10px] uppercase tracking-wide text-slate-400">
+                    Get it on
+                  </p>
+                  <p className="text-sm font-bold text-white">Google Play</p>
                 </div>
-              </button>
+              </a>
             </div>
           </div>
         </div>
+      </div>
 
-        <div className="pt-12 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-8">
-           <p className="text-gray-500 font-bold text-sm">© 2026 SkilledLK Marketplace. Built with ❤️ in Sri Lanka.</p>
-           <div className="flex gap-8 text-xs font-bold text-gray-500">
-              <a href="#" className="hover:text-white transition-colors">Help Center</a>
-              <a href="#" className="hover:text-white transition-colors">Safety Center</a>
-              <a href="#" className="hover:text-white transition-colors">Community</a>
-           </div>
+      <div className="border-t border-white/5">
+        <div className="mx-auto max-w-7xl px-4 py-7 text-center sm:px-6 lg:px-8">
+          <p className="text-xs text-slate-600 sm:text-sm">
+            © 2026 SkilledLK Service Marketplace. Sri Lanka&apos;s Professional
+            Network.
+          </p>
         </div>
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}
