@@ -232,19 +232,19 @@ function FeaturedSmallCard({ person }) {
 
 export default function CustomerDashboard() {
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-950">
+    <div className="min-h-screen overflow-x-clip bg-slate-50 text-slate-950">
       <CustomerNavbar />
 
       <main>
         {/* Hero Search Section */}
         <section className="border-b border-slate-300 bg-gradient-to-br from-white via-white to-emerald-50/40">
-          <div className="mx-auto max-w-[1440px] px-5 py-16 sm:px-8 md:py-20 lg:px-10 xl:px-12">
+          <div className="dashboard-shell py-14 sm:py-16 md:py-20 xl:py-24">
             <div className="mx-auto max-w-5xl text-center">
-              <h1 className="text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl lg:text-[42px]">
+              <h1 className="text-[clamp(1.75rem,2.3vw,3.5rem)] font-bold leading-tight tracking-tight text-slate-950">
                 Find the best skilled professionals in Sri Lanka
               </h1>
 
-              <div className="mx-auto mt-8 overflow-hidden rounded-xl border border-slate-300 bg-white shadow-sm">
+              <div className="mx-auto mt-8 overflow-hidden rounded-xl border border-slate-300 bg-white shadow-sm 2xl:mt-10">
                 <div className="grid grid-cols-1 md:grid-cols-[1fr_280px_220px]">
                   <div className="flex items-center gap-5 px-6 py-5">
                     <Search size={24} className="shrink-0 text-emerald-700" />
@@ -289,7 +289,7 @@ export default function CustomerDashboard() {
         </section>
 
         {/* Categories */}
-        <section className="mx-auto max-w-[1440px] px-5 py-16 sm:px-8 lg:px-10 xl:px-12">
+        <section className="dashboard-shell py-14 sm:py-16 md:py-20">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <h2 className="text-2xl font-bold text-slate-950">Explore Categories</h2>
@@ -306,7 +306,7 @@ export default function CustomerDashboard() {
             </a>
           </div>
 
-          <div className="mt-10 grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8">
+          <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 sm:gap-5 md:grid-cols-4 lg:grid-cols-8 2xl:gap-6">
             {categories.map((category) => (
               <CategoryCard key={category.name} item={category} />
             ))}
@@ -314,7 +314,7 @@ export default function CustomerDashboard() {
         </section>
 
         {/* Top Rated Professionals */}
-        <section className="mx-auto max-w-[1440px] px-5 py-16 sm:px-8 lg:px-10 xl:px-12">
+        <section className="dashboard-shell py-14 sm:py-16 md:py-20">
           <div className="flex items-center justify-between">
             <h2 className="text-2xl font-bold text-slate-950">Top Rated Professionals</h2>
 
@@ -328,7 +328,7 @@ export default function CustomerDashboard() {
             </div>
           </div>
 
-          <div className="mt-10 grid grid-cols-1 gap-7 sm:grid-cols-2 xl:grid-cols-4">
+          <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:gap-7 xl:grid-cols-4 2xl:gap-8">
             {topRatedProfessionals.map((professional) => (
               <ProfessionalCard key={professional.name} professional={professional} />
             ))}
@@ -336,10 +336,10 @@ export default function CustomerDashboard() {
         </section>
 
         {/* Featured Professionals */}
-        <section className="mx-auto max-w-[1440px] px-5 py-16 sm:px-8 lg:px-10 xl:px-12">
+        <section className="dashboard-shell py-14 sm:py-16 md:py-20">
           <h2 className="text-2xl font-bold text-slate-950">Featured Professionals</h2>
 
-          <div className="mt-10 grid grid-cols-1 gap-7 lg:grid-cols-[1fr_430px]">
+          <div className="mt-10 grid grid-cols-1 gap-7 lg:grid-cols-[1fr_430px] 2xl:grid-cols-[1fr_520px]">
             {/* Main Featured Card */}
             <div className="overflow-hidden rounded-xl border border-slate-300 bg-white">
               <div className="grid grid-cols-1 md:grid-cols-[48%_52%]">
