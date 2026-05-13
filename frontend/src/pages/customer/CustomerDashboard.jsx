@@ -1,145 +1,399 @@
 import React from 'react';
-import Navbar from '../../components/layout/Navbar';
-import Footer from '../../components/layout/Footer';
-import { HiOutlineCalendar, HiOutlineSearch, HiOutlineChatAlt2, HiOutlineHeart } from 'react-icons/hi';
-import { BsArrowRight } from 'react-icons/bs';
+import {
+  Search,
+  MapPin,
+  Paintbrush,
+  Zap,
+  Wrench,
+  Hammer,
+  Snowflake,
+  Brush,
+  Warehouse,
+  MoreHorizontal,
+  Star,
+  Navigation,
+  BadgeCheck,
+  ChevronLeft,
+  ChevronRight,
+  ChevronRight as ArrowRight,
+} from 'lucide-react';
 
-const CustomerDashboard = () => {
-  const activeBookings = [
-    { id: 1, worker: 'Arjuna Mahendra', service: 'House Painting', date: 'Oct 24, 2026', status: 'In Progress', color: 'bg-blue-500' },
-    { id: 2, worker: 'Sunil Wijesinghe', service: 'Living Room Repair', date: 'Oct 28, 2026', status: 'Scheduled', color: 'bg-emerald-500' },
-  ];
+import CustomerNavbar from '../../components/layout/CustomerNavbar';
+import CustomerFooter from '../../components/layout/CustomerFooter';
 
-  const savedWorkers = [
-    { name: 'Kasun Perera', role: 'Painter', rating: 4.9, avatar: 'KP' },
-    { name: 'Amila Silva', role: 'Electrician', rating: 4.8, avatar: 'AS' },
-  ];
+const categories = [
+  {
+    name: 'Painting',
+    icon: Paintbrush,
+    bg: 'bg-emerald-50',
+    color: 'text-emerald-600',
+  },
+  {
+    name: 'Electrical',
+    icon: Zap,
+    bg: 'bg-amber-50',
+    color: 'text-orange-500',
+  },
+  {
+    name: 'Plumbing',
+    icon: Wrench,
+    bg: 'bg-blue-50',
+    color: 'text-blue-600',
+  },
+  {
+    name: 'Carpentry',
+    icon: Hammer,
+    bg: 'bg-rose-50',
+    color: 'text-rose-500',
+  },
+  {
+    name: 'AC Repair',
+    icon: Snowflake,
+    bg: 'bg-purple-50',
+    color: 'text-purple-500',
+  },
+  {
+    name: 'Cleaning',
+    icon: Brush,
+    bg: 'bg-teal-50',
+    color: 'text-teal-600',
+  },
+  {
+    name: 'Masonry',
+    icon: Warehouse,
+    bg: 'bg-slate-100',
+    color: 'text-slate-600',
+  },
+  {
+    name: 'More',
+    icon: MoreHorizontal,
+    bg: 'bg-blue-50',
+    color: 'text-emerald-700',
+  },
+];
+
+const topRatedProfessionals = [
+  {
+    initials: 'SK',
+    name: 'Saman Kumara',
+    role: 'Master Electrician',
+    rating: '4.9',
+    distance: '2.4 km',
+    price: 'LKR 5,000',
+    verified: true,
+    avatarBg: 'bg-emerald-300',
+  },
+  {
+    initials: 'NP',
+    name: 'Nimal Perera',
+    role: 'Expert Painter',
+    rating: '4.8',
+    distance: '5.1 km',
+    price: 'LKR 3,500',
+    verified: true,
+    avatarBg: 'bg-indigo-100',
+  },
+  {
+    initials: 'AD',
+    name: 'Anura Dharmasena',
+    role: 'Senior Plumber',
+    rating: '5.0',
+    distance: '1.8 km',
+    price: 'LKR 4,000',
+    verified: true,
+    avatarBg: 'bg-slate-200',
+  },
+  {
+    initials: 'RS',
+    name: 'Rohan Silva',
+    role: 'AC Specialist',
+    rating: '4.7',
+    distance: '3.9 km',
+    price: 'LKR 5,000',
+    verified: false,
+    avatarBg: 'bg-blue-100',
+  },
+];
+
+const featuredList = [
+  {
+    name: 'Kamal Perera',
+    role: 'Masonry Expert',
+    rating: '4.9',
+    reviews: '124 reviews',
+    image: 'https://images.unsplash.com/photo-1621905251918-48416bd8575a?auto=format&fit=crop&w=160&q=80',
+  },
+  {
+    name: 'Shanti Abeysekera',
+    role: 'Interior Painter',
+    rating: '4.8',
+    reviews: '89 reviews',
+    image: 'https://images.unsplash.com/photo-1633332755192-727a05c4013d?auto=format&fit=crop&w=160&q=80',
+  },
+  {
+    name: 'Ruwan Gunatunga',
+    role: 'Plumbing Specialist',
+    rating: '5.0',
+    reviews: '56 reviews',
+    image: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=160&q=80',
+  },
+];
+
+function CategoryCard({ item }) {
+  const Icon = item.icon;
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC]">
-      <Navbar isLoggedIn={true} />
-      
-      <main className="max-w-screen-2xl mx-auto pt-32 pb-20 px-6">
-        <header className="mb-12">
-           <h1 className="text-4xl font-black text-gray-900 mb-2">Welcome back, Traveler! 👋</h1>
-           <p className="text-gray-500 font-medium">Manage your bookings and find new professionals.</p>
-        </header>
+    <button className="group flex min-h-[132px] flex-col items-center justify-center rounded-xl border border-slate-300 bg-white p-4 transition hover:-translate-y-1 hover:border-emerald-600 hover:shadow-md">
+      <div className={`flex h-16 w-16 items-center justify-center rounded-full ${item.bg}`}>
+        <Icon className={item.color} size={30} strokeWidth={2.4} />
+      </div>
+      <p className="mt-4 text-sm font-semibold text-slate-800 group-hover:text-emerald-700">
+        {item.name}
+      </p>
+    </button>
+  );
+}
 
-        <div className="grid lg:grid-cols-3 gap-8">
-           {/* Left Column: Stats & Bookings */}
-           <div className="lg:col-span-2 space-y-8">
-              {/* Stats Grid */}
-              <div className="grid grid-cols-3 gap-6">
-                 {[
-                   { label: 'Active Bookings', value: '02', icon: <HiOutlineCalendar />, color: 'text-blue-600' },
-                   { label: 'Total Spent', value: 'LKR 12.5k', icon: <HiOutlineHeart />, color: 'text-rose-600' },
-                   { label: 'Messages', value: '05', icon: <HiOutlineChatAlt2 />, color: 'text-emerald-600' },
-                 ].map((stat, i) => (
-                   <div key={i} className="bg-white p-6 rounded-[2rem] border border-gray-100 shadow-sm flex flex-col justify-between h-40">
-                      <div className={`text-3xl ${stat.color}`}>{stat.icon}</div>
-                      <div>
-                        <p className="text-3xl font-black text-gray-900">{stat.value}</p>
-                        <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">{stat.label}</p>
-                      </div>
-                   </div>
-                 ))}
-              </div>
-
-              {/* Active Bookings List */}
-              <section className="bg-white rounded-[2.5rem] border border-gray-100 p-8 shadow-sm">
-                 <div className="flex items-center justify-between mb-8">
-                    <h2 className="text-2xl font-bold text-gray-900">Active Bookings</h2>
-                    <button className="text-sm font-bold text-[#1B5E44] flex items-center gap-2">View History <BsArrowRight /></button>
-                 </div>
-                 
-                 <div className="space-y-4">
-                    {activeBookings.map(booking => (
-                       <div key={booking.id} className="flex items-center justify-between p-6 bg-gray-50 rounded-3xl border border-transparent hover:border-[#1B5E44]/20 transition-all cursor-pointer group">
-                          <div className="flex items-center gap-6">
-                             <div className="w-14 h-14 rounded-2xl bg-white shadow-sm flex items-center justify-center text-xl font-bold text-[#1B5E44]">
-                                {booking.worker[0]}
-                             </div>
-                             <div>
-                                <h4 className="font-bold text-gray-900 group-hover:text-[#1B5E44] transition-colors">{booking.worker}</h4>
-                                <p className="text-sm text-gray-500 font-medium">{booking.service}</p>
-                             </div>
-                          </div>
-                          <div className="text-right">
-                             <p className="font-bold text-gray-900 mb-1">{booking.date}</p>
-                             <span className={`px-3 py-1 rounded-full text-[10px] font-bold text-white uppercase ${booking.color}`}>
-                                {booking.status}
-                             </span>
-                          </div>
-                       </div>
-                    ))}
-                 </div>
-              </section>
-
-              {/* Recommendations */}
-              <section className="bg-[#1B5E44] rounded-[2.5rem] p-10 text-white relative overflow-hidden group">
-                 <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -mr-32 -mt-32 blur-3xl group-hover:scale-125 transition-transform duration-1000"></div>
-                 <div className="relative z-10">
-                    <h3 className="text-3xl font-bold mb-4">Need a quick fix?</h3>
-                    <p className="text-emerald-100 mb-8 max-w-md leading-relaxed">
-                       Book top-rated plumbers and electricians in your area with our express service.
-                       Guaranteed arrival within 2 hours.
-                    </p>
-                    <button className="px-8 py-4 bg-white text-[#1B5E44] rounded-2xl font-black shadow-xl hover:shadow-emerald-900/40 transition-all transform hover:-translate-y-1">
-                       Explore Express Services
-                    </button>
-                 </div>
-              </section>
-           </div>
-
-           {/* Right Column: Sidebar */}
-           <aside className="space-y-8">
-              {/* Quick Search */}
-              <div className="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm">
-                 <h3 className="text-xl font-bold text-gray-900 mb-6">Quick Search</h3>
-                 <div className="relative mb-6">
-                    <HiOutlineSearch className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-xl" />
-                    <input type="text" placeholder="I need a..." className="w-full pl-12 pr-4 py-4 bg-gray-50 rounded-2xl border border-transparent focus:bg-white focus:border-[#1B5E44] outline-none font-medium transition-all" />
-                 </div>
-                 <div className="flex flex-wrap gap-2">
-                    {['Cleaner', 'Plumber', 'A/C Repair', 'Painter'].map(s => (
-                       <button key={s} className="px-4 py-2 rounded-xl bg-gray-50 text-gray-600 text-xs font-bold hover:bg-[#1B5E44] hover:text-white transition-all">
-                          {s}
-                       </button>
-                    ))}
-                 </div>
-              </div>
-
-              {/* Saved Professionals */}
-              <div className="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm">
-                 <h3 className="text-xl font-bold text-gray-900 mb-6">Saved Professionals</h3>
-                 <div className="space-y-6">
-                    {savedWorkers.map((worker, i) => (
-                       <div key={i} className="flex items-center gap-4 group cursor-pointer">
-                          <div className="w-12 h-12 rounded-full bg-emerald-100 text-[#1B5E44] flex items-center justify-center font-bold">
-                             {worker.avatar}
-                          </div>
-                          <div className="flex-grow">
-                             <h4 className="font-bold text-gray-900 text-sm group-hover:text-[#1B5E44] transition-colors">{worker.name}</h4>
-                             <p className="text-xs text-gray-400 font-medium">{worker.role} • {worker.rating} ★</p>
-                          </div>
-                          <button className="text-gray-300 hover:text-rose-500 transition-colors">
-                             <HiOutlineHeart className="text-xl fill-rose-500 text-rose-500" />
-                          </button>
-                       </div>
-                    ))}
-                 </div>
-                 <button className="w-full mt-8 py-4 border border-gray-100 rounded-2xl text-gray-500 font-bold hover:bg-gray-50 transition-all text-sm">
-                    Manage Saved List
-                 </button>
-              </div>
-           </aside>
+function ProfessionalCard({ professional }) {
+  return (
+    <div className="rounded-xl border border-slate-300 bg-white p-7 transition hover:-translate-y-1 hover:border-emerald-600 hover:shadow-md">
+      <div className="flex items-start justify-between">
+        <div
+          className={`flex h-14 w-14 items-center justify-center rounded-full ${professional.avatarBg}`}
+        >
+          <span className="text-lg font-bold text-slate-900">{professional.initials}</span>
         </div>
-      </main>
-      <Footer />
+
+        {professional.verified && (
+          <div className="flex items-center gap-1 rounded-md bg-emerald-50 px-2.5 py-1 text-[11px] font-bold uppercase text-emerald-700">
+            <BadgeCheck size={13} />
+            Verified
+          </div>
+        )}
+      </div>
+
+      <div className="mt-8">
+        <h3 className="text-base font-bold text-slate-950">{professional.name}</h3>
+        <p className="mt-1 text-sm text-slate-600">{professional.role}</p>
+      </div>
+
+      <div className="mt-5 flex flex-wrap items-center gap-3 text-sm text-slate-600">
+        <div className="flex items-center gap-1">
+          <Star size={14} className="fill-amber-400 text-amber-400" />
+          <span>{professional.rating}</span>
+        </div>
+
+        <span className="h-4 w-px bg-slate-300" />
+
+        <div className="flex items-center gap-1">
+          <Navigation size={14} />
+          <span>{professional.distance}</span>
+        </div>
+
+        <span className="h-4 w-px bg-slate-300" />
+
+        <div>
+          <p className="leading-tight text-slate-600">Starting at</p>
+          <p className="font-bold text-emerald-700">{professional.price}</p>
+        </div>
+      </div>
+
+      <button className="mt-6 w-full rounded-md bg-emerald-700 px-5 py-3 text-sm font-bold text-white transition hover:bg-emerald-800">
+        Book Now
+      </button>
     </div>
   );
-};
+}
 
-export default CustomerDashboard;
+function FeaturedSmallCard({ person }) {
+  return (
+    <button className="flex w-full items-center gap-5 rounded-xl border border-slate-300 bg-white p-6 text-left transition hover:-translate-y-1 hover:border-emerald-600 hover:shadow-md">
+      <img
+        src={person.image}
+        alt={person.name}
+        className="h-16 w-16 rounded-md object-cover"
+      />
 
+      <div className="min-w-0 flex-1">
+        <h4 className="truncate text-base font-bold text-slate-950">{person.name}</h4>
+        <p className="truncate text-sm text-slate-600">{person.role}</p>
 
+        <div className="mt-1 flex items-center gap-1 text-sm">
+          <Star size={13} className="fill-amber-400 text-amber-400" />
+          <span className="font-medium text-slate-700">{person.rating}</span>
+          <span className="text-slate-600">({person.reviews})</span>
+        </div>
+      </div>
+
+      <ArrowRight size={20} className="text-slate-500" />
+    </button>
+  );
+}
+
+export default function CustomerDashboard() {
+  return (
+    <div className="min-h-screen bg-slate-50 text-slate-950">
+      <CustomerNavbar />
+
+      <main>
+        {/* Hero Search Section */}
+        <section className="border-b border-slate-300 bg-gradient-to-br from-white via-white to-emerald-50/40">
+          <div className="mx-auto max-w-[1440px] px-5 py-16 sm:px-8 md:py-20 lg:px-10 xl:px-12">
+            <div className="mx-auto max-w-5xl text-center">
+              <h1 className="text-3xl font-bold tracking-tight text-slate-950 sm:text-4xl lg:text-[42px]">
+                Find the best skilled professionals in Sri Lanka
+              </h1>
+
+              <div className="mx-auto mt-8 overflow-hidden rounded-xl border border-slate-300 bg-white shadow-sm">
+                <div className="grid grid-cols-1 md:grid-cols-[1fr_280px_220px]">
+                  <div className="flex items-center gap-5 px-6 py-5">
+                    <Search size={24} className="shrink-0 text-emerald-700" />
+                    <input
+                      type="text"
+                      placeholder="What service do you need?"
+                      className="w-full bg-transparent text-base text-slate-700 outline-none placeholder:text-slate-400"
+                    />
+                  </div>
+
+                  <div className="flex items-center gap-5 border-t border-slate-200 px-6 py-5 md:border-l md:border-t-0">
+                    <MapPin size={23} className="shrink-0 text-emerald-700" />
+                    <input
+                      type="text"
+                      placeholder="Colombo, Sri Lanka"
+                      className="w-full bg-transparent text-base text-slate-700 outline-none placeholder:text-slate-400"
+                    />
+                  </div>
+
+                  <div className="p-1.5">
+                    <button className="h-full min-h-[58px] w-full rounded-lg bg-emerald-700 px-8 text-sm font-bold uppercase tracking-wide text-white transition hover:bg-emerald-800">
+                      Search
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-7 flex flex-wrap items-center justify-center gap-3 text-sm">
+                <span className="font-semibold text-slate-600">Popular:</span>
+
+                {['Plumbing', 'Electrician', 'Masonry'].map((tag) => (
+                  <button
+                    key={tag}
+                    className="rounded-full bg-emerald-50 px-4 py-1.5 text-sm font-semibold text-emerald-700 transition hover:bg-emerald-100"
+                  >
+                    {tag}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Categories */}
+        <section className="mx-auto max-w-[1440px] px-5 py-16 sm:px-8 lg:px-10 xl:px-12">
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <h2 className="text-2xl font-bold text-slate-950">Explore Categories</h2>
+              <p className="mt-1 text-base text-slate-600">
+                Browse through our wide range of services
+              </p>
+            </div>
+
+            <a
+              href="/categories"
+              className="text-sm font-bold text-emerald-700 transition hover:text-emerald-800"
+            >
+              View All Categories
+            </a>
+          </div>
+
+          <div className="mt-10 grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-8">
+            {categories.map((category) => (
+              <CategoryCard key={category.name} item={category} />
+            ))}
+          </div>
+        </section>
+
+        {/* Top Rated Professionals */}
+        <section className="mx-auto max-w-[1440px] px-5 py-16 sm:px-8 lg:px-10 xl:px-12">
+          <div className="flex items-center justify-between">
+            <h2 className="text-2xl font-bold text-slate-950">Top Rated Professionals</h2>
+
+            <div className="hidden items-center gap-3 sm:flex">
+              <button className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-300 bg-white text-slate-700 transition hover:border-emerald-700 hover:text-emerald-700">
+                <ChevronLeft size={21} />
+              </button>
+              <button className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-300 bg-white text-slate-700 transition hover:border-emerald-700 hover:text-emerald-700">
+                <ChevronRight size={21} />
+              </button>
+            </div>
+          </div>
+
+          <div className="mt-10 grid grid-cols-1 gap-7 sm:grid-cols-2 xl:grid-cols-4">
+            {topRatedProfessionals.map((professional) => (
+              <ProfessionalCard key={professional.name} professional={professional} />
+            ))}
+          </div>
+        </section>
+
+        {/* Featured Professionals */}
+        <section className="mx-auto max-w-[1440px] px-5 py-16 sm:px-8 lg:px-10 xl:px-12">
+          <h2 className="text-2xl font-bold text-slate-950">Featured Professionals</h2>
+
+          <div className="mt-10 grid grid-cols-1 gap-7 lg:grid-cols-[1fr_430px]">
+            {/* Main Featured Card */}
+            <div className="overflow-hidden rounded-xl border border-slate-300 bg-white">
+              <div className="grid grid-cols-1 md:grid-cols-[48%_52%]">
+                <div className="relative min-h-[320px] overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1601058268499-e52658b8bb88?auto=format&fit=crop&w=900&q=80"
+                    alt="Kasun Wijesinghe"
+                    className="h-full w-full object-cover"
+                  />
+
+                  <span className="absolute left-7 top-7 rounded-md bg-emerald-700 px-4 py-2 text-sm font-bold uppercase text-white">
+                    Top Pick
+                  </span>
+                </div>
+
+                <div className="flex flex-col justify-center p-8 sm:p-10 lg:p-12">
+                  <h3 className="text-3xl font-bold text-slate-950">
+                    Kasun Wijesinghe
+                  </h3>
+
+                  <p className="mt-2 text-sm font-bold text-emerald-700">
+                    Master Carpenter • 15 Years Experience
+                  </p>
+
+                  <p className="mt-7 max-w-xl text-lg leading-8 text-slate-600">
+                    Specializing in high-end teak furniture, modern interior wood accents,
+                    and heritage restoration. Known for precision and timely delivery
+                    across the Western Province.
+                  </p>
+
+                  <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+                    <button className="rounded-md bg-emerald-700 px-10 py-4 text-sm font-bold text-white transition hover:bg-emerald-800">
+                      Book Now
+                    </button>
+
+                    <button className="rounded-md border border-emerald-700 px-10 py-4 text-sm font-bold text-emerald-700 transition hover:bg-emerald-50">
+                      View Profile
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Featured List */}
+            <div className="grid gap-6">
+              {featuredList.map((person) => (
+                <FeaturedSmallCard key={person.name} person={person} />
+              ))}
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <CustomerFooter />
+    </div>
+  );
+}
