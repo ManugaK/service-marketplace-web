@@ -192,6 +192,8 @@ export default function LandingPage() {
     '/verify-otp': { initialView: 'otp', entryMode: 'signin' },
   };
   const authConfig = authConfigByPath[location.pathname];
+  const pageWidthClass =
+    'mx-auto w-full max-w-7xl 2xl:max-w-[1600px] min-[1920px]:max-w-[1760px]';
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-[#f8f7fb] text-slate-900">
@@ -201,16 +203,16 @@ export default function LandingPage() {
         {/* Hero / Services Section */}
         <section
           id="services"
-          className="relative scroll-mt-20 overflow-hidden bg-gradient-to-br from-[#effff8] via-[#f4fffb] to-[#eefcf7]"
+          className="relative scroll-mt-20 overflow-hidden bg-linear-to-br from-[#effff8] via-[#f4fffb] to-[#eefcf7]"
         >
-          <div className="mx-auto grid min-h-[calc(100vh-64px)] w-full max-w-7xl grid-cols-1 items-center gap-10 px-4 py-12 sm:px-6 md:py-16 lg:grid-cols-2 lg:px-8 xl:gap-16">
+          <div className={`${pageWidthClass} grid min-h-[calc(100vh-64px)] grid-cols-1 items-center gap-10 px-4 py-12 sm:px-6 md:py-16 lg:grid-cols-2 lg:px-8 xl:gap-16 2xl:gap-20 2xl:px-12 2xl:py-20 min-[1920px]:gap-24 min-[1920px]:px-16 min-[1920px]:py-24`}>
             <div className="text-center lg:text-left">
               <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-emerald-100 bg-white px-4 py-2 text-xs font-medium text-emerald-700 shadow-sm sm:text-sm">
                 <span className="h-2 w-2 rounded-full bg-emerald-500" />
                 Live — 347 workers available now
               </div>
 
-              <h1 className="mx-auto max-w-2xl text-4xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-5xl md:text-6xl lg:mx-0 lg:max-w-xl xl:text-[64px]">
+              <h1 className="mx-auto max-w-2xl text-4xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-5xl md:text-6xl lg:mx-0 lg:max-w-xl xl:text-[64px] 2xl:max-w-3xl 2xl:text-[72px] min-[1920px]:text-[84px]">
                 Find{' '}
                 <span className="text-[#05735f]">
                   verified
@@ -218,7 +220,7 @@ export default function LandingPage() {
                 skilled workers near you
               </h1>
 
-              <div className="mx-auto mt-8 w-full max-w-xl rounded-2xl bg-white p-3 shadow-xl shadow-slate-200/70 lg:mx-0">
+              <div className="mx-auto mt-8 w-full max-w-xl rounded-2xl bg-white p-3 shadow-xl shadow-slate-200/70 lg:mx-0 2xl:max-w-2xl min-[1920px]:max-w-3xl">
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
                   <div className="flex flex-1 items-center gap-3 px-3 py-2">
                     <Search size={20} className="shrink-0 text-slate-400" />
@@ -251,15 +253,15 @@ export default function LandingPage() {
               </p>
             </div>
 
-            <div className="relative mx-auto hidden min-h-[420px] w-full max-w-xl items-center justify-center lg:flex">
-              <div className="absolute h-[380px] w-[440px] rotate-3 rounded-[42px] bg-emerald-100/70 xl:h-[420px] xl:w-[500px]" />
-              <div className="absolute h-[315px] w-[375px] rounded-[36px] border-[28px] border-emerald-50/80 xl:h-[350px] xl:w-[430px]" />
+            <div className="relative mx-auto hidden min-h-105 w-full max-w-xl items-center justify-center lg:flex 2xl:max-w-2xl min-[1920px]:max-w-3xl">
+              <div className="absolute h-95 w-110 rotate-3 rounded-[42px] bg-emerald-100/70 xl:h-105 xl:w-125 2xl:h-125 2xl:w-145 min-[1920px]:h-140 min-[1920px]:w-160" />
+              <div className="absolute h-78.75 w-93.75 rounded-[36px] border-28 border-emerald-50/80 xl:h-87.5 xl:w-107.5 2xl:h-105 2xl:w-125 min-[1920px]:h-117.5 min-[1920px]:w-140" />
 
-              <div className="relative z-10 w-full max-w-md space-y-5">
+              <div className="relative z-10 w-full max-w-md space-y-5 2xl:max-w-lg 2xl:space-y-6 min-[1920px]:max-w-xl min-[1920px]:space-y-7">
                 {heroWorkers.map((person, index) => (
                   <div
                     key={person.name}
-                    className={`flex items-center justify-between rounded-2xl bg-white px-5 py-4 shadow-xl shadow-slate-300/40 ${
+                    className={`flex items-center justify-between rounded-2xl bg-white px-5 py-4 shadow-xl shadow-slate-300/40 2xl:px-6 2xl:py-5 min-[1920px]:px-7 min-[1920px]:py-6 ${
                       index === 0
                         ? 'mr-8'
                         : index === 1
@@ -271,12 +273,12 @@ export default function LandingPage() {
                       <img
                         src={person.image}
                         alt={person.name}
-                        className="h-12 w-12 shrink-0 rounded-full object-cover"
+                        className="h-12 w-12 shrink-0 rounded-full object-cover 2xl:h-14 2xl:w-14 min-[1920px]:h-16 min-[1920px]:w-16"
                       />
 
                       <div>
                         <div className="flex items-center gap-2">
-                          <h3 className="text-sm font-semibold text-slate-800">
+                          <h3 className="text-sm font-semibold text-slate-800 2xl:text-base min-[1920px]:text-lg">
                             {person.name}
                           </h3>
                           <span className="flex h-4 w-4 items-center justify-center rounded-full bg-blue-500 text-[10px] font-bold text-white">
@@ -284,14 +286,14 @@ export default function LandingPage() {
                           </span>
                         </div>
 
-                        <p className="mt-1 text-xs text-slate-500 sm:text-sm">
+                        <p className="mt-1 text-xs text-slate-500 sm:text-sm 2xl:text-base min-[1920px]:text-lg">
                           {person.role}
                         </p>
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-1 text-sm font-bold text-yellow-500">
-                      <Star size={14} fill="currentColor" />
+                    <div className="flex items-center gap-1 text-sm font-bold text-yellow-500 2xl:text-base min-[1920px]:text-lg">
+                      <Star size={14} fill="currentColor" className="2xl:h-4 2xl:w-4 min-[1920px]:h-5 min-[1920px]:w-5" />
                       {person.rating}
                     </div>
                   </div>
@@ -301,7 +303,7 @@ export default function LandingPage() {
           </div>
 
           {/* Mobile worker cards */}
-          <div className="px-4 pb-12 sm:px-6 lg:hidden">
+          <div className="px-4 pb-12 sm:px-6 lg:hidden 2xl:px-12 min-[1920px]:px-16">
             <div className="mx-auto grid max-w-xl gap-4">
               {heroWorkers.map((person) => (
                 <div
@@ -334,7 +336,7 @@ export default function LandingPage() {
 
           {/* Stats */}
           <div className="border-y border-slate-100 bg-white/80">
-            <div className="mx-auto grid max-w-7xl grid-cols-2 gap-y-6 px-4 py-6 text-center sm:px-6 md:grid-cols-4 lg:px-8">
+            <div className={`${pageWidthClass} grid grid-cols-2 gap-y-6 px-4 py-6 text-center sm:px-6 md:grid-cols-4 lg:px-8 2xl:py-8 min-[1920px]:py-10`}>
               <div className="md:border-r md:border-slate-200">
                 <h3 className="text-base font-bold text-slate-800">2,100+</h3>
                 <p className="mt-1 text-xs text-slate-500">Customers</p>
@@ -365,13 +367,13 @@ export default function LandingPage() {
         {/* Categories */}
         <section
           id="categories"
-          className="mx-auto max-w-7xl scroll-mt-20 px-4 py-16 sm:px-6 lg:px-8 lg:py-20"
+          className={`${pageWidthClass} scroll-mt-20 px-4 py-16 sm:px-6 lg:px-8 lg:py-20 2xl:py-24 min-[1920px]:py-28`}
         >
           <h2 className="text-center text-2xl font-extrabold text-slate-900 sm:text-3xl">
             Browse Service Categories
           </h2>
 
-          <div className="mt-10 grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-4 lg:grid-cols-8">
+          <div className="mt-10 grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-4 lg:grid-cols-8 2xl:gap-x-8 2xl:gap-y-10 min-[1920px]:gap-x-10 min-[1920px]:gap-y-12">
             {serviceCategories.map((category) => {
               const Icon = category.icon;
 
@@ -381,12 +383,12 @@ export default function LandingPage() {
                   className="flex flex-col items-center gap-4 text-center"
                 >
                   <div
-                    className={`cursor-pointer flex h-14 w-14 items-center justify-center rounded-2xl ${category.bg}`}
+                    className={`cursor-pointer flex h-14 w-14 items-center justify-center rounded-2xl 2xl:h-16 2xl:w-16 min-[1920px]:h-20 min-[1920px]:w-20 ${category.bg}`}
                   >
-                    <Icon size={23} className={category.color} />
+                      <Icon size={23} className={`${category.color} 2xl:h-6 2xl:w-6 min-[1920px]:h-7 min-[1920px]:w-7`} />
                   </div>
 
-                  <p className="cursor-pointer text-sm font-medium text-slate-700">
+                    <p className="cursor-pointer text-sm font-medium text-slate-700 2xl:text-base min-[1920px]:text-lg">
                     {category.name}
                   </p>
                 </div>
@@ -398,7 +400,7 @@ export default function LandingPage() {
         {/* How It Works */}
         <section
           id="how-it-works"
-          className="mx-auto max-w-7xl scroll-mt-20 px-4 pb-16 sm:px-6 lg:px-8 lg:pb-20"
+          className={`${pageWidthClass} scroll-mt-20 px-4 pb-16 sm:px-6 lg:px-8 lg:pb-20 2xl:pb-24 min-[1920px]:pb-28`}
         >
           <h2 className="text-center text-2xl font-extrabold text-slate-900 sm:text-3xl">
             How It Works
@@ -447,7 +449,7 @@ export default function LandingPage() {
         {/* Top Rated Professionals */}
         <section
           id="top-professionals"
-          className="mx-auto max-w-7xl scroll-mt-20 px-4 pb-16 sm:px-6 lg:px-8 lg:pb-20"
+          className={`${pageWidthClass} scroll-mt-20 px-4 pb-16 sm:px-6 lg:px-8 lg:pb-20 2xl:pb-24 min-[1920px]:pb-28`}
         >
           <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
@@ -523,8 +525,8 @@ export default function LandingPage() {
         </section>
 
         {/* Worker CTA */}
-        <section className="bg-[#071812] py-16 text-white lg:py-24">
-          <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
+        <section className="bg-[#071812] py-16 text-white lg:py-24 2xl:py-28 min-[1920px]:py-32">
+          <div className={`${pageWidthClass} grid grid-cols-1 items-center gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8 2xl:gap-16 2xl:px-12 min-[1920px]:gap-20 min-[1920px]:px-16`}>
             <div>
               <h2 className="max-w-xl text-3xl font-extrabold leading-tight sm:text-4xl lg:text-5xl">
                 Earn up to LKR 85,000/month
@@ -595,7 +597,7 @@ export default function LandingPage() {
         {/* Pricing */}
         <section
           id="pricing"
-          className="mx-auto max-w-7xl scroll-mt-20 px-4 py-16 sm:px-6 lg:px-8 lg:py-24"
+          className={`${pageWidthClass} scroll-mt-20 px-4 py-16 sm:px-6 lg:px-8 lg:py-24 2xl:py-28 min-[1920px]:py-32`}
         >
           <div className="text-center">
             <h2 className="text-2xl font-extrabold text-slate-900 sm:text-3xl">
@@ -696,7 +698,7 @@ export default function LandingPage() {
         {/* Testimonials */}
         <section
           id="testimonials"
-          className="mx-auto max-w-7xl scroll-mt-20 px-4 pb-16 sm:px-6 lg:px-8 lg:pb-24"
+          className={`${pageWidthClass} scroll-mt-20 px-4 pb-16 sm:px-6 lg:px-8 lg:pb-24 2xl:pb-28 min-[1920px]:pb-32`}
         >
           <h2 className="text-center text-2xl font-extrabold text-slate-900 sm:text-3xl">
             What our customers say
