@@ -1,91 +1,129 @@
-import React, { useState, useEffect } from 'react';
-import { AuthLayout } from '../../components/auth/AuthLayout';
+import React, { useRef, useState } from 'react';
+import OnboardingLayout from './OnboardingLayout';
 
-const PhoneVerification = ({ phoneNumber = "+94 77 123 4567", onVerify, onChangePhone }) => {
+export default function PhoneVerification({
+  onBack,
+  onChangePhone,
+  onVerifyCode,
+  phoneNumber = '+94 77 123 4567',
+}) {
   const [otp, setOtp] = useState(['', '', '', '', '', '']);
-  const [timer, setTimer] = useState(45);
+  const inputRefs = useRef([]);
 
-  useEffect(() => {
-    if (timer > 0) {
-      const interval = setInterval(() => setTimer(t => t - 1), 1000);
-      return () => clearInterval(interval);
-    }
-  }, [timer]);
+  const handleOtpChange = (index, value) => {
+    const cleanValue = value.replace(/\D/g, '').slice(0, 1);
+    const updatedOtp = [...otp];
+    updatedOtp[index] = cleanValue;
+    setOtp(updatedOtp);
 
-  const handleChange = (index, value) => {
-    if (value.length > 1) return;
-    const newOtp = [...otp];
-    newOtp[index] = value;
-    setOtp(newOtp);
-
-    // Auto-focus next input
-    if (value !== '' && index < 5) {
-      document.getElementById(`otp-${index + 1}`).focus();
+    if (cleanValue && index < otp.length - 1) {
+      inputRefs.current[index + 1]?.focus();
     }
   };
 
   const handleKeyDown = (index, e) => {
-    if (e.key === 'Backspace' && otp[index] === '' && index > 0) {
-      document.getElementById(`otp-${index - 1}`).focus();
+    if (e.key === 'Backspace' && !otp[index] && index > 0) {
+      inputRefs.current[index - 1]?.focus();
+    }
+  };
+
+  const handlePaste = (e) => {
+    e.preventDefault();
+    const pasted = e.clipboardData.getData('text').replace(/\D/g, '').slice(0, 6);
+
+    if (!pasted) return;
+
+    const nextOtp = [...otp];
+
+    pasted.split('').forEach((digit, index) => {
+      nextOtp[index] = digit;
+    });
+
+    setOtp(nextOtp);
+    inputRefs.current[Math.min(pasted.length, 5)]?.focus();
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (onVerifyCode) {
+      onVerifyCode(otp.join(''));
     }
   };
 
   return (
-    <AuthLayout 
-      title="Sri Lanka's most trusted skilled worker platform."
-      heroImage="/src/assets/hero_handshake.png"
-    >
-      <div className="flex flex-col items-center">
-        <div className="w-full mb-12">
-          <h3 className="text-3xl font-bold text-gray-900 mb-3">Enter verification code</h3>
-          <p className="text-gray-500">
-            Sent to {phoneNumber} — <button onClick={onChangePhone} className="text-[#006B44] font-bold hover:underline">Change?</button>
-          </p>
-        </div>
+    <OnboardingLayout onBack={onBack}>
+      <div>
+        <h1 className="text-[25px] font-extrabold tracking-tight text-slate-900">
+          Enter verification code
+        </h1>
 
-        <div className="flex gap-3 mb-8 w-full">
-          {otp.map((digit, index) => (
-            <input
-              key={index}
-              id={`otp-${index}`}
-              type="text"
-              inputMode="numeric"
-              value={digit}
-              onChange={(e) => handleChange(index, e.target.value)}
-              onKeyDown={(e) => handleKeyDown(index, e)}
-              className={`w-full aspect-square text-center text-2xl font-bold border-2 rounded-xl focus:ring-2 focus:ring-[#1B5E44] focus:border-[#1B5E44] outline-none transition-all ${digit ? 'border-[#1B5E44] bg-emerald-50' : 'border-gray-100'}`}
-            />
-          ))}
-        </div>
-
-        <div className="w-full text-center mb-10">
-          <p className="text-sm text-gray-400 mb-2">
-            Resend OTP in 0:{timer.toString().padStart(2, '0')}
-          </p>
-          <button 
-            disabled={timer > 0}
-            className={`text-sm font-bold ${timer > 0 ? 'text-gray-300 cursor-not-allowed' : 'text-[#006B44] hover:underline'}`}
+        <p className="mt-2 text-[13px] text-slate-600">
+          Sent to {phoneNumber}{' '}
+          <button
+            type="button"
+            onClick={onChangePhone}
+            className="cursor-pointer font-extrabold text-[#08785d] hover:underline"
           >
-            Resend OTP
+             &nbsp;&nbsp;Change?
           </button>
-        </div>
+        </p>
 
-        <button 
-          onClick={() => onVerify(otp.join(''))}
-          className="w-full bg-[#006B44] text-white py-4 rounded-xl font-bold text-lg shadow-lg shadow-emerald-900/20 hover:bg-[#005a39] transition-all active:scale-[0.98]"
-        >
-          Verify Code
-        </button>
+        <form onSubmit={handleSubmit} className="mt-9">
+          <div className="grid grid-cols-6 gap-2.5">
+            {otp.map((digit, index) => (
+              <input
+                key={index}
+                ref={(el) => {
+                  inputRefs.current[index] = el;
+                }}
+                type="text"
+                inputMode="numeric"
+                maxLength={1}
+                value={digit}
+                onChange={(e) => handleOtpChange(index, e.target.value)}
+                onKeyDown={(e) => handleKeyDown(index, e)}
+                onPaste={handlePaste}
+                className={`h-[52px] w-full rounded-lg border bg-white text-center text-[20px] font-extrabold text-slate-900 outline-none transition ${
+                  digit
+                    ? 'border-[#08785d] ring-2 ring-emerald-100'
+                    : 'border-slate-200 focus:border-[#08785d] focus:ring-2 focus:ring-emerald-100'
+                }`}
+              />
+            ))}
+          </div>
 
-        <p className="mt-10 text-gray-500 font-medium">
-          Having trouble? <a href="#" className="text-[#006B44] font-bold hover:underline">Contact Support</a>
+          <div className="mt-8 text-[13px]">
+            <p className="text-slate-500">Resend OTP in 0:45</p>
+
+            <button
+              type="button"
+              disabled
+              className="mt-2 cursor-not-allowed font-extrabold text-slate-300"
+            >
+              Resend OTP
+            </button>
+          </div>
+
+          <button
+            type="submit"
+            className="mt-10 h-[44px] w-full cursor-pointer rounded-lg bg-[#08785d] text-[14px] font-extrabold text-white shadow-lg shadow-emerald-900/20 transition hover:bg-[#066b53]"
+          >
+            Verify Code
+          </button>
+        </form>
+
+        <p className="mt-8 text-center text-[13px] text-slate-500">
+          Having trouble?{' '}
+          <a href="/support" className="font-medium text-[#08785d] hover:underline">
+            Contact Support
+          </a>
+        </p>
+
+        <p className="mt-20 text-center text-[10px] text-slate-400">
+          © 2026 ServiceLanka. Sri Lanka&apos;s Professional Marketplace.
         </p>
       </div>
-    </AuthLayout>
+    </OnboardingLayout>
   );
-};
-
-export default PhoneVerification;
-
-
-
+}
