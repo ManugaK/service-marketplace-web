@@ -1,58 +1,79 @@
-import React from 'react';
-import { AuthLayout } from '../../components/auth/AuthLayout';
-import workerTablet from '../../assets/worker_tablet.png';
+import React, { useState } from 'react';
+import { ChevronDown } from 'lucide-react';
+import OnboardingLayout from './OnboardingLayout';
 
-const PhoneInput = ({ onSendOTP }) => {
+export default function PhoneInput({ onBack, onSendOtp }) {
+  const [phone, setPhone] = useState('');
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (onSendOtp) {
+      onSendOtp(phone || '77 123 4567');
+    }
+  };
+
   return (
-    <AuthLayout 
-      title="Sri Lanka's most trusted skilled worker platform."
-      heroImage={workerTablet}
-    >
-      <div className="flex flex-col items-center text-center">
-        <div className="w-full max-w-[280px] mb-8">
-           <img src={workerTablet} alt="Phone Verification" className="w-full h-auto rounded-2xl shadow-lg" />
-        </div>
-        
-        <h3 className="text-2xl font-bold text-gray-900 mb-2">Enter your phone number</h3>
-        <p className="text-gray-500 mb-8">We'll send a 6-digit OTP to verify your number.</p>
-
-        <form className="w-full space-y-6" onSubmit={(e) => { e.preventDefault(); onSendOTP(); }}>
-          <div className="flex gap-3">
-            <div className="flex-shrink-0 w-32 relative">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                 <img src="https://flagcdn.com/w20/lk.png" alt="LK" className="w-5 h-auto rounded-sm" />
-              </div>
-              <select className="w-full pl-10 pr-2 py-3.5 border border-gray-200 rounded-xl bg-white focus:ring-2 focus:ring-[#1B5E44] outline-none appearance-none font-medium">
-                <option>LK +94</option>
-              </select>
-              <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                <svg className="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-                </svg>
-              </div>
+    <OnboardingLayout onBack={onBack}>
+      <div>
+        <div className="mx-auto mb-8 flex h-[150px] w-[230px] items-center justify-center rounded-lg bg-gradient-to-br from-[#6db6ad] to-[#a8ddd3]">
+          <div className="relative">
+            <div className="h-[102px] w-[62px] rotate-[-13deg] rounded-[16px] border-[5px] border-[#5baaa2] bg-[#a9ddd5] shadow-lg">
+              <div className="mx-auto mt-2 h-1.5 w-6 rounded-full bg-[#5baaa2]" />
+              <div className="mx-auto mt-4 h-[58px] w-[40px] rounded-lg bg-[#c8eee8]" />
             </div>
-            <input 
-              type="tel" 
-              placeholder="77 123 4567" 
-              className="flex-grow px-4 py-3.5 border border-gray-200 rounded-xl focus:ring-2 focus:ring-[#1B5E44] outline-none font-medium tracking-wider" 
+
+            <div className="absolute left-[-8px] top-[33px] w-[92px] rounded-lg bg-white px-4 py-3 shadow-xl">
+              <div className="h-2.5 w-10 rounded-full bg-slate-100" />
+              <div className="mt-3 h-2.5 w-16 rounded-full bg-slate-100" />
+              <p className="mt-4 text-[8px] font-extrabold text-[#08785d]">OTP: 582 901</p>
+            </div>
+          </div>
+        </div>
+
+        <h1 className="text-center text-[25px] font-medium tracking-tight text-slate-900">
+          Enter your phone number
+        </h1>
+
+        <p className="mt-2 text-center text-[13px] text-slate-500">
+          We&apos;ll send a 6-digit OTP to verify your number.
+        </p>
+
+        <form onSubmit={handleSubmit} className="mt-8">
+          <div className="flex h-[42px] overflow-hidden rounded-lg border border-slate-200 bg-white transition focus-within:border-[#08785d] focus-within:ring-2 focus-within:ring-emerald-100">
+            <button
+              type="button"
+              className="flex h-full cursor-pointer items-center gap-2 border-r border-slate-200 bg-slate-50 px-4 text-[13px] font-medium text-slate-600 transition hover:bg-slate-100"
+            >
+              <span>LK</span>
+              <span className="text-slate-500">+94</span>
+              <ChevronDown size={14} className="text-slate-400" />
+            </button>
+
+            <input
+              type="tel"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              placeholder="77 123 4567"
+              className="h-full w-full bg-transparent px-4 text-[13px] text-slate-800 outline-none placeholder:text-slate-400"
             />
           </div>
 
-          <button type="submit" className="w-full bg-[#006B44] text-white py-4 rounded-xl font-bold text-lg shadow-lg shadow-emerald-900/20 hover:bg-[#005a39] transition-all">
+          <button
+            type="submit"
+            className="mt-6 h-[44px] w-full cursor-pointer rounded-lg bg-[#08785d] text-[14px] font-extrabold text-white shadow-lg shadow-emerald-900/20 transition hover:bg-[#066b53]"
+          >
             Send OTP
           </button>
         </form>
 
-        <p className="mt-10 text-center text-xs text-gray-400 leading-relaxed max-w-xs mx-auto">
-          By continuing, you agree to SkilledLK's <br />
-          <a href="#" className="text-emerald-600 font-semibold underline">Terms of Service</a> and <a href="#" className="text-emerald-600 font-semibold underline">Privacy Policy</a>.
+        <p className="mx-auto mt-8 max-w-[285px] text-center text-[11px] leading-5 text-slate-400">
+          By continuing, you agree to SkilledLK&apos;s{' '}
+          <a href="/terms" className="font-medium text-[#08785d] hover:underline">Terms of Service</a>{' '}
+          and{' '}
+          <a href="/privacy" className="hover:text-[#08785d]">Privacy Policy</a>.
         </p>
       </div>
-    </AuthLayout>
+    </OnboardingLayout>
   );
-};
-
-export default PhoneInput;
-
-
-
+}
