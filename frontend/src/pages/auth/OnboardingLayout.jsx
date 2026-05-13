@@ -1,118 +1,115 @@
-import React, { useState } from 'react';
-import { Eye, Lock, Mail } from 'lucide-react';
-import { FcGoogle } from 'react-icons/fc';
-import OnboardingLayout from './OnboardingLayout';
+import React, { useEffect } from 'react';
+import { ArrowLeft } from 'lucide-react';
+import { IoMdCheckmarkCircleOutline } from 'react-icons/io';
 
-export default function Login({ onBack, onCreateAccount, onLoginComplete }) {
-  const [showPassword, setShowPassword] = useState(false);
+import workerTablet from '../../assets/worker_tablet.png';
+import dilshanProfile from '../../assets/dilshan_profile.png';
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+export default function OnboardingLayout({
+  onBack,
+  children,
+  leftTitle = "Sri Lanka's most trusted skilled worker platform.",
+  leftImage = workerTablet,
+  showTestimonial = true,
+}) {
+  useEffect(() => {
+    const originalOverflow = document.body.style.overflow;
+    const originalPaddingRight = document.body.style.paddingRight;
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
 
-    if (onLoginComplete) {
-      onLoginComplete();
+    document.body.style.overflow = 'hidden';
+
+    if (scrollbarWidth > 0) {
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
     }
-  };
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      document.body.style.paddingRight = originalPaddingRight;
+    };
+  }, []);
 
   return (
-    <OnboardingLayout onBack={onBack}>
-      <div>
-        <h1 className="text-[25px] font-medium tracking-tight text-slate-900">
-          Welcome Back
-        </h1>
+    <div className="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden bg-black/45 px-4 py-5 backdrop-blur-sm">
+      <div
+        className="relative grid w-full max-w-[940px] overflow-y-auto overflow-x-hidden rounded-3xl bg-white shadow-2xl lg:grid-cols-2"
+        style={{ maxHeight: 'calc(100dvh - 40px)' }}
+      >
+        {/* Left Side */}
+        <div className="relative hidden overflow-hidden bg-[#155f46] text-white lg:block">
+          <div className="absolute right-[-120px] top-[-130px] h-[260px] w-[260px] rounded-full bg-white/5" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_60%,rgba(255,255,255,0.14),transparent_38%)]" />
 
-        <p className="mt-1.5 text-[13px] text-slate-500">
-          Sign in to continue to your account
-        </p>
+          <div className="relative z-10 flex h-full flex-col px-7 py-6">
+            <h1 className="text-[15px] font-extrabold tracking-tight">SkilledLK</h1>
 
-        <form onSubmit={handleSubmit} className="mt-5 space-y-3">
-          <div>
-            <label className="mb-1.5 block text-[13px] font-medium text-slate-700">
-              Email Address
-            </label>
+            <div className="flex flex-1 flex-col justify-center">
+              <h2 className="max-w-[380px] text-[27px] font-extrabold leading-[1.22] tracking-tight">
+                {leftTitle}
+              </h2>
 
-            <div className="flex h-[42px] items-center gap-3 rounded-lg border border-slate-200 px-4 transition focus-within:border-[#08785d] focus-within:ring-2 focus-within:ring-emerald-100">
-              <Mail size={17} className="text-slate-400" />
+              <div className="mt-6 max-w-[250px] space-y-3 text-left">
+                {['ID-verified workers', 'Secure payments', '2,100+ happy customers'].map((item) => (
+                  <div key={item} className="flex items-center gap-3">
+                    <IoMdCheckmarkCircleOutline className="text-[19px] text-[#6ee7bd]" />
+                    <span className="text-[13px] text-white/90">{item}</span>
+                  </div>
+                ))}
+              </div>
 
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="h-full w-full bg-transparent text-[13px] text-slate-800 outline-none placeholder:text-slate-400"
-              />
+              <div className="mt-7 w-[240px] overflow-hidden rounded-lg border border-white/20 bg-white/10 shadow-[0_0_60px_rgba(255,255,255,0.10)]">
+                <div className="relative h-[178px] w-full">
+                  <img
+                    src={leftImage}
+                    alt="SkilledLK preview"
+                    className="h-full w-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-[#155f46]/5" />
+                </div>
+              </div>
             </div>
+
+            {showTestimonial && (
+              <div className="mx-auto flex w-full max-w-[290px] items-center gap-3 rounded-lg bg-white px-4 py-3 text-slate-900 shadow-xl">
+                <img
+                  src={dilshanProfile}
+                  alt="Dilshan Perera"
+                  className="h-10 w-10 shrink-0 rounded-full object-cover"
+                />
+
+                <div>
+                  <p className="text-[13px] font-medium text-slate-800">Dilshan Perera</p>
+                  <p className="mt-0.5 text-[12px] font-bold text-[#08785d]">
+                    Earned LKR 42,000 this month
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
-
-          <div>
-            <label className="mb-1.5 block text-[13px] font-medium text-slate-700">
-              Password
-            </label>
-
-            <div className="flex h-[42px] items-center gap-3 rounded-lg border border-slate-200 px-4 transition focus-within:border-[#08785d] focus-within:ring-2 focus-within:ring-emerald-100">
-              <Lock size={17} className="text-slate-400" />
-
-              <input
-                type={showPassword ? 'text' : 'password'}
-                placeholder="Enter your password"
-                className="h-full w-full bg-transparent text-[13px] text-slate-800 outline-none placeholder:text-slate-400"
-              />
-
-              <button
-                type="button"
-                onClick={() => setShowPassword((prev) => !prev)}
-                className="cursor-pointer text-slate-400 transition hover:text-slate-700"
-                aria-label="Toggle password visibility"
-              >
-                <Eye size={18} />
-              </button>
-            </div>
-          </div>
-
-          <div className="flex justify-end">
-            <button
-              type="button"
-              className="cursor-pointer text-[13px] font-medium text-[#08785d] hover:underline"
-            >
-              Forgot password?
-            </button>
-          </div>
-
-          <button
-            type="submit"
-            className="h-[44px] w-full cursor-pointer rounded-lg bg-[#08785d] text-[14px] font-extrabold text-white transition hover:bg-[#066b53]"
-          >
-            Sign In
-          </button>
-        </form>
-
-        <div className="my-4 flex items-center gap-4">
-          <div className="h-px flex-1 bg-slate-200" />
-          <span className="text-[11px] text-slate-400">OR</span>
-          <div className="h-px flex-1 bg-slate-200" />
         </div>
 
-        <button
-          type="button"
-          className="flex h-[44px] w-full cursor-pointer items-center justify-center gap-3 rounded-lg border border-slate-200 bg-white text-[14px] font-extrabold text-slate-800 transition hover:bg-slate-50"
-        >
-          <FcGoogle size={20} />
-          Continue with Google
-        </button>
+        {/* Right Side */}
+        <div className="bg-white px-6 py-5 sm:px-8 lg:px-9">
+          <div className="mx-auto flex h-full w-full max-w-[370px] flex-col justify-center">
+            <div className="mb-5 flex items-center justify-between">
+              <button
+                type="button"
+                onClick={onBack}
+                className="flex h-8 w-8 cursor-pointer items-center justify-center rounded-full text-slate-500 transition hover:bg-slate-100 hover:text-slate-800"
+                aria-label="Back"
+              >
+                <ArrowLeft size={20} />
+              </button>
 
-        <p className="mt-5 text-center text-[13px] text-slate-500">
-          New to SkilledLK?{' '}
-          <button
-            type="button"
-            onClick={onCreateAccount}
-            className="cursor-pointer font-extrabold text-[#08785d] hover:underline"
-          >
-            Create an account
-          </button>
-        </p>
+              <h2 className="text-[19px] font-extrabold text-[#08785d]">SkilledLK</h2>
 
-        <p className="mt-5 text-center text-[9px] uppercase tracking-[0.2em] text-slate-400">
-          © 2026 SkilledLK Professional Marketplace
-        </p>
+              <div className="h-8 w-8" />
+            </div>
+
+            {children}
+          </div>
+        </div>
       </div>
-    </OnboardingLayout>
+    </div>
   );
 }
