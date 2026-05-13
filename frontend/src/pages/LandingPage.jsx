@@ -203,7 +203,7 @@ export default function LandingPage() {
           id="services"
           className="relative scroll-mt-20 overflow-hidden bg-gradient-to-br from-[#effff8] via-[#f4fffb] to-[#eefcf7]"
         >
-          <div className="mx-auto grid min-h-[calc(100vh-64px)] w-full max-w-7xl grid-cols-1 items-center gap-10 px-4 py-12 sm:px-6 md:py-16 lg:grid-cols-2 lg:px-8 xl:gap-16 2xl:min-h-[640px] 2xl:py-10">
+          <div className="mx-auto grid min-h-[calc(100vh-64px)] w-full max-w-7xl grid-cols-1 items-center gap-10 px-4 py-12 sm:px-6 md:py-16 lg:grid-cols-2 lg:px-8 xl:gap-16">
             <div className="text-center lg:text-left">
               <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-emerald-100 bg-white px-4 py-2 text-xs font-medium text-emerald-700 shadow-sm sm:text-sm">
                 <span className="h-2 w-2 rounded-full bg-emerald-500" />
@@ -365,7 +365,7 @@ export default function LandingPage() {
         {/* Categories */}
         <section
           id="categories"
-          className="mx-auto max-w-7xl scroll-mt-20 px-4 py-16 sm:px-6 lg:px-8 lg:py-20 2xl:py-14"
+          className="mx-auto max-w-7xl scroll-mt-20 px-4 py-16 sm:px-6 lg:px-8 lg:py-20"
         >
           <h2 className="text-center text-2xl font-extrabold text-slate-900 sm:text-3xl">
             Browse Service Categories
@@ -398,7 +398,7 @@ export default function LandingPage() {
         {/* How It Works */}
         <section
           id="how-it-works"
-          className="mx-auto max-w-7xl scroll-mt-20 px-4 pb-16 sm:px-6 lg:px-8 lg:pb-20 2xl:pb-14"
+          className="mx-auto max-w-7xl scroll-mt-20 px-4 pb-16 sm:px-6 lg:px-8 lg:pb-20"
         >
           <h2 className="text-center text-2xl font-extrabold text-slate-900 sm:text-3xl">
             How It Works
@@ -447,7 +447,7 @@ export default function LandingPage() {
         {/* Top Rated Professionals */}
         <section
           id="top-professionals"
-          className="mx-auto max-w-7xl scroll-mt-20 px-4 pb-16 sm:px-6 lg:px-8 lg:pb-20 2xl:pb-14"
+          className="mx-auto max-w-7xl scroll-mt-20 px-4 pb-16 sm:px-6 lg:px-8 lg:pb-20"
         >
           <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
@@ -523,7 +523,7 @@ export default function LandingPage() {
         </section>
 
         {/* Worker CTA */}
-        <section className="bg-[#071812] py-16 text-white lg:py-24 2xl:py-16">
+        <section className="bg-[#071812] py-16 text-white lg:py-24">
           <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-12 px-4 sm:px-6 lg:grid-cols-2 lg:px-8">
             <div>
               <h2 className="max-w-xl text-3xl font-extrabold leading-tight sm:text-4xl lg:text-5xl">
@@ -595,7 +595,7 @@ export default function LandingPage() {
         {/* Pricing */}
         <section
           id="pricing"
-          className="mx-auto max-w-7xl scroll-mt-20 px-4 py-16 sm:px-6 lg:px-8 lg:py-24 2xl:py-16"
+          className="mx-auto max-w-7xl scroll-mt-20 px-4 py-16 sm:px-6 lg:px-8 lg:py-24"
         >
           <div className="text-center">
             <h2 className="text-2xl font-extrabold text-slate-900 sm:text-3xl">
@@ -696,7 +696,7 @@ export default function LandingPage() {
         {/* Testimonials */}
         <section
           id="testimonials"
-          className="mx-auto max-w-7xl scroll-mt-20 px-4 pb-16 sm:px-6 lg:px-8 lg:pb-24 2xl:pb-16"
+          className="mx-auto max-w-7xl scroll-mt-20 px-4 pb-16 sm:px-6 lg:px-8 lg:pb-24"
         >
           <h2 className="text-center text-2xl font-extrabold text-slate-900 sm:text-3xl">
             What our customers say
