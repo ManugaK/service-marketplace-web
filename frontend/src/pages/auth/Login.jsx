@@ -17,49 +17,49 @@ export default function Login({ onBack, onCreateAccount, onLoginComplete }) {
   return (
     <OnboardingLayout onBack={onBack}>
       <div>
-        <h1 className="text-[25px] font-medium tracking-tight text-slate-900">
+        <h1 className="text-[25px] font-medium tracking-tight text-slate-900 2xl:text-[30px] min-[1920px]:text-[34px]">
           Welcome Back
         </h1>
 
-        <p className="mt-1.5 text-[13px] text-slate-500">
+        <p className="mt-1.5 text-[13px] text-slate-500 2xl:mt-2 2xl:text-[15px] min-[1920px]:text-base">
           Sign in to continue to your account
         </p>
 
-        <form onSubmit={handleSubmit} className="mt-5 space-y-3">
+        <form onSubmit={handleSubmit} className="mt-5 space-y-3 2xl:mt-7 2xl:space-y-4 min-[1920px]:mt-8 min-[1920px]:space-y-5">
           <div>
-            <label className="mb-1.5 block text-[13px] font-medium text-slate-700">
+            <label className="mb-1.5 block text-[13px] font-medium text-slate-700 2xl:mb-2 2xl:text-[15px] min-[1920px]:text-base">
               Email Address
             </label>
 
-            <div className="flex h-[42px] items-center gap-3 rounded-lg border border-slate-200 px-4 transition focus-within:border-[#08785d] focus-within:ring-2 focus-within:ring-emerald-100">
-              <Mail size={17} className="text-slate-400" />
+            <div className="flex h-10.5 items-center gap-3 rounded-lg border border-slate-200 px-4 transition focus-within:border-[#08785d] focus-within:ring-2 focus-within:ring-emerald-100 2xl:h-12 2xl:px-5 min-[1920px]:h-14 min-[1920px]:px-6">
+              <Mail size={17} className="text-slate-400 2xl:h-5 2xl:w-5 min-[1920px]:h-6 min-[1920px]:w-6" />
 
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="h-full w-full bg-transparent text-[13px] text-slate-800 outline-none placeholder:text-slate-400"
+                className="h-full w-full bg-transparent text-[13px] text-slate-800 outline-none placeholder:text-slate-400 2xl:text-[15px] min-[1920px]:text-base"
               />
             </div>
           </div>
 
           <div>
-            <label className="mb-1.5 block text-[13px] font-medium text-slate-700">
+            <label className="mb-1.5 block text-[13px] font-medium text-slate-700 2xl:mb-2 2xl:text-[15px] min-[1920px]:text-base">
               Password
             </label>
 
-            <div className="flex h-[42px] items-center gap-3 rounded-lg border border-slate-200 px-4 transition focus-within:border-[#08785d] focus-within:ring-2 focus-within:ring-emerald-100">
-              <Lock size={17} className="text-slate-400" />
+            <div className="flex h-10.5 items-center gap-3 rounded-lg border border-slate-200 px-4 transition focus-within:border-[#08785d] focus-within:ring-2 focus-within:ring-emerald-100 2xl:h-12 2xl:px-5 min-[1920px]:h-14 min-[1920px]:px-6">
+              <Lock size={17} className="text-slate-400 2xl:h-5 2xl:w-5 min-[1920px]:h-6 min-[1920px]:w-6" />
 
               <input
                 type={showPassword ? 'text' : 'password'}
                 placeholder="Enter your password"
-                className="h-full w-full bg-transparent text-[13px] text-slate-800 outline-none placeholder:text-slate-400"
+                className="h-full w-full bg-transparent text-[13px] text-slate-800 outline-none placeholder:text-slate-400 2xl:text-[15px] min-[1920px]:text-base"
               />
 
               <button
                 type="button"
                 onClick={() => setShowPassword((prev) => !prev)}
-                className="cursor-pointer text-slate-400 transition hover:text-slate-700"
+                className="cursor-pointer text-slate-400 transition hover:text-slate-700 2xl:h-5 2xl:w-5 min-[1920px]:h-6 min-[1920px]:w-6"
                 aria-label="Toggle password visibility"
               >
                 <Eye size={18} />
@@ -70,7 +70,7 @@ export default function Login({ onBack, onCreateAccount, onLoginComplete }) {
           <div className="flex justify-end">
             <button
               type="button"
-              className="cursor-pointer text-[13px] font-medium text-[#08785d] hover:underline"
+              className="cursor-pointer text-[13px] font-medium text-[#08785d] hover:underline 2xl:text-[15px] min-[1920px]:text-base"
             >
               Forgot password?
             </button>
@@ -78,27 +78,27 @@ export default function Login({ onBack, onCreateAccount, onLoginComplete }) {
 
           <button
             type="submit"
-            className="h-[44px] w-full cursor-pointer rounded-lg bg-[#08785d] text-[14px] font-extrabold text-white transition hover:bg-[#066b53]"
+            className="h-11 w-full cursor-pointer rounded-lg bg-[#08785d] text-[14px] font-extrabold text-white transition hover:bg-[#066b53] 2xl:h-12 2xl:text-[15px] min-[1920px]:h-14 min-[1920px]:text-base"
           >
             Sign In
           </button>
         </form>
 
-        <div className="my-4 flex items-center gap-4">
+        <div className="my-4 flex items-center gap-4 2xl:my-6 2xl:gap-5 min-[1920px]:my-7 min-[1920px]:gap-6">
           <div className="h-px flex-1 bg-slate-200" />
-          <span className="text-[11px] text-slate-400">OR</span>
+          <span className="text-[11px] text-slate-400 2xl:text-[12px] min-[1920px]:text-[13px]">OR</span>
           <div className="h-px flex-1 bg-slate-200" />
         </div>
 
         <button
           type="button"
-          className="flex h-[44px] w-full cursor-pointer items-center justify-center gap-3 rounded-lg border border-slate-200 bg-white text-[14px] font-extrabold text-slate-800 transition hover:bg-slate-50"
+          className="flex h-11 w-full cursor-pointer items-center justify-center gap-3 rounded-lg border border-slate-200 bg-white text-[14px] font-extrabold text-slate-800 transition hover:bg-slate-50 2xl:h-12 2xl:text-[15px] min-[1920px]:h-14 min-[1920px]:text-base"
         >
-          <FcGoogle size={20} />
+          <FcGoogle size={20} className="2xl:h-6 2xl:w-6 min-[1920px]:h-7 min-[1920px]:w-7" />
           Continue with Google
         </button>
 
-        <p className="mt-5 text-center text-[13px] text-slate-500">
+        <p className="mt-5 text-center text-[13px] text-slate-500 2xl:mt-7 2xl:text-[15px] min-[1920px]:mt-8 min-[1920px]:text-base">
           New to SkilledLK?{' '}
           <button
             type="button"
@@ -109,7 +109,7 @@ export default function Login({ onBack, onCreateAccount, onLoginComplete }) {
           </button>
         </p>
 
-        <p className="mt-5 text-center text-[9px] uppercase tracking-[0.2em] text-slate-400">
+        <p className="mt-5 text-center text-[9px] uppercase tracking-[0.2em] text-slate-400 2xl:mt-7 2xl:text-[10px] min-[1920px]:mt-8 min-[1920px]:text-[11px]">
           © 2026 SkilledLK Professional Marketplace
         </p>
       </div>
