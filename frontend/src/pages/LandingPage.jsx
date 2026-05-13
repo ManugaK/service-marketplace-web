@@ -207,12 +207,12 @@ export default function LandingPage() {
         >
           <div className={`${pageWidthClass} grid min-h-[calc(100vh-64px)] grid-cols-1 items-center gap-10 px-4 py-12 sm:px-6 md:py-16 lg:grid-cols-2 lg:px-8 xl:gap-16 2xl:gap-20 2xl:px-12 2xl:py-20 min-[1920px]:gap-24 min-[1920px]:px-16 min-[1920px]:py-24`}>
             <div className="text-center lg:text-left">
-              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-emerald-100 bg-white px-4 py-2 text-xs font-medium text-emerald-700 shadow-sm sm:text-sm">
+              <div className="lp-fade-up mb-6 inline-flex items-center gap-2 rounded-full border border-emerald-100 bg-white px-4 py-2 text-xs font-medium text-emerald-700 shadow-sm sm:text-sm">
                 <span className="h-2 w-2 rounded-full bg-emerald-500" />
                 Live — 347 workers available now
               </div>
 
-              <h1 className="mx-auto max-w-2xl text-4xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-5xl md:text-6xl lg:mx-0 lg:max-w-xl xl:text-[64px] 2xl:max-w-3xl 2xl:text-[72px] min-[1920px]:text-[84px]">
+              <h1 className="lp-fade-up lp-delay-1 mx-auto max-w-2xl text-4xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-5xl md:text-6xl lg:mx-0 lg:max-w-xl xl:text-[64px] 2xl:max-w-3xl 2xl:text-[72px] min-[1920px]:text-[84px]">
                 Find{' '}
                 <span className="text-[#05735f]">
                   verified
@@ -220,7 +220,7 @@ export default function LandingPage() {
                 skilled workers near you
               </h1>
 
-              <div className="mx-auto mt-8 w-full max-w-xl rounded-2xl bg-white p-3 shadow-xl shadow-slate-200/70 lg:mx-0 2xl:max-w-2xl min-[1920px]:max-w-3xl">
+              <div className="lp-fade-up lp-delay-2 mx-auto mt-8 w-full max-w-xl rounded-2xl bg-white p-3 shadow-xl shadow-slate-200/70 lg:mx-0 2xl:max-w-2xl min-[1920px]:max-w-3xl">
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
                   <div className="flex flex-1 items-center gap-3 px-3 py-2">
                     <Search size={20} className="shrink-0 text-slate-400" />
@@ -242,26 +242,26 @@ export default function LandingPage() {
                     />
                   </div>
 
-                  <button className="cursor-pointer rounded-xl bg-[#05735f] px-8 py-3 text-sm font-bold text-white transition hover:bg-[#046553] sm:shrink-0">
+                  <button className="btn-press cursor-pointer rounded-xl bg-[#05735f] px-8 py-3 text-sm font-bold text-white transition hover:bg-[#046553] sm:shrink-0">
                     Search
                   </button>
                 </div>
               </div>
 
-              <p className="mt-6 text-sm text-slate-500">
+              <p className="lp-fade-up lp-delay-3 mt-6 text-sm text-slate-500">
                 Popular: Plumbing, Electrical, Deep Cleaning
               </p>
             </div>
 
             <div className="relative mx-auto hidden min-h-105 w-full max-w-xl items-center justify-center lg:flex 2xl:max-w-2xl min-[1920px]:max-w-3xl">
-              <div className="absolute h-95 w-110 rotate-3 rounded-[42px] bg-emerald-100/70 xl:h-105 xl:w-125 2xl:h-125 2xl:w-145 min-[1920px]:h-140 min-[1920px]:w-160" />
-              <div className="absolute h-78.75 w-93.75 rounded-[36px] border-28 border-emerald-50/80 xl:h-87.5 xl:w-107.5 2xl:h-105 2xl:w-125 min-[1920px]:h-117.5 min-[1920px]:w-140" />
+              <div className="lp-fade-in lp-float absolute h-95 w-110 rotate-3 rounded-[42px] bg-emerald-100/70 xl:h-105 xl:w-125 2xl:h-125 2xl:w-145 min-[1920px]:h-140 min-[1920px]:w-160" />
+              <div className="lp-fade-in absolute h-78.75 w-93.75 rounded-[36px] border-28 border-emerald-50/80 xl:h-87.5 xl:w-107.5 2xl:h-105 2xl:w-125 min-[1920px]:h-117.5 min-[1920px]:w-140" />
 
               <div className="relative z-10 w-full max-w-md space-y-5 2xl:max-w-lg 2xl:space-y-6 min-[1920px]:max-w-xl min-[1920px]:space-y-7">
                 {heroWorkers.map((person, index) => (
                   <div
                     key={person.name}
-                    className={`flex items-center justify-between rounded-2xl bg-white px-5 py-4 shadow-xl shadow-slate-300/40 2xl:px-6 2xl:py-5 min-[1920px]:px-7 min-[1920px]:py-6 ${
+                    className={`lp-pop lp-card-hover flex items-center justify-between rounded-2xl bg-white px-5 py-4 shadow-xl shadow-slate-300/40 2xl:px-6 2xl:py-5 min-[1920px]:px-7 min-[1920px]:py-6 ${
                       index === 0
                         ? 'mr-8'
                         : index === 1
@@ -308,7 +308,7 @@ export default function LandingPage() {
               {heroWorkers.map((person) => (
                 <div
                   key={person.name}
-                  className="flex items-center justify-between rounded-2xl bg-white px-4 py-4 shadow-md"
+                  className="lp-fade-up lp-card-hover flex items-center justify-between rounded-2xl bg-white px-4 py-4 shadow-md"
                 >
                   <div className="flex items-center gap-3">
                     <img
@@ -337,26 +337,26 @@ export default function LandingPage() {
           {/* Stats */}
           <div className="border-y border-slate-100 bg-white/80">
             <div className={`${pageWidthClass} grid grid-cols-2 gap-y-6 px-4 py-6 text-center sm:px-6 md:grid-cols-4 lg:px-8 2xl:py-8 min-[1920px]:py-10`}>
-              <div className="md:border-r md:border-slate-200">
+              <div className="lp-fade-up md:border-r md:border-slate-200">
                 <h3 className="text-base font-bold text-slate-800">2,100+</h3>
                 <p className="mt-1 text-xs text-slate-500">Customers</p>
               </div>
 
-              <div className="md:border-r md:border-slate-200">
+              <div className="lp-fade-up lp-delay-1 md:border-r md:border-slate-200">
                 <h3 className="text-base font-bold text-slate-800">347</h3>
                 <p className="mt-1 text-xs text-slate-500">
                   Verified Workers
                 </p>
               </div>
 
-              <div className="md:border-r md:border-slate-200">
+              <div className="lp-fade-up lp-delay-2 md:border-r md:border-slate-200">
                 <h3 className="text-base font-bold text-slate-800">12</h3>
                 <p className="mt-1 text-xs text-slate-500">
                   Service Categories
                 </p>
               </div>
 
-              <div>
+              <div className="lp-fade-up lp-delay-3">
                 <h3 className="text-base font-bold text-slate-800">4.8 ★</h3>
                 <p className="mt-1 text-xs text-slate-500">Avg Rating</p>
               </div>
@@ -380,15 +380,15 @@ export default function LandingPage() {
               return (
                 <div
                   key={category.name}
-                  className="flex flex-col items-center gap-4 text-center"
+                  className="lp-fade-up lp-category-hover cursor-pointer flex flex-col items-center gap-4 text-center"
                 >
                   <div
-                    className={`cursor-pointer flex h-14 w-14 items-center justify-center rounded-2xl 2xl:h-16 2xl:w-16 min-[1920px]:h-20 min-[1920px]:w-20 ${category.bg}`}
+                    className={`lp-category-icon flex h-14 w-14 items-center justify-center rounded-2xl 2xl:h-16 2xl:w-16 min-[1920px]:h-20 min-[1920px]:w-20 ${category.bg}`}
                   >
                       <Icon size={23} className={`${category.color} 2xl:h-6 2xl:w-6 min-[1920px]:h-7 min-[1920px]:w-7`} />
                   </div>
 
-                    <p className="cursor-pointer text-sm font-medium text-slate-700 2xl:text-base min-[1920px]:text-lg">
+                    <p className="lp-category-label text-sm font-medium text-slate-700 2xl:text-base min-[1920px]:text-lg">
                     {category.name}
                   </p>
                 </div>
@@ -426,7 +426,7 @@ export default function LandingPage() {
             ].map((step) => (
               <div
                 key={step.no}
-                className="relative overflow-hidden rounded-2xl bg-white p-7 shadow-sm ring-1 ring-slate-100"
+                className="lp-fade-up lp-card-hover relative overflow-hidden rounded-2xl bg-white p-7 shadow-sm ring-1 ring-slate-100"
               >
                 <span className="absolute left-6 top-3 text-5xl font-black leading-none text-emerald-50">
                   {step.no}
@@ -462,7 +462,7 @@ export default function LandingPage() {
               </p>
             </div>
 
-            <button className="w-fit border-b-2 border-[#05735f] text-sm font-semibold text-[#05735f]">
+            <button className="btn-press w-fit border-b-2 border-[#05735f] text-sm font-semibold text-[#05735f]">
               View all workers
             </button>
           </div>
@@ -471,7 +471,7 @@ export default function LandingPage() {
             {professionals.map((pro) => (
               <div
                 key={pro.name}
-                className="overflow-hidden rounded-2xl bg-white shadow-md shadow-slate-200 ring-1 ring-slate-100"
+                className="lp-fade-up lp-card-hover overflow-hidden rounded-2xl bg-white shadow-md shadow-slate-200 ring-1 ring-slate-100"
               >
                 <div className="relative h-48 overflow-hidden sm:h-52 md:h-44 lg:h-52">
                   <img
@@ -515,7 +515,7 @@ export default function LandingPage() {
                     </span>
                   </div>
 
-                  <button className="cursor-pointer mt-6 w-full rounded-lg py-2.5 text-sm font-semibold text-[#05735f] hover:bg-emerald-50">
+                  <button className="btn-press cursor-pointer mt-6 w-full rounded-lg py-2.5 text-sm font-semibold text-[#05735f] hover:bg-emerald-50">
                     View profile
                   </button>
                 </div>
@@ -582,7 +582,7 @@ export default function LandingPage() {
                   </h4>
                 </div>
 
-                <button className="cursor-pointer mt-8 w-full rounded-lg bg-[#05735f] py-3 text-sm font-bold text-white transition hover:bg-[#046553]">
+                <button className="btn-press cursor-pointer mt-8 w-full rounded-lg bg-[#05735f] py-3 text-sm font-bold text-white transition hover:bg-[#046553]">
                   Sign Up as a Pro
                 </button>
 
@@ -646,7 +646,7 @@ export default function LandingPage() {
                 ))}
               </div>
 
-              <button className="cursor-pointer mt-12 w-full rounded-lg border border-[#05735f] py-3 text-sm font-bold text-slate-800 hover:bg-emerald-50">
+              <button className="btn-press cursor-pointer mt-12 w-full rounded-lg border border-[#05735f] py-3 text-sm font-bold text-slate-800 hover:bg-emerald-50">
                 Get started free
               </button>
             </div>
@@ -684,7 +684,7 @@ export default function LandingPage() {
                 ))}
               </div>
 
-              <button className="cursor-pointer mt-12 w-full rounded-lg bg-[#05735f] py-3 text-sm font-bold text-white hover:bg-[#046553]">
+              <button className="btn-press cursor-pointer mt-12 w-full rounded-lg bg-[#05735f] py-3 text-sm font-bold text-white hover:bg-[#046553]">
                 Subscribe & go Pro
               </button>
 
@@ -708,7 +708,7 @@ export default function LandingPage() {
             {testimonials.map((item) => (
               <div
                 key={item.name}
-                className="rounded-2xl bg-white p-7 shadow-sm ring-1 ring-slate-100 sm:p-8"
+                className="lp-fade-up lp-card-hover rounded-2xl bg-white p-7 shadow-sm ring-1 ring-slate-100 sm:p-8"
               >
                 <RatingStars />
 
