@@ -35,7 +35,13 @@ export default function CustomerNavbar({
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-slate-200 bg-white">
-      <div className="grid min-h-20 w-full grid-cols-[1fr_auto] items-center gap-4 px-5 py-3 sm:px-8 lg:grid-cols-[170px_minmax(360px,520px)_minmax(300px,1fr)_auto] lg:gap-5 lg:px-8 xl:grid-cols-[190px_minmax(420px,620px)_minmax(330px,1fr)_auto] xl:px-10 2xl:grid-cols-[220px_minmax(520px,700px)_minmax(360px,1fr)_auto]">
+      <div
+        className={
+          showSearchBar
+            ? 'grid min-h-20 w-full grid-cols-[1fr_auto] items-center gap-4 px-5 py-3 sm:px-8 lg:grid-cols-[170px_minmax(360px,520px)_minmax(300px,1fr)_auto] lg:gap-5 lg:px-8 xl:grid-cols-[190px_minmax(420px,620px)_minmax(330px,1fr)_auto] xl:px-10 2xl:grid-cols-[220px_minmax(520px,700px)_minmax(360px,1fr)_auto]'
+            : 'relative grid min-h-20 w-full grid-cols-[1fr_auto] items-center gap-4 px-5 py-3 sm:px-8 lg:grid-cols-[220px_1fr_220px] lg:px-10 xl:px-12'
+        }
+      >
         {/* Logo */}
         <button
           type="button"
@@ -70,12 +76,16 @@ export default function CustomerNavbar({
               />
             </div>
           </div>
-        ) : (
-          <div className="hidden lg:block" />
-        )}
+        ) : null}
 
         {/* Desktop Nav */}
-        <nav className="hidden min-w-0 items-center justify-center gap-5 lg:flex xl:gap-7 2xl:gap-9">
+        <nav
+          className={
+            showSearchBar
+              ? 'hidden min-w-0 items-center justify-center gap-5 lg:flex xl:gap-7 2xl:gap-9'
+              : 'hidden min-w-0 items-center justify-center gap-8 lg:flex'
+          }
+        >
           {navLinks.map((link) => {
             const isActive = activePage === link.key;
 
@@ -101,7 +111,13 @@ export default function CustomerNavbar({
         </nav>
 
         {/* Desktop Icons */}
-        <div className="hidden shrink-0 items-center gap-4 lg:flex xl:gap-5 2xl:gap-6">
+        <div
+          className={
+            showSearchBar
+              ? 'hidden shrink-0 items-center gap-4 lg:flex xl:gap-5 2xl:gap-6'
+              : 'hidden shrink-0 items-center justify-end gap-5 lg:flex'
+          }
+        >
           <button
             type="button"
             className="cursor-pointer text-slate-700 transition hover:text-emerald-700"
