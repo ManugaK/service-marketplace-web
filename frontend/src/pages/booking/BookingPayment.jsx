@@ -1,171 +1,341 @@
 import React, { useState } from 'react';
-import Navbar from '../../components/layout/Navbar';
-import Footer from '../../components/layout/Footer';
-import { Stepper } from './BookingDetails';
-import { HiOutlineArrowLeft, HiOutlineCreditCard, HiOutlineCash, HiOutlineDeviceMobile, HiOutlineShieldCheck } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
+import {
+  ArrowLeft,
+  CreditCard,
+  Info,
+  LockKeyhole,
+  MessageSquare,
+  Smartphone,
+  Star,
+  WalletCards,
+} from 'lucide-react';
 
-const BookingPayment = () => {
+import CustomerNavbar from '../../components/layout/CustomerNavbar';
+import CustomerFooter from '../../components/layout/CustomerFooter';
+import BookingProgress from './BookingProgress';
+
+const worker = {
+  name: 'Kasun Silva',
+  service: 'Room Painting',
+  avatar:
+    'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=300',
+};
+
+const paymentMethods = [
+  {
+    id: 'card',
+    title: 'Credit / Debit Card',
+    icon: <CreditCard size={22} />,
+  },
+  {
+    id: 'wallet',
+    title: 'Mobile Wallet (eZCash, mCash, FriMi)',
+    icon: <WalletCards size={22} />,
+  },
+  {
+    id: 'cash',
+    title: 'Cash to Worker',
+    icon: <MessageSquare size={22} />,
+  },
+];
+
+const paymentOptions = [
+  {
+    id: 'advance',
+    label: 'Advance 50%',
+    amount: 'LKR 2,625',
+    payAmount: '2,625',
+  },
+  {
+    id: 'full',
+    label: 'Full Amount',
+    amount: 'LKR 5,250',
+    payAmount: '5,250',
+  },
+  {
+    id: 'after',
+    label: 'After Job (Cash)',
+    amount: 'Pay direct',
+    payAmount: '0',
+  },
+];
+
+export default function BookingPayment() {
   const navigate = useNavigate();
-  const [method, setMethod] = useState('card');
-  const [paymentOption, setPaymentOption] = useState('advance');
+  const [selectedMethod, setSelectedMethod] = useState('card');
+  const [selectedOption, setSelectedOption] = useState('advance');
+
+  const currentOption = paymentOptions.find((option) => option.id === selectedOption);
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC]">
-      <Navbar isLoggedIn={true} />
-      
-      <main className="max-w-screen-2xl mx-auto pt-32 pb-20 px-6">
-        <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-gray-400 hover:text-gray-600 font-bold mb-8 transition-colors">
-          <HiOutlineArrowLeft /> Back
-        </button>
+    <div className="min-h-screen bg-slate-50 text-slate-900">
+      <CustomerNavbar activePage="bookings" />
 
-        <Stepper currentStep={4} />
+      <BookingProgress
+         currentStep={4}
+         showBack
+         onBack={() => navigate(-1)}
+         />
 
-        <div className="flex flex-col lg:flex-row gap-12">
-          {/* Main Content */}
-          <div className="flex-grow space-y-8">
-             <h1 className="text-3xl font-black text-gray-900 mb-8">Choose Payment Method</h1>
+      <main className="mx-auto w-full max-w-none px-5 py-10 sm:px-8 lg:px-10 xl:px-12 2xl:px-14">
+        <div className="grid gap-7 lg:grid-cols-[minmax(0,1fr)_390px] xl:grid-cols-[minmax(0,1fr)_420px]">
+          <section>
+            <h1 className="mb-8 text-3xl font-bold tracking-tight text-slate-900">
+              Choose Payment Method
+            </h1>
 
-             {/* Payment Methods */}
-             <div className="space-y-4">
-                {[
-                  { id: 'card', label: 'Credit / Debit Card', icon: <HiOutlineCreditCard /> },
-                  { id: 'wallet', label: 'Mobile Wallet (eZCash, mCash, FriMi)', icon: <HiOutlineDeviceMobile /> },
-                  { id: 'cash', label: 'Cash to Worker', icon: <HiOutlineCash /> },
-                ].map((item) => (
-                  <div 
-                    key={item.id}
-                    onClick={() => setMethod(item.id)}
-                    className={`flex items-center justify-between p-6 rounded-[2rem] border transition-all cursor-pointer ${
-                      method === item.id ? 'bg-white border-[#1B5E44] shadow-xl shadow-emerald-900/5' : 'bg-white border-gray-100 hover:border-gray-300'
+            <div className="space-y-4">
+              {paymentMethods.map((method) => {
+                const isSelected = selectedMethod === method.id;
+
+                return (
+                  <button
+                    key={method.id}
+                    type="button"
+                    onClick={() => setSelectedMethod(method.id)}
+                    className={`flex h-24 w-full cursor-pointer items-center justify-between rounded-xl border bg-white px-6 text-left transition ${
+                      isSelected
+                        ? 'border-emerald-700 ring-1 ring-emerald-700'
+                        : 'border-slate-200 hover:border-emerald-300'
                     }`}
                   >
-                    <div className="flex items-center gap-6">
-                       <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all ${method === item.id ? 'border-[#1B5E44]' : 'border-gray-200'}`}>
-                          {method === item.id && <div className="w-3 h-3 bg-[#1B5E44] rounded-full animate-scale-in"></div>}
-                       </div>
-                       <div className="flex items-center gap-4">
-                          <div className="text-2xl text-gray-400">{item.icon}</div>
-                          <span className={`font-bold ${method === item.id ? 'text-gray-900' : 'text-gray-500'}`}>{item.label}</span>
-                       </div>
+                    <div className="flex items-center gap-5">
+                      <span
+                        className={`flex h-5 w-5 items-center justify-center rounded-full border-2 ${
+                          isSelected ? 'border-emerald-700' : 'border-slate-300'
+                        }`}
+                      >
+                        {isSelected && (
+                          <span className="h-2.5 w-2.5 rounded-full bg-emerald-700" />
+                        )}
+                      </span>
+
+                      <span className="text-base font-medium text-slate-800">
+                        {method.title}
+                      </span>
+                    </div>
+
+                    <span className="text-slate-400">{method.icon}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {selectedMethod === 'card' && (
+              <div className="mt-6 rounded-xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+                <div className="space-y-6">
+                  <div>
+                    <label className="mb-2 block text-sm font-medium text-slate-700">
+                      Card Number
+                    </label>
+
+                    <div className="relative">
+                      <CreditCard
+                        size={21}
+                        className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500"
+                      />
+                      <input
+                        type="text"
+                        placeholder="0000 0000 0000 0000"
+                        className="h-13 w-full rounded-lg border border-slate-200 bg-white pl-12 pr-4 text-sm outline-none transition placeholder:text-slate-400 focus:border-emerald-600"
+                      />
                     </div>
                   </div>
-                ))}
-             </div>
 
-             {/* Card Details Form (Only if method is card) */}
-             {method === 'card' && (
-                <section className="bg-white p-10 rounded-[2.5rem] border border-gray-100 shadow-sm space-y-8 animate-fade-in">
-                   <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Card Number</label>
-                      <div className="relative">
-                         <HiOutlineCreditCard className="absolute left-6 top-1/2 -translate-y-1/2 text-gray-300 text-xl" />
-                         <input type="text" placeholder="0000 0000 0000 0000" className="w-full pl-16 pr-6 py-4 bg-gray-50 border border-transparent rounded-2xl focus:bg-white focus:border-[#1B5E44] outline-none font-medium transition-all" />
-                      </div>
-                   </div>
-                   <div className="grid md:grid-cols-2 gap-8">
-                      <div className="space-y-2">
-                         <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Expiry Date</label>
-                         <input type="text" placeholder="MM / YY" className="w-full px-6 py-4 bg-gray-50 border border-transparent rounded-2xl focus:bg-white focus:border-[#1B5E44] outline-none font-medium transition-all" />
-                      </div>
-                      <div className="space-y-2">
-                         <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">CVV</label>
-                         <input type="text" placeholder="***" className="w-full px-6 py-4 bg-gray-50 border border-transparent rounded-2xl focus:bg-white focus:border-[#1B5E44] outline-none font-medium transition-all" />
-                      </div>
-                   </div>
-                   <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Cardholder Name</label>
-                      <input type="text" placeholder="Full Name as on Card" className="w-full px-6 py-4 bg-gray-50 border border-transparent rounded-2xl focus:bg-white focus:border-[#1B5E44] outline-none font-medium transition-all" />
-                   </div>
-                   
-                   <div className="p-6 bg-blue-50 rounded-2xl flex items-center gap-4 border border-blue-100">
-                      <HiOutlineShieldCheck className="text-xl text-blue-500" />
-                      <p className="text-[10px] font-bold text-blue-900 uppercase tracking-widest">Your payment information is encrypted and secure.</p>
-                   </div>
-                </section>
-             )}
+                  <div className="grid gap-5 md:grid-cols-2">
+                    <div>
+                      <label className="mb-2 block text-sm font-medium text-slate-700">
+                        Expiry Date
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="MM / YY"
+                        className="h-13 w-full rounded-lg border border-slate-200 bg-white px-4 text-sm outline-none transition placeholder:text-slate-400 focus:border-emerald-600"
+                      />
+                    </div>
 
-             <button className="w-full py-6 bg-[#1B5E44] text-white rounded-[2rem] font-black shadow-2xl shadow-emerald-900/20 hover:bg-[#005a39] transition-all transform hover:-translate-y-1 text-xl">
-                Confirm & Pay LKR {paymentOption === 'advance' ? '2,625' : '5,250'}
-             </button>
-          </div>
+                    <div>
+                      <label className="mb-2 block text-sm font-medium text-slate-700">
+                        CVV
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="***"
+                        className="h-13 w-full rounded-lg border border-slate-200 bg-white px-4 text-sm outline-none transition placeholder:text-slate-400 focus:border-emerald-600"
+                      />
+                    </div>
+                  </div>
 
-          {/* Sidebar */}
-          <aside className="w-full lg:w-[400px] flex-shrink-0 space-y-8">
-             <div className="bg-white border border-gray-100 rounded-[2.5rem] p-10 shadow-sm">
-                <h3 className="text-xl font-bold text-gray-900 mb-8">Booking Summary</h3>
-                <div className="flex items-center gap-4 mb-8 pb-8 border-b border-gray-50">
-                   <div className="w-16 h-16 rounded-2xl bg-gray-900 overflow-hidden">
-                      <img src="https://i.pravatar.cc/150?u=KasunSilva" alt="Worker" />
-                   </div>
-                   <div>
-                      <h4 className="font-black text-gray-900">Kasun Silva</h4>
-                      <p className="text-xs text-gray-400 font-bold uppercase tracking-widest">Room Painting</p>
-                   </div>
+                  <div>
+                    <label className="mb-2 block text-sm font-medium text-slate-700">
+                      Cardholder Name
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Full Name as on Card"
+                      className="h-13 w-full rounded-lg border border-slate-200 bg-white px-4 text-sm outline-none transition placeholder:text-slate-400 focus:border-emerald-600"
+                    />
+                  </div>
+
+                  <div className="flex items-center gap-2 rounded-lg bg-blue-50 px-4 py-3 text-sm font-medium text-slate-600">
+                    <LockKeyhole size={16} className="text-emerald-700" />
+                    Your payment information is encrypted and secure.
+                  </div>
                 </div>
+              </div>
+            )}
 
-                <div className="space-y-6 mb-10">
-                   <div className="flex justify-between text-sm font-medium">
-                      <span className="text-gray-400">Service Fee</span>
-                      <span className="text-gray-900 font-bold">LKR 5,000</span>
-                   </div>
-                   <div className="flex justify-between text-sm font-medium">
-                      <span className="text-gray-400">Platform Fee (5%)</span>
-                      <span className="text-gray-900 font-bold">LKR 250</span>
-                   </div>
-                   <div className="flex justify-between items-end pt-4 border-t border-gray-50">
-                      <span className="text-lg font-black text-gray-900">Total</span>
-                      <span className="text-2xl font-black text-[#1B5E44]">LKR 5,250</span>
-                   </div>
+            {selectedMethod === 'wallet' && (
+              <div className="mt-6 rounded-xl border border-slate-200 bg-white p-8 shadow-sm">
+                <div className="flex items-start gap-4">
+                  <Smartphone size={28} className="text-emerald-700" />
+                  <div>
+                    <h2 className="text-lg font-semibold text-slate-900">
+                      Mobile Wallet Payment
+                    </h2>
+                    <p className="mt-2 text-sm leading-6 text-slate-500">
+                      Wallet payment UI can be connected after backend/payment gateway
+                      integration. For now this is a frontend placeholder.
+                    </p>
+                  </div>
                 </div>
+              </div>
+            )}
 
-                <div className="space-y-4">
-                   <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-4">Payment Options</p>
-                   {[
-                     { id: 'advance', label: 'Advance 50%', amount: 'LKR 2,625' },
-                     { id: 'full', label: 'Full Amount', amount: 'LKR 5,250' },
-                     { id: 'after', label: 'After Job (Cash)', amount: 'Pay direct' },
-                   ].map(opt => (
-                     <div 
-                        key={opt.id}
-                        onClick={() => setPaymentOption(opt.id)}
-                        className={`p-4 rounded-2xl border flex items-center justify-between cursor-pointer transition-all ${
-                           paymentOption === opt.id ? 'border-[#1B5E44] bg-emerald-50/20' : 'border-gray-100'
-                        }`}
-                     >
-                        <div className="flex items-center gap-3">
-                           <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${paymentOption === opt.id ? 'border-[#1B5E44]' : 'border-gray-300'}`}>
-                              {paymentOption === opt.id && <div className="w-2 h-2 bg-[#1B5E44] rounded-full"></div>}
-                           </div>
-                           <span className={`text-xs font-bold ${paymentOption === opt.id ? 'text-[#1B5E44]' : 'text-gray-500'}`}>{opt.label}</span>
-                        </div>
-                        <span className="text-xs font-black text-gray-900">{opt.amount}</span>
-                     </div>
-                   ))}
+            {selectedMethod === 'cash' && (
+              <div className="mt-6 rounded-xl border border-slate-200 bg-white p-8 shadow-sm">
+                <div className="flex items-start gap-4">
+                  <WalletCards size={28} className="text-emerald-700" />
+                  <div>
+                    <h2 className="text-lg font-semibold text-slate-900">
+                      Cash to Worker
+                    </h2>
+                    <p className="mt-2 text-sm leading-6 text-slate-500">
+                      You can pay the worker directly after the job is completed.
+                    </p>
+                  </div>
                 </div>
-             </div>
+              </div>
+            )}
 
-             {/* Cancellation Policy Sidebar Info */}
-             <div className="bg-amber-50 p-8 rounded-[2.5rem] border border-amber-100 flex gap-6 items-start">
-                <div className="w-10 h-10 bg-amber-100 rounded-2xl flex items-center justify-center text-amber-600 flex-shrink-0">
-                   <HiOutlineShieldCheck className="text-xl" />
-                </div>
+            <button
+              type="button"
+              className="mt-6 h-16 w-full cursor-pointer rounded-lg bg-emerald-700 text-xl font-semibold text-white shadow-sm transition hover:bg-emerald-800"
+            >
+              {selectedOption === 'after'
+                ? 'Confirm Booking'
+                : `Confirm & Pay LKR ${currentOption?.payAmount}`}
+            </button>
+          </section>
+
+          <aside className="space-y-6">
+            <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+              <h2 className="mb-7 text-lg font-semibold text-slate-900">
+                Booking Summary
+              </h2>
+
+              <div className="flex items-center gap-4 border-b border-slate-200 pb-6">
+                <img
+                  src={worker.avatar}
+                  alt={worker.name}
+                  className="h-16 w-16 rounded-lg object-cover"
+                />
+
                 <div>
-                   <h4 className="font-bold text-gray-900 text-sm mb-2">Cancellation Policy</h4>
-                   <p className="text-[10px] text-amber-900/60 leading-relaxed font-medium">
-                      Free cancellation up to 24 hours before the service. Cancellations within 24 hours may incur 
-                      a 10% platform fee charge to compensate the service provider.
-                   </p>
+                  <h3 className="text-xl font-semibold text-slate-900">
+                    {worker.name}
+                  </h3>
+                  <p className="font-semibold text-emerald-700">{worker.service}</p>
                 </div>
-             </div>
+              </div>
+
+              <div className="space-y-4 border-b border-slate-200 py-6">
+                <div className="flex justify-between text-base">
+                  <span className="text-slate-500">Service Fee</span>
+                  <span className="font-medium text-slate-900">LKR 5,000</span>
+                </div>
+
+                <div className="flex justify-between text-base">
+                  <span className="text-slate-500">Platform Fee (5%)</span>
+                  <span className="font-medium text-slate-900">LKR 250</span>
+                </div>
+              </div>
+
+              <div className="flex items-end justify-between pt-5">
+                <span className="text-2xl font-bold text-slate-900">Total</span>
+                <span className="text-3xl font-bold text-emerald-700">
+                  LKR 5,250
+                </span>
+              </div>
+            </div>
+
+            <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+              <h2 className="mb-5 text-xs font-semibold uppercase tracking-wide text-slate-500">
+                Payment Options
+              </h2>
+
+              <div className="space-y-3">
+                {paymentOptions.map((option) => {
+                  const isSelected = selectedOption === option.id;
+
+                  return (
+                    <button
+                      key={option.id}
+                      type="button"
+                      onClick={() => setSelectedOption(option.id)}
+                      className={`flex h-14 w-full cursor-pointer items-center justify-between rounded-lg border px-4 text-left transition ${
+                        isSelected
+                          ? 'border-emerald-700 bg-emerald-50'
+                          : 'border-slate-200 bg-white hover:border-emerald-300'
+                      }`}
+                    >
+                      <span className="flex items-center gap-3">
+                        <span
+                          className={`flex h-4 w-4 items-center justify-center rounded-full border ${
+                            isSelected ? 'border-emerald-700' : 'border-slate-400'
+                          }`}
+                        >
+                          {isSelected && (
+                            <span className="h-2 w-2 rounded-full bg-emerald-700" />
+                          )}
+                        </span>
+
+                        <span className="font-medium text-slate-800">
+                          {option.label}
+                        </span>
+                      </span>
+
+                      <span className="font-semibold text-slate-900">
+                        {option.amount}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="rounded-xl border border-amber-300 bg-amber-50 p-6">
+              <div className="flex gap-3">
+                <Info size={22} className="mt-0.5 shrink-0 text-orange-600" />
+
+                <div>
+                  <h3 className="font-semibold text-orange-700">
+                    Cancellation Policy
+                  </h3>
+                  <p className="mt-2 text-sm font-medium leading-6 text-orange-700/80">
+                    Free cancellation up to 24 hours before the service.
+                    Cancellations within 24 hours may incur a 10% platform fee
+                    charge to compensate the service provider.
+                  </p>
+                </div>
+              </div>
+            </div>
           </aside>
         </div>
       </main>
-      <Footer />
+
+      <CustomerFooter />
     </div>
   );
-};
-
-export default BookingPayment;
-
-
+}
