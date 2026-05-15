@@ -1,139 +1,201 @@
 import React from 'react';
-import Navbar from '../../components/layout/Navbar';
-import Footer from '../../components/layout/Footer';
-import { Stepper } from './BookingDetails';
-import { HiOutlineArrowLeft, HiOutlineCheckCircle } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
+import {
+  ArrowLeft,
+  CalendarDays,
+  FileText,
+  MapPin,
+  MessageSquareText,
+  Star,
+  BadgeCheck,
+} from 'lucide-react';
 
-const BookingReview = () => {
+import CustomerNavbar from '../../components/layout/CustomerNavbar';
+import CustomerFooter from '../../components/layout/CustomerFooter';
+import BookingProgress from './BookingProgress';
+
+const worker = {
+  name: 'Kasun Silva',
+  role: 'Painter & Handyman',
+  rating: '4.9',
+  reviews: '124 reviews',
+  avatar:
+    'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=300',
+};
+
+const reviewImages = [
+  'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?auto=format&fit=crop&q=80&w=300',
+  'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&q=80&w=300',
+];
+
+export default function BookingReview() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC]">
-      <Navbar isLoggedIn={true} />
-      
-      <main className="max-w-screen-2xl mx-auto pt-32 pb-20 px-6">
-        <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-gray-400 hover:text-gray-600 font-bold mb-8 transition-colors">
-          <HiOutlineArrowLeft /> Back
-        </button>
+    <div className="min-h-screen bg-slate-50 text-slate-900">
+      <CustomerNavbar activePage="bookings" />
 
-        <Stepper currentStep={3} />
+      <BookingProgress
+         currentStep={3}
+         showBack
+         onBack={() => navigate(-1)}
+         />
 
-        <div className="flex flex-col lg:flex-row gap-12">
-          {/* Review Details */}
-          <div className="flex-grow space-y-8">
-             <h1 className="text-3xl font-black text-gray-900 mb-8">Review Your Booking</h1>
+      <main className="mx-auto w-full max-w-none px-5 py-10 sm:px-8 lg:px-10 xl:px-12 2xl:px-14">
+        <div className="grid gap-7 lg:grid-cols-[minmax(0,1fr)_390px] xl:grid-cols-[minmax(0,1fr)_420px]">
+          <section>
+            <h1 className="mb-8 text-3xl font-bold tracking-tight text-slate-900">
+              Review Your Booking
+            </h1>
 
-             {/* Schedule Card */}
-             <div className="bg-white p-10 rounded-[2.5rem] border border-gray-100 shadow-sm flex items-start gap-6">
-                <div className="w-12 h-12 rounded-2xl bg-emerald-50 flex items-center justify-center text-[#1B5E44]">
-                   <HiOutlineCheckCircle className="text-2xl" />
+            <div className="space-y-7">
+              <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm sm:p-7">
+                <div className="flex gap-4">
+                  <CalendarDays size={24} className="mt-1 shrink-0 text-emerald-700" />
+
+                  <div>
+                    <h2 className="text-xl font-semibold text-slate-900">
+                      Schedule
+                    </h2>
+                    <div className="mt-4 text-base leading-7 text-slate-600">
+                      <p className="font-semibold text-slate-900">28 April 2025</p>
+                      <p>9:00 AM - 12:00 PM (3 Hours)</p>
+                    </div>
+                  </div>
                 </div>
-                <div className="space-y-4 flex-grow">
-                   <h3 className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Schedule</h3>
-                   <div>
-                      <p className="text-lg font-black text-gray-900">28 April 2025</p>
-                      <p className="text-sm font-medium text-gray-500">9:00 AM - 12:00 PM (3 Hours)</p>
-                   </div>
-                </div>
-                <button onClick={() => navigate('/book/details')} className="text-[#1B5E44] font-black text-xs underline uppercase">Edit</button>
-             </div>
+              </div>
 
-             {/* Location Card */}
-             <div className="bg-white p-10 rounded-[2.5rem] border border-gray-100 shadow-sm flex items-start gap-6">
-                <div className="w-12 h-12 rounded-2xl bg-emerald-50 flex items-center justify-center text-[#1B5E44]">
-                   <HiOutlineCheckCircle className="text-2xl" />
-                </div>
-                <div className="space-y-4 flex-grow">
-                   <h3 className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Location</h3>
-                   <div>
-                      <p className="text-lg font-black text-gray-900">123 Temple Road, Maharagama</p>
-                      <p className="text-sm font-medium text-gray-500">Colombo, Sri Lanka</p>
-                   </div>
-                </div>
-                <button onClick={() => navigate('/book/details')} className="text-[#1B5E44] font-black text-xs underline uppercase">Edit</button>
-             </div>
+              <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm sm:p-7">
+                <div className="flex gap-4">
+                  <MapPin size={24} className="mt-1 shrink-0 text-emerald-700" />
 
-             {/* Job Description Card */}
-             <div className="bg-white p-10 rounded-[2.5rem] border border-gray-100 shadow-sm space-y-8">
-                <div className="flex items-start gap-6">
-                   <div className="w-12 h-12 rounded-2xl bg-emerald-50 flex items-center justify-center text-[#1B5E44]">
-                      <HiOutlineCheckCircle className="text-2xl" />
-                   </div>
-                   <div className="space-y-4 flex-grow">
-                      <h3 className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Job Description</h3>
-                      <p className="text-sm font-medium text-gray-500 leading-relaxed">
-                         Need professional painting for a master bedroom and an attached hallway. Total area is 
-                         approximately 450 sq.ft. Walls need light sanding and two coats of emulsion paint. I have 
-                         already purchased the paint; looking for labor and equipment (brushes, rollers, drop 
-                         cloths). Please ensure clean borders and no spills on the hardwood floor.
+                  <div>
+                    <h2 className="text-xl font-semibold text-slate-900">
+                      Location
+                    </h2>
+                    <div className="mt-4 text-base leading-7 text-slate-600">
+                      <p className="font-semibold text-slate-900">
+                        123 Temple Road, Maharagama
                       </p>
-                   </div>
-                   <button onClick={() => navigate('/book/details')} className="text-[#1B5E44] font-black text-xs underline uppercase">Edit</button>
+                      <p>Colombo, Sri Lanka</p>
+                    </div>
+                  </div>
                 </div>
-                
-                {/* Images */}
-                <div className="flex gap-4 pt-4 border-t border-gray-50">
-                   {[1,2].map(i => (
-                      <div key={i} className="w-24 h-24 rounded-2xl overflow-hidden shadow-sm">
-                         <img src={`https://picsum.photos/seed/${i + 40}/200/200`} alt="Preview" className="w-full h-full object-cover" />
-                      </div>
-                   ))}
+              </div>
+
+              <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm sm:p-7">
+                <div className="flex gap-4">
+                  <FileText size={24} className="mt-1 shrink-0 text-emerald-700" />
+
+                  <div className="min-w-0 flex-1">
+                    <h2 className="text-xl font-semibold text-slate-900">
+                      Job Description
+                    </h2>
+
+                    <p className="mt-4 max-w-4xl text-base leading-7 text-slate-600">
+                      Need professional painting for a master bedroom and an attached
+                      hallway. Total area is approximately 450 sq.ft. Walls need light
+                      sanding and two coats of emulsion paint. I have already purchased
+                      the paint; looking for labor and equipment brushes, rollers, drop
+                      cloths. Please ensure clean borders and no spills on the hardwood
+                      floor.
+                    </p>
+
+                    <div className="mt-7 flex flex-wrap gap-4">
+                      {reviewImages.map((image) => (
+                        <img
+                          key={image}
+                          src={image}
+                          alt="Uploaded job reference"
+                          className="h-24 w-24 rounded-lg object-cover"
+                        />
+                      ))}
+                    </div>
+                  </div>
                 </div>
-             </div>
-          </div>
+              </div>
+            </div>
+          </section>
 
-          {/* Sidebar */}
-          <aside className="w-full lg:w-[400px] flex-shrink-0">
-             <div className="sticky top-28 space-y-8">
-                <div className="bg-white border border-gray-100 rounded-[2.5rem] p-10 shadow-sm">
-                   <h3 className="text-xl font-bold text-gray-900 mb-8">Worker Summary</h3>
-                   <div className="flex items-center gap-4 mb-8">
-                      <div className="w-16 h-16 rounded-2xl bg-gray-900 overflow-hidden">
-                         <img src="https://i.pravatar.cc/150?u=KasunSilva" alt="Worker" />
-                      </div>
-                      <div>
-                         <h4 className="font-black text-gray-900">Kasun Silva <HiOutlineCheckCircle className="inline text-emerald-500" /></h4>
-                         <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">Painter & Handyman</p>
-                         <p className="text-xs font-bold text-[#1B5E44] flex items-center gap-1">★ 4.9 (124 reviews)</p>
-                      </div>
-                   </div>
+          <aside className="space-y-6">
+            <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+              <h2 className="mb-7 text-xs font-semibold uppercase tracking-wide text-slate-500">
+                Worker Summary
+              </h2>
 
-                   <div className="pt-8 border-t border-gray-50 space-y-6">
-                      <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Price Breakdown</p>
-                      <div className="flex justify-between text-sm font-medium">
-                         <span className="text-gray-400">Service fee (3 hrs)</span>
-                         <span className="text-gray-900">LKR 5,000</span>
-                      </div>
-                      <div className="flex justify-between text-sm font-medium">
-                         <span className="text-gray-400">Platform fee</span>
-                         <span className="text-gray-900">LKR 250</span>
-                      </div>
-                      <div className="flex justify-between items-end pt-4">
-                         <span className="text-lg font-black text-gray-900">Total Amount</span>
-                         <span className="text-2xl font-black text-[#1B5E44]">LKR 5,250</span>
-                      </div>
-                   </div>
+              <div className="flex items-center gap-4">
+                <img
+                  src={worker.avatar}
+                  alt={worker.name}
+                  className="h-16 w-16 rounded-full object-cover"
+                />
 
-                   <div className="space-y-4 mt-12">
-                      <button onClick={() => navigate('/book/payment')} className="w-full py-5 bg-[#1B5E44] text-white rounded-2xl font-black shadow-xl shadow-emerald-900/20 hover:bg-[#005a39] transition-all transform hover:-translate-y-1">
-                         Proceed to Payment
-                      </button>
-                      <button onClick={() => navigate(-1)} className="w-full py-5 border border-gray-100 rounded-2xl text-gray-400 font-bold hover:bg-gray-50 transition-all">
-                         Back
-                      </button>
-                   </div>
-                   <p className="text-center text-[10px] font-bold text-gray-400 mt-6 uppercase tracking-widest italic">You won't be charged yet.</p>
+                <div>
+                  <div className="flex items-center gap-2">
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      {worker.name}
+                    </h3>
+                    <BadgeCheck size={17} fill="currentColor" className="text-emerald-700" />
+                  </div>
+
+                  <p className="text-base text-slate-500">{worker.role}</p>
+                  <p className="mt-1 flex items-center gap-1 text-sm text-slate-600">
+                    <Star size={15} fill="#fbbf24" className="text-amber-400" />
+                    {worker.rating} ({worker.reviews})
+                  </p>
                 </div>
-             </div>
+              </div>
+            </div>
+
+            <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+              <h2 className="mb-7 text-xs font-semibold uppercase tracking-wide text-slate-500">
+                Price Breakdown
+              </h2>
+
+              <div className="space-y-5 text-base">
+                <div className="flex justify-between">
+                  <span className="text-slate-500">Service fee (3 hrs)</span>
+                  <span className="font-semibold text-slate-900">LKR 5,000</span>
+                </div>
+
+                <div className="flex justify-between">
+                  <span className="text-slate-500">Platform fee</span>
+                  <span className="font-semibold text-slate-900">LKR 250</span>
+                </div>
+
+                <div className="flex items-end justify-between border-t border-slate-100 pt-6">
+                  <span className="text-xl text-slate-900">Total Amount</span>
+                  <span className="text-3xl font-bold text-emerald-700">
+                    LKR 5,250
+                  </span>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onClick={() => navigate('/book/payment')}
+                className="mt-8 h-14 w-full cursor-pointer rounded-lg bg-emerald-700 text-base font-semibold text-white transition hover:bg-emerald-800"
+              >
+                Proceed to Payment
+              </button>
+
+              <button
+                type="button"
+                onClick={() => navigate('/book/details')}
+                className="mt-3 h-14 w-full cursor-pointer rounded-lg border border-emerald-700 bg-white text-base font-semibold text-emerald-700 transition hover:bg-emerald-50"
+              >
+                Back
+              </button>
+
+              <p className="mt-6 text-center text-sm font-medium text-slate-500">
+                You won’t be charged yet.
+              </p>
+            </div>
           </aside>
         </div>
       </main>
-      <Footer />
+
+      <CustomerFooter />
     </div>
   );
-};
-
-export default BookingReview;
-
-
+}
