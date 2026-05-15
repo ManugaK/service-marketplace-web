@@ -1,206 +1,275 @@
 import React from 'react';
-import Navbar from '../../components/layout/Navbar';
-import Footer from '../../components/layout/Footer';
-import { HiOutlineCalendar, HiOutlineLocationMarker, HiOutlineDocumentText, HiOutlinePhotograph, HiOutlineShieldCheck, HiOutlineArrowLeft, HiOutlineChevronRight } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
+import {
+  ArrowLeft,
+  ArrowRight,
+  CalendarDays,
+  FileText,
+  Info,
+  MapPin,
+  Shield,
+  Star,
+  UploadCloud,
+} from 'lucide-react';
 
-const Stepper = ({ currentStep }) => {
-  const steps = [
-    { id: 1, label: 'Select Worker' },
-    { id: 2, label: 'Booking Details' },
-    { id: 3, label: 'Review' },
-    { id: 4, label: 'Payment' },
-  ];
+import CustomerNavbar from '../../components/layout/CustomerNavbar';
+import CustomerFooter from '../../components/layout/CustomerFooter';
+import BookingProgress from './BookingProgress';
 
-  return (
-    <div className="max-w-screen-2xl mx-auto mb-12">
-      <div className="flex items-center justify-between relative">
-        <div className="absolute top-1/2 left-0 w-full h-0.5 bg-gray-100 -translate-y-1/2 -z-10"></div>
-        {steps.map((step) => (
-          <div key={step.id} className="flex flex-col items-center gap-2 bg-white px-4">
-            <div className={`w-10 h-10 rounded-full flex items-center justify-center font-bold border-2 transition-all ${
-              step.id < currentStep 
-              ? 'bg-[#1B5E44] border-[#1B5E44] text-white' 
-              : step.id === currentStep 
-              ? 'bg-white border-[#1B5E44] text-[#1B5E44]' 
-              : 'bg-white border-gray-200 text-gray-400'
-            }`}>
-              {step.id < currentStep ? '✓' : step.id}
-            </div>
-            <span className={`text-[10px] font-black uppercase tracking-widest ${step.id === currentStep ? 'text-[#1B5E44]' : 'text-gray-400'}`}>
-              {step.label}
-            </span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+const worker = {
+  name: 'Kasun Silva',
+  service: 'Room Painting',
+  rating: '4.9',
+  reviews: '124 reviews',
+  price: 'LKR 5,000',
+  avatar:
+    'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=300',
 };
 
-const BookingDetails = () => {
+export default function BookingDetails() {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-[#F8FAFC]">
-      <Navbar isLoggedIn={true} />
-      
-      <main className="max-w-screen-2xl mx-auto pt-32 pb-20 px-6">
-        <button onClick={() => navigate(-1)} className="flex items-center gap-2 text-gray-400 hover:text-gray-600 font-bold mb-8 transition-colors">
-          <HiOutlineArrowLeft /> Back
-        </button>
+    <div className="min-h-screen bg-slate-50 text-slate-900">
+      <CustomerNavbar activePage="bookings" />
 
-        <Stepper currentStep={2} />
+      <BookingProgress
+         currentStep={2}
+         showBack
+         onBack={() => navigate(-1)}
+         />
 
-        <div className="max-w-screen-2xl mx-auto flex flex-col lg:flex-row gap-12">
-          {/* Main Form */}
-          <div className="flex-grow space-y-8">
-             <h1 className="text-3xl font-black text-gray-900 mb-8">Provide Job Details</h1>
+      <main className="mx-auto w-full max-w-none px-5 py-10 sm:px-8 lg:px-10 xl:px-12 2xl:px-14">
+        <div className="grid gap-7 lg:grid-cols-[minmax(0,1fr)_360px] xl:grid-cols-[minmax(0,1fr)_390px]">
+          <section>
+            <h1 className="mb-8 text-3xl font-bold tracking-tight text-slate-900">
+              Provide Job Details
+            </h1>
 
-             {/* Date & Time */}
-             <section className="bg-white p-10 rounded-[2.5rem] border border-gray-100 shadow-sm">
-                <div className="flex items-center gap-3 mb-8">
-                   <HiOutlineCalendar className="text-2xl text-[#1B5E44]" />
-                   <h2 className="text-xl font-bold text-gray-900">Preferred Date & Time</h2>
+            <div className="space-y-8">
+              <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm sm:p-7">
+                <div className="mb-6 flex items-center gap-3">
+                  <CalendarDays size={23} className="text-emerald-700" />
+                  <h2 className="text-xl font-semibold text-slate-900">
+                    Preferred Date & Time
+                  </h2>
                 </div>
-                <div className="grid md:grid-cols-2 gap-8">
-                   <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Select Date</label>
-                      <input type="date" className="w-full px-6 py-4 bg-gray-50 border border-transparent rounded-2xl focus:bg-white focus:border-[#1B5E44] outline-none font-medium transition-all" />
-                   </div>
-                   <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Preferred Time</label>
-                      <select className="w-full px-6 py-4 bg-gray-50 border border-transparent rounded-2xl focus:bg-white focus:border-[#1B5E44] outline-none font-medium transition-all appearance-none">
-                         <option>Morning (08:00 AM - 12:00 PM)</option>
-                         <option>Afternoon (12:00 PM - 04:00 PM)</option>
-                         <option>Evening (04:00 PM - 08:00 PM)</option>
-                      </select>
-                   </div>
-                </div>
-             </section>
 
-             {/* Location */}
-             <section className="bg-white p-10 rounded-[2.5rem] border border-gray-100 shadow-sm">
-                <div className="flex items-center gap-3 mb-8">
-                   <HiOutlineLocationMarker className="text-2xl text-[#1B5E44]" />
-                   <h2 className="text-xl font-bold text-gray-900">Location</h2>
-                </div>
-                <div className="space-y-8">
-                   <div className="space-y-2">
-                      <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Street Address</label>
-                      <input type="text" placeholder="House No, Street Name" className="w-full px-6 py-4 bg-gray-50 border border-transparent rounded-2xl focus:bg-white focus:border-[#1B5E44] outline-none font-medium transition-all" />
-                   </div>
-                   <div className="grid md:grid-cols-2 gap-8">
-                      <div className="space-y-2">
-                         <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">City</label>
-                         <input type="text" defaultValue="Colombo" className="w-full px-6 py-4 bg-gray-50 border border-transparent rounded-2xl focus:bg-white focus:border-[#1B5E44] outline-none font-medium transition-all" />
-                      </div>
-                      <div className="space-y-2">
-                         <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Landmark (Optional)</label>
-                         <input type="text" placeholder="Near Petrol Shed" className="w-full px-6 py-4 bg-gray-50 border border-transparent rounded-2xl focus:bg-white focus:border-[#1B5E44] outline-none font-medium transition-all" />
-                      </div>
-                   </div>
-                </div>
-             </section>
+                <div className="grid gap-5 md:grid-cols-2">
+                  <div>
+                    <label className="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-500">
+                      Select Date
+                    </label>
+                    <input
+                      type="date"
+                      className="h-12 w-full rounded-lg border border-slate-200 bg-white px-4 text-sm text-slate-700 outline-none transition focus:border-emerald-600"
+                    />
+                  </div>
 
-             {/* Job Description */}
-             <section className="bg-white p-10 rounded-[2.5rem] border border-gray-100 shadow-sm">
-                <div className="flex items-center gap-3 mb-8">
-                   <HiOutlineDocumentText className="text-2xl text-[#1B5E44]" />
-                   <h2 className="text-xl font-bold text-gray-900">Job Description</h2>
+                  <div>
+                    <label className="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-500">
+                      Preferred Time
+                    </label>
+                    <select className="h-12 w-full cursor-pointer rounded-lg border border-slate-200 bg-white px-4 text-sm text-slate-700 outline-none transition focus:border-emerald-600">
+                      <option>Morning (08:00 AM - 12:00 PM)</option>
+                      <option>Afternoon (12:00 PM - 04:00 PM)</option>
+                      <option>Evening (04:00 PM - 08:00 PM)</option>
+                    </select>
+                  </div>
                 </div>
-                <div className="space-y-2">
-                   <label className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Describe the work in detail</label>
-                   <textarea 
-                     rows="5" 
-                     placeholder="Please provide specific details about the painting job, such as room dimensions, current wall condition, and if you have the paint already."
-                     className="w-full px-6 py-4 bg-gray-50 border border-transparent rounded-2xl focus:bg-white focus:border-[#1B5E44] outline-none font-medium transition-all resize-none"
-                   ></textarea>
-                </div>
-             </section>
+              </div>
 
-             {/* Photos */}
-             <section className="bg-white p-10 rounded-[2.5rem] border border-gray-100 shadow-sm">
-                <div className="flex items-center gap-3 mb-8">
-                   <HiOutlinePhotograph className="text-2xl text-[#1B5E44]" />
-                   <h2 className="text-xl font-bold text-gray-900">Photos</h2>
+              <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm sm:p-7">
+                <div className="mb-6 flex items-center gap-3">
+                  <MapPin size={23} className="text-emerald-700" />
+                  <h2 className="text-xl font-semibold text-slate-900">
+                    Location
+                  </h2>
                 </div>
-                <div className="border-2 border-dashed border-gray-100 rounded-[2rem] p-12 text-center group hover:border-[#1B5E44]/20 transition-all cursor-pointer">
-                   <div className="w-16 h-16 bg-gray-50 rounded-2xl flex items-center justify-center text-gray-400 mx-auto mb-4 group-hover:bg-emerald-50 group-hover:text-[#1B5E44] transition-all">
-                      <HiOutlinePhotograph className="text-3xl" />
-                   </div>
-                   <p className="font-bold text-gray-900 mb-1">Click to upload or drag and drop</p>
-                   <p className="text-xs text-gray-400 font-medium uppercase tracking-tighter">SVG, PNG, JPG or GIF (max. 10MB)</p>
-                </div>
-             </section>
 
-             <div className="flex justify-end pt-8">
-                <button onClick={() => navigate('/book/review')} className="bg-[#1B5E44] text-white px-12 py-5 rounded-2xl font-black shadow-xl shadow-emerald-900/20 hover:bg-[#005a39] transition-all transform hover:-translate-y-1 flex items-center gap-2">
-                   Continue to Review <HiOutlineChevronRight />
+                <div className="space-y-5">
+                  <div>
+                    <label className="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-500">
+                      Street Address
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="House No, Street Name"
+                      className="h-12 w-full rounded-lg border border-slate-200 bg-white px-4 text-sm text-slate-700 outline-none transition placeholder:text-slate-400 focus:border-emerald-600"
+                    />
+                  </div>
+
+                  <div className="grid gap-5 md:grid-cols-2">
+                    <div>
+                      <label className="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-500">
+                        City
+                      </label>
+                      <input
+                        type="text"
+                        defaultValue="Colombo"
+                        className="h-12 w-full rounded-lg border border-slate-200 bg-white px-4 text-sm text-slate-700 outline-none transition focus:border-emerald-600"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-500">
+                        Landmark Optional
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="Near Petrol Shed"
+                        className="h-12 w-full rounded-lg border border-slate-200 bg-white px-4 text-sm text-slate-700 outline-none transition placeholder:text-slate-400 focus:border-emerald-600"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm sm:p-7">
+                <div className="mb-6 flex items-center gap-3">
+                  <FileText size={23} className="text-emerald-700" />
+                  <h2 className="text-xl font-semibold text-slate-900">
+                    Job Description
+                  </h2>
+                </div>
+
+                <label className="mb-2 block text-xs font-semibold uppercase tracking-wide text-slate-500">
+                  Describe the work in detail
+                </label>
+                <textarea
+                  rows={5}
+                  placeholder="Please provide specific details about the painting job, such as room dimensions, current wall condition, and if you have the paint already."
+                  className="w-full resize-none rounded-lg border border-slate-200 bg-white px-4 py-4 text-sm leading-6 text-slate-700 outline-none transition placeholder:text-slate-400 focus:border-emerald-600"
+                />
+              </div>
+
+              <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm sm:p-7">
+                <div className="mb-6 flex items-center gap-3">
+                  <UploadCloud size={23} className="text-emerald-700" />
+                  <h2 className="text-xl font-semibold text-slate-900">
+                    Photos
+                  </h2>
+                </div>
+
+                <button
+                  type="button"
+                  className="flex h-40 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-slate-200 bg-slate-50 text-center transition hover:border-emerald-300 hover:bg-emerald-50/40"
+                >
+                  <UploadCloud size={31} className="text-slate-400" />
+                  <p className="mt-3 text-sm font-semibold text-slate-800">
+                    Click to upload or drag and drop
+                  </p>
+                  <p className="text-xs font-medium uppercase text-slate-400">
+                    SVG, PNG, JPG or GIF max. 10MB
+                  </p>
                 </button>
-             </div>
-          </div>
+              </div>
 
-          {/* Sidebar */}
-          <aside className="w-full lg:w-[400px] flex-shrink-0">
-             <div className="sticky top-28 space-y-8">
-                <div className="bg-white border border-gray-100 rounded-[2.5rem] p-10 shadow-sm">
-                   <h3 className="text-xl font-bold text-gray-900 mb-8">Worker Summary</h3>
-                   <div className="flex items-center gap-4 mb-8 pb-8 border-b border-gray-50">
-                      <div className="w-16 h-16 rounded-2xl bg-gray-900 overflow-hidden">
-                         <img src="https://i.pravatar.cc/150?u=KasunSilva" alt="Worker" />
-                      </div>
-                      <div>
-                         <h4 className="font-black text-gray-900">Kasun Silva</h4>
-                         <p className="text-xs font-bold text-[#1B5E44] flex items-center gap-1">★ 4.9 (124 reviews)</p>
-                      </div>
-                   </div>
+              <div className="flex justify-end pt-2">
+                <button
+                  type="button"
+                  onClick={() => navigate('/book/review')}
+                  className="inline-flex h-14 min-w-72 cursor-pointer items-center justify-center gap-2 rounded-lg bg-emerald-700 px-8 text-lg font-semibold text-white shadow-sm transition hover:bg-emerald-800"
+                >
+                  Continue to Review
+                  <ArrowRight size={22} />
+                </button>
+              </div>
+            </div>
+          </section>
 
-                   <div className="space-y-4 mb-8">
-                      <div className="flex justify-between text-sm">
-                         <span className="text-gray-400 font-medium">Service</span>
-                         <span className="text-gray-900 font-bold">Room Painting</span>
-                      </div>
-                      <div className="flex justify-between text-sm">
-                         <span className="text-gray-400 font-medium">Est. Base Price</span>
-                         <span className="text-gray-900 font-bold">LKR 5,000</span>
-                      </div>
-                   </div>
+          <aside className="space-y-6">
+            <div className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm">
+              <div className="border-b border-slate-100 p-6">
+                <h2 className="text-xl font-bold text-slate-900">
+                  Worker Summary
+                </h2>
+              </div>
 
-                   <div className="p-6 bg-emerald-50 rounded-2xl border border-emerald-100 mb-8">
-                      <p className="text-[10px] font-bold text-emerald-600 leading-relaxed">
-                         ⓘ Final price will be confirmed after worker reviews your job description.
-                      </p>
-                   </div>
+              <div className="p-6">
+                <div className="flex items-center gap-4">
+                  <img
+                    src={worker.avatar}
+                    alt={worker.name}
+                    className="h-16 w-16 rounded-full object-cover"
+                  />
 
-                   <div className="space-y-4">
-                      <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Service Includes</p>
-                      {['Wall cleaning & prepping', 'Two coats of paint', 'Basic cleanup afterwards'].map((item, i) => (
-                         <div key={i} className="flex items-center gap-3 text-sm font-medium text-gray-600">
-                            <span className="text-emerald-500">✓</span> {item}
-                         </div>
-                      ))}
-                   </div>
+                  <div>
+                    <h3 className="text-xl font-semibold text-slate-900">
+                      {worker.name}
+                    </h3>
+                    <p className="mt-1 flex items-center gap-1 text-sm font-medium text-emerald-700">
+                      <Star size={15} fill="currentColor" />
+                      {worker.rating} ({worker.reviews})
+                    </p>
+                  </div>
                 </div>
 
-                <div className="bg-[#1B5E44]/5 p-8 rounded-[2rem] border border-[#1B5E44]/10 flex items-center gap-6">
-                   <div className="w-12 h-12 bg-white rounded-2xl flex items-center justify-center text-[#1B5E44] shadow-sm">
-                      <HiOutlineShieldCheck className="text-2xl" />
-                   </div>
-                   <div>
-                      <h4 className="font-bold text-gray-900 text-sm">SkillMarket Protection</h4>
-                      <p className="text-xs text-gray-500">Your payments are secure until you approve the work.</p>
-                   </div>
+                <div className="mt-7 space-y-4 border-t border-slate-100 pt-6">
+                  <div className="flex justify-between text-sm">
+                    <span className="text-slate-500">Service</span>
+                    <span className="font-semibold text-slate-900">
+                      {worker.service}
+                    </span>
+                  </div>
+
+                  <div className="flex justify-between text-sm">
+                    <span className="text-slate-500">Est. Base Price</span>
+                    <span className="font-semibold text-slate-900">
+                      {worker.price}
+                    </span>
+                  </div>
                 </div>
-             </div>
+
+                <div className="mt-7 flex gap-3 rounded-lg bg-emerald-50 p-4 text-emerald-800">
+                  <Info size={18} className="mt-0.5 shrink-0" />
+                  <p className="text-xs font-semibold leading-4">
+                    Final price will be confirmed after worker reviews your job
+                    description.
+                  </p>
+                </div>
+
+                <div className="mt-7">
+                  <h4 className="mb-3 text-xs font-semibold uppercase tracking-wide text-slate-500">
+                    Service Includes
+                  </h4>
+
+                  <ul className="space-y-2 text-sm text-slate-700">
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-700" />
+                      Wall cleaning & prepping
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-700" />
+                      Two coats of paint
+                    </li>
+                    <li className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-700" />
+                      Basic cleanup afterwards
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+              <div className="flex items-start gap-3">
+                <Shield size={22} className="mt-0.5 text-slate-400" />
+                <div>
+                  <h3 className="font-semibold text-slate-900">
+                    SkillMarket Protection
+                  </h3>
+                  <p className="text-sm leading-5 text-slate-500">
+                    Your payments are secure until you approve the work.
+                  </p>
+                </div>
+              </div>
+            </div>
           </aside>
         </div>
       </main>
-      <Footer />
+
+      <CustomerFooter />
     </div>
   );
-};
-
-export default BookingDetails;
-export { Stepper };
-
-
+}
