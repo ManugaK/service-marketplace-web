@@ -146,7 +146,7 @@ const initialFilters = {
   between5000And15000: false,
   rating4Plus: false,
   verifiedOnly: false,
-  distance: '10',
+  distance: 'any',
   category: '',
   sortBy: 'Recommended',
 };
