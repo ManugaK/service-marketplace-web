@@ -1,18 +1,22 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+
 import LandingPage from './pages/LandingPage';
 import SearchPage from './pages/search/SearchPage';
 import CustomerDashboard from './pages/customer/CustomerDashboard';
+import CustomerProfile from './pages/customer/CustomerProfile';
+
 import WorkerDashboard from './pages/worker/WorkerDashboard';
 import WorkerProfile from './pages/worker/WorkerProfile';
+import WorkerPublicProfile from './pages/worker/WorkerPublicProfile';
 import WorkerReviews from './pages/worker/WorkerReviews';
 import WorkerSubscription from './pages/worker/WorkerSubscription';
+
 import ChatPage from './pages/chat/ChatPage';
 import BookingDetails from './pages/booking/BookingDetails';
 import BookingReview from './pages/booking/BookingReview';
 import BookingPayment from './pages/booking/BookingPayment';
 import CancelBooking from './pages/booking/CancelBooking';
-import CustomerProfile from './pages/customer/CustomerProfile';
 
 function App() {
   return (
@@ -22,7 +26,7 @@ function App() {
           {/* Public Routes */}
           <Route path="/" element={<LandingPage />} />
           <Route path="/search" element={<SearchPage />} />
-          <Route path="/worker/:id" element={<WorkerProfile />} />
+          <Route path="/worker/:id" element={<WorkerPublicProfile />} />
           <Route path="/chat" element={<ChatPage />} />
 
           {/* Booking Flow */}
