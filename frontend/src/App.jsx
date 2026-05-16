@@ -17,6 +17,7 @@ import BookingDetails from './pages/booking/BookingDetails';
 import BookingReview from './pages/booking/BookingReview';
 import BookingPayment from './pages/booking/BookingPayment';
 import CancelBooking from './pages/booking/CancelBooking';
+import CustomerBookings from './pages/booking/CustomerBookings';
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
           <Route path="/search" element={<SearchPage />} />
           <Route path="/worker/:id" element={<WorkerPublicProfile />} />
           <Route path="/chat" element={<ChatPage />} />
+          <Route path="/bookings" element={<CustomerBookings />} />
 
           {/* Booking Flow */}
           <Route path="/book/details" element={<BookingDetails />} />
