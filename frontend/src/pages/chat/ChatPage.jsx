@@ -1,206 +1,495 @@
-import React, { useState } from 'react';
-import Navbar from '../../components/layout/Navbar';
-import Footer from '../../components/layout/Footer';
-import { 
-  HiOutlinePhone, 
-  HiOutlineVideoCamera, 
-  HiOutlineDotsVertical, 
-  HiOutlinePaperClip, 
-  HiOutlineEmojiHappy,
-  HiOutlinePencilAlt
-} from 'react-icons/hi';
-import { IoMdSend } from 'react-icons/io';
-import { BsCheck2All } from 'react-icons/bs';
+import React, { useMemo, useState } from 'react';
+import {
+  CheckCircle2,
+  Info,
+  Menu,
+  MoreVertical,
+  Paperclip,
+  Phone,
+  Send,
+  Smile,
+  Video,
+  X,
+  SquarePen,
+} from 'lucide-react';
 
-const ChatPage = () => {
-  const [activeChat, setActiveChat] = useState(1);
-  const [message, setMessage] = useState('');
+import CustomerNavbar from '../../components/layout/CustomerNavbar';
+import CustomerFooter from '../../components/layout/CustomerFooter';
 
-  const chats = [
-    { id: 1, name: 'Kasun Silva', role: 'Painter', lastMsg: "I'll be there at 9 AM. My number is...", time: '10:25 AM', online: true, avatar: 'KS' },
-    { id: 2, name: 'Sunil Perera', role: 'Electrician', lastMsg: "The wiring fix is completed. Thank you!", time: 'Yesterday', online: false, avatar: 'SP' },
-    { id: 3, name: 'Amali de Silva', role: 'Interior Designer', lastMsg: "I've sent the updated floor plan for the...", time: '25 Apr', online: false, avatar: 'AS' },
-  ];
+const conversations = [
+  {
+    id: 1,
+    name: 'Kasun Silva',
+    role: 'Painter',
+    avatar:
+      'https://images.unsplash.com/photo-1600486913747-55e5470d6f40?auto=format&fit=crop&q=80&w=300',
+    lastMessage: "I'll be there at 9 AM. My number is...",
+    time: '10:25 AM',
+    unread: true,
+    online: true,
+    starred: false,
+  },
+  {
+    id: 2,
+    name: 'Sunil Perera',
+    role: 'Electrician',
+    avatar:
+      'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=300',
+    lastMessage: 'The wiring fix is completed. Thank you!',
+    time: 'Yesterday',
+    unread: false,
+    online: false,
+    starred: false,
+  },
+  {
+    id: 3,
+    name: 'Amali de Silva',
+    role: 'Interior Designer',
+    avatar:
+      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=300',
+    lastMessage: 'I’ve sent the updated floor plan for the...',
+    time: '25 Apr',
+    unread: false,
+    online: false,
+    starred: true,
+  },
+  {
+    id: 4,
+    name: 'Nuwan Perera',
+    role: 'Plumber',
+    avatar:
+      'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=300',
+    lastMessage: 'I can visit tomorrow morning.',
+    time: '24 Apr',
+    unread: false,
+    online: false,
+    starred: false,
+  },
+  {
+    id: 5,
+    name: 'Saman Fernando',
+    role: 'AC Technician',
+    avatar:
+      'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=300',
+    lastMessage: 'Sorry, I am unavailable for that time slot.',
+    time: '22 Apr',
+    unread: false,
+    online: false,
+    starred: false,
+  },
+];
 
-  const messages = [
-    { id: 1, type: 'system', content: 'Booking #BK-1041 created · 28 Apr 2025' },
-    { id: 2, type: 'received', content: 'Hello! I saw your room painting request. Could you share more details about the room size?', time: '10:22 AM' },
-    { id: 3, type: 'sent', content: 'Hi Kasun! It\'s a 12×14 ft bedroom. Currently light yellow walls.', time: '10:24 AM' },
-    { id: 4, type: 'received', content: 'Perfect. I can do it for LKR 5,000 including primer and 2 coats. Are you OK with 28th April?', time: '10:25 AM' },
-    { id: 5, type: 'sent', content: 'Yes that works! Please confirm the booking.', time: '10:26 AM' },
-    { id: 6, type: 'status', content: 'Booking confirmed ✓ · Worker contact shared', color: 'bg-emerald-50 text-emerald-600 border-emerald-100' },
-    { id: 7, type: 'received', content: 'Great! I\'ll be there at 9 AM. My number is 077-XXXXXXX', time: 'Just now' },
-  ];
+const messages = [
+  {
+    id: 1,
+    type: 'system',
+    text: 'Booking #BK-1041 created · 28 April 2025',
+  },
+  {
+    id: 2,
+    sender: 'worker',
+    text: 'Hello! I saw your room painting request. Could you share more details about the room size?',
+    time: '10:22 AM',
+  },
+  {
+    id: 3,
+    sender: 'customer',
+    text: 'Hi Kasun! It’s a 12×14 ft bedroom. Currently light yellow walls.',
+    time: '10:24 AM',
+  },
+  {
+    id: 4,
+    sender: 'worker',
+    text: 'Perfect. I can do it for LKR 5,000 including primer and 2 coats. Are you OK with 28th April?',
+    time: '10:25 AM',
+  },
+  {
+    id: 5,
+    sender: 'customer',
+    text: 'Yes that works! Please confirm the booking.',
+    time: '10:26 AM',
+  },
+  {
+    id: 6,
+    type: 'confirmation',
+    text: 'Booking confirmed · Worker contact shared',
+  },
+  {
+    id: 7,
+    sender: 'worker',
+    text: "Great! I'll be there at 9 AM. My number is 077-XXXXXXX",
+    time: 'Just now',
+  },
+];
 
+const filters = ['All Chats', 'Unread', 'Starring'];
+
+function ConversationAvatar({ conversation }) {
   return (
-    <div className="min-h-screen bg-white flex flex-col">
-      <Navbar isLoggedIn={true} />
-      
-      <main className="flex-grow pt-20 flex overflow-hidden h-[calc(100vh-80px)]">
-        {/* Sidebar */}
-        <aside className="w-80 border-r border-gray-100 flex flex-col bg-white">
-          <div className="p-6">
-            <div className="flex items-center justify-between mb-6">
-               <h2 className="text-2xl font-black text-gray-900">Messages</h2>
-               <button className="text-[#1B5E44] hover:bg-emerald-50 p-2 rounded-xl transition-colors">
-                  <HiOutlinePencilAlt className="text-xl" />
-               </button>
-            </div>
-            
-            <div className="flex gap-2 mb-6">
-               {['All Chats', 'Unread', 'Starring'].map((tab, i) => (
-                 <button key={i} className={`px-4 py-2 rounded-full text-xs font-bold transition-all ${i === 0 ? 'bg-emerald-50 text-[#1B5E44]' : 'text-gray-400 hover:text-gray-600'}`}>
-                   {tab}
-                 </button>
-               ))}
-            </div>
+    <div className="relative shrink-0">
+      <img
+        src={conversation.avatar}
+        alt={conversation.name}
+        className="h-12 w-12 rounded-full object-cover"
+      />
+
+      {conversation.online && (
+        <span className="absolute bottom-0 right-0 h-3.5 w-3.5 rounded-full border-2 border-white bg-emerald-600" />
+      )}
+    </div>
+  );
+}
+
+function ConversationItem({ conversation, active, onClick }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className={`relative flex w-full cursor-pointer gap-3 px-5 py-4 text-left transition hover:bg-emerald-50/60 ${
+        active ? 'bg-emerald-50' : 'bg-white'
+      }`}
+    >
+      {active && (
+        <span className="absolute left-0 top-0 h-full w-1 bg-emerald-700" />
+      )}
+
+      <ConversationAvatar conversation={conversation} />
+
+      <div className="min-w-0 flex-1">
+        <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0">
+            <h3 className="truncate text-base font-semibold text-slate-900">
+              {conversation.name}
+            </h3>
+            <p className="mt-0.5 truncate text-sm text-emerald-700">
+              {conversation.role}
+            </p>
           </div>
 
-          <div className="flex-grow overflow-y-auto">
-            {chats.map(chat => (
-              <div 
-                key={chat.id} 
-                onClick={() => setActiveChat(chat.id)}
-                className={`px-6 py-5 flex gap-4 cursor-pointer transition-all border-l-4 ${activeChat === chat.id ? 'bg-emerald-50/30 border-[#1B5E44]' : 'border-transparent hover:bg-gray-50'}`}
-              >
-                <div className="relative flex-shrink-0">
-                  <div className="w-12 h-12 rounded-2xl bg-gray-900 text-white flex items-center justify-center font-bold overflow-hidden">
-                     <img src={`https://i.pravatar.cc/150?u=${chat.name}`} alt={chat.name} />
-                  </div>
-                  {chat.online && (
-                    <div className="absolute -bottom-1 -right-1 w-3.5 h-3.5 bg-emerald-500 rounded-full border-2 border-white"></div>
-                  )}
-                </div>
-                <div className="flex-grow min-w-0">
-                   <div className="flex justify-between items-start mb-1">
-                      <h4 className="font-bold text-gray-900 truncate">{chat.name}</h4>
-                      <span className="text-[10px] font-bold text-gray-400 whitespace-nowrap">{chat.time}</span>
-                   </div>
-                   <p className="text-[10px] font-bold text-[#1B5E44] uppercase tracking-widest mb-1">{chat.role}</p>
-                   <p className="text-xs text-gray-400 truncate">{chat.lastMsg}</p>
+          <span className="shrink-0 text-xs text-slate-500">
+            {conversation.time}
+          </span>
+        </div>
+
+        <p className="mt-1 truncate text-sm text-slate-500">
+          {conversation.lastMessage}
+        </p>
+      </div>
+    </button>
+  );
+}
+
+function ChatBubble({ message, workerAvatar }) {
+  if (message.type === 'system') {
+    return (
+      <div className="flex justify-center">
+        <span className="rounded-full bg-slate-200 px-5 py-2 text-sm font-medium text-slate-500">
+          {message.text}
+        </span>
+      </div>
+    );
+  }
+
+  if (message.type === 'confirmation') {
+    return (
+      <div className="flex justify-center">
+        <span className="inline-flex items-center gap-2 rounded-xl border border-emerald-200 bg-emerald-100 px-5 py-2.5 text-sm font-semibold text-emerald-700">
+          <CheckCircle2 size={18} />
+          {message.text}
+        </span>
+      </div>
+    );
+  }
+
+  const isCustomer = message.sender === 'customer';
+
+  return (
+    <div
+      className={`flex items-end gap-3 ${
+        isCustomer ? 'justify-end' : 'justify-start'
+      }`}
+    >
+      {!isCustomer && (
+        <img
+          src={workerAvatar}
+          alt="Worker"
+          className="h-8 w-8 rounded-full object-cover"
+        />
+      )}
+
+      <div
+        className={`flex max-w-[78%] flex-col sm:max-w-[70%] lg:max-w-[64%] ${
+          isCustomer ? 'items-end' : 'items-start'
+        }`}
+      >
+        <div
+          className={`rounded-2xl px-5 py-4 text-base leading-7 shadow-sm ${
+            isCustomer
+              ? 'rounded-br-none bg-emerald-800 text-white'
+              : 'rounded-bl-none border border-slate-200 bg-white text-slate-800'
+          }`}
+        >
+          {message.text}
+        </div>
+
+        <span
+          className={`mt-1 text-xs text-slate-400 ${
+            isCustomer ? 'mr-1' : 'ml-1'
+          }`}
+        >
+          {message.time}
+        </span>
+      </div>
+    </div>
+  );
+}
+
+export default function ChatPage() {
+  const [activeConversationId, setActiveConversationId] = useState(1);
+  const [activeFilter, setActiveFilter] = useState('All Chats');
+  const [messageInput, setMessageInput] = useState('');
+  const [mobileListOpen, setMobileListOpen] = useState(false);
+
+  const activeConversation = useMemo(
+    () =>
+      conversations.find(
+        (conversation) => conversation.id === activeConversationId
+      ) || conversations[0],
+    [activeConversationId]
+  );
+
+  const filteredConversations = useMemo(() => {
+    if (activeFilter === 'Unread') {
+      return conversations.filter((conversation) => conversation.unread);
+    }
+
+    if (activeFilter === 'Starring') {
+      return conversations.filter((conversation) => conversation.starred);
+    }
+
+    return conversations;
+  }, [activeFilter]);
+
+  const handleSelectConversation = (id) => {
+    setActiveConversationId(id);
+    setMobileListOpen(false);
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-50 text-slate-900">
+      <CustomerNavbar activePage="" />
+
+      {/* Chat viewport area. The footer is below this area and can be reached by scrolling down. */}
+      <main className="flex h-[calc(100vh-80px)] overflow-hidden border-b border-slate-200 bg-slate-50">
+        {/* Sidebar / Profiles Area */}
+        <aside
+          className={`fixed inset-y-0 left-0 z-[60] w-[330px] border-r border-slate-200 bg-white transition-transform duration-300 lg:static lg:z-auto lg:w-[360px] lg:translate-x-0 ${
+            mobileListOpen ? 'translate-x-0' : '-translate-x-full'
+          }`}
+        >
+          <div className="flex h-full min-h-0 flex-col">
+            <div className="shrink-0 border-b border-slate-100 p-6">
+              <div className="flex items-center justify-between">
+                <h1 className="text-2xl font-bold tracking-tight text-slate-900">
+                  Messages
+                </h1>
+
+                <div className="flex items-center gap-2">
+                  <button
+                    type="button"
+                    className="hidden h-10 w-10 cursor-pointer items-center justify-center rounded-lg text-emerald-700 transition hover:bg-emerald-50 lg:flex"
+                    aria-label="New message"
+                  >
+                    <SquarePen size={23} />
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setMobileListOpen(false)}
+                    className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg text-slate-600 transition hover:bg-slate-100 lg:hidden"
+                    aria-label="Close conversations"
+                  >
+                    <X size={23} />
+                  </button>
                 </div>
               </div>
-            ))}
+
+              <div className="mt-5 flex gap-2">
+                {filters.map((filter) => {
+                  const isActive = activeFilter === filter;
+
+                  return (
+                    <button
+                      key={filter}
+                      type="button"
+                      onClick={() => setActiveFilter(filter)}
+                      className={`cursor-pointer rounded-full px-4 py-2 text-sm font-medium transition ${
+                        isActive
+                          ? 'bg-emerald-50 text-emerald-700'
+                          : 'text-slate-500 hover:bg-slate-50 hover:text-emerald-700'
+                      }`}
+                    >
+                      {filter}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Profiles area scrolls only when content overflows */}
+            <div className="min-h-0 flex-1 overflow-y-auto">
+              {filteredConversations.map((conversation) => (
+                <ConversationItem
+                  key={conversation.id}
+                  conversation={conversation}
+                  active={conversation.id === activeConversationId}
+                  onClick={() => handleSelectConversation(conversation.id)}
+                />
+              ))}
+            </div>
           </div>
         </aside>
 
+        {mobileListOpen && (
+          <button
+            type="button"
+            onClick={() => setMobileListOpen(false)}
+            className="fixed inset-0 z-50 bg-slate-900/40 lg:hidden"
+            aria-label="Close overlay"
+          />
+        )}
+
         {/* Chat Area */}
-        <section className="flex-grow flex flex-col bg-[#F8FAFC]">
+        <section className="flex min-w-0 flex-1 flex-col bg-slate-50">
           {/* Chat Header */}
-          <header className="bg-white px-8 py-4 flex items-center justify-between border-b border-gray-100">
-            <div className="flex items-center gap-4">
-               <div className="w-10 h-10 rounded-2xl bg-gray-900 overflow-hidden">
-                  <img src="https://i.pravatar.cc/150?u=KasunSilva" alt="Kasun" />
-               </div>
-               <div>
-                  <div className="flex items-center gap-2">
-                    <h3 className="font-black text-gray-900">Kasun Silva</h3>
-                    <span className="text-[10px] text-gray-400 font-bold uppercase tracking-widest">• Painter</span>
-                  </div>
-                  <div className="flex items-center gap-1.5">
-                    <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full"></div>
-                    <span className="text-[10px] font-bold text-emerald-500 uppercase tracking-tighter">Online now</span>
-                  </div>
-               </div>
+          <header className="flex min-h-[72px] shrink-0 items-center justify-between border-b border-slate-200 bg-white px-4 sm:px-6">
+            <div className="flex min-w-0 items-center gap-3">
+              <button
+                type="button"
+                onClick={() => setMobileListOpen(true)}
+                className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg border border-slate-200 text-slate-600 lg:hidden"
+                aria-label="Open conversations"
+              >
+                <Menu size={22} />
+              </button>
+
+              <ConversationAvatar conversation={activeConversation} />
+
+              <div className="min-w-0">
+                <div className="flex flex-wrap items-center gap-2">
+                  <h2 className="truncate text-lg font-bold text-slate-900">
+                    {activeConversation.name}
+                  </h2>
+                  <span className="text-sm text-slate-400">•</span>
+                  <span className="text-sm text-slate-500">
+                    {activeConversation.role}
+                  </span>
+                </div>
+
+                <p className="mt-0.5 flex items-center gap-2 text-sm text-emerald-700">
+                  <span className="h-2 w-2 rounded-full bg-emerald-600" />
+                  Online now
+                </p>
+              </div>
             </div>
-            <div className="flex items-center gap-4">
-               <button className="p-2.5 text-gray-400 hover:text-[#1B5E44] hover:bg-emerald-50 rounded-xl transition-all">
-                  <HiOutlinePhone className="text-xl" />
-               </button>
-               <button className="p-2.5 text-gray-400 hover:text-[#1B5E44] hover:bg-emerald-50 rounded-xl transition-all">
-                  <HiOutlineVideoCamera className="text-xl" />
-               </button>
-               <button className="p-2.5 text-gray-400 hover:text-[#1B5E44] hover:bg-emerald-50 rounded-xl transition-all">
-                  <HiOutlineDotsVertical className="text-xl" />
-               </button>
+
+            <div className="flex shrink-0 items-center gap-3 text-slate-600">
+              {/* <button
+                type="button"
+                className="hidden h-10 w-10 cursor-pointer items-center justify-center rounded-lg transition hover:bg-slate-100 hover:text-emerald-700 sm:flex"
+                aria-label="Call"
+              >
+                <Phone size={22} />
+              </button>
+
+              <button
+                type="button"
+                className="hidden h-10 w-10 cursor-pointer items-center justify-center rounded-lg transition hover:bg-slate-100 hover:text-emerald-700 sm:flex"
+                aria-label="Video call"
+              >
+                <Video size={22} />
+              </button> */}
+
+              <button
+                type="button"
+                className="flex h-10 w-10 cursor-pointer items-center justify-center rounded-lg transition hover:bg-slate-100 hover:text-emerald-700"
+                aria-label="More"
+              >
+                <MoreVertical size={22} />
+              </button>
             </div>
           </header>
 
-          {/* Warning Banner */}
-          <div className="bg-amber-50 px-8 py-3 flex items-center justify-between border-b border-amber-100">
-             <div className="flex items-center gap-2 text-xs font-bold text-amber-700">
-                <span className="w-5 h-5 bg-amber-200 rounded-full flex items-center justify-center text-[10px]">!</span>
-                Worker's phone number will be shared after booking is confirmed.
-             </div>
-             <button className="text-xs font-black text-[#1B5E44] hover:underline uppercase tracking-widest">Book now</button>
+          {/* Alert */}
+          <div className="flex shrink-0 items-center justify-between gap-4 border-b border-amber-200 bg-amber-50 px-5 py-3 text-sm">
+            <div className="flex min-w-0 items-center gap-3 text-orange-700">
+              <Info size={18} className="shrink-0" />
+              <p className="truncate">
+                Worker’s phone number will be shared after booking is confirmed.
+              </p>
+            </div>
+
+            <button
+              type="button"
+              className="shrink-0 cursor-pointer font-bold text-emerald-700 hover:text-emerald-800"
+            >
+              Book now
+            </button>
           </div>
 
-          {/* Messages Window */}
-          <div className="flex-grow overflow-y-auto p-8 space-y-8">
-            {messages.map(msg => {
-              if (msg.type === 'system') {
-                return (
-                  <div key={msg.id} className="flex justify-center">
-                    <span className="bg-white px-4 py-1.5 rounded-full border border-gray-100 text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-                       {msg.content}
-                    </span>
-                  </div>
-                );
-              }
-              if (msg.type === 'status') {
-                return (
-                  <div key={msg.id} className="flex justify-center">
-                    <div className={`px-6 py-2.5 rounded-2xl border ${msg.color} text-xs font-bold flex items-center gap-2 shadow-sm`}>
-                       <div className="w-4 h-4 bg-emerald-500 text-white rounded-full flex items-center justify-center text-[8px]">✓</div>
-                       {msg.content}
-                    </div>
-                  </div>
-                );
-              }
-              return (
-                <div key={msg.id} className={`flex ${msg.type === 'sent' ? 'justify-end' : 'justify-start'} gap-4`}>
-                   {msg.type === 'received' && (
-                     <div className="w-8 h-8 rounded-xl overflow-hidden flex-shrink-0 mt-2">
-                        <img src="https://i.pravatar.cc/150?u=KasunSilva" alt="avatar" />
-                     </div>
-                   )}
-                   <div className="max-w-[60%] space-y-1">
-                      <div className={`p-5 rounded-[2rem] text-sm font-medium leading-relaxed shadow-sm ${
-                        msg.type === 'sent' 
-                        ? 'bg-[#1B5E44] text-white rounded-tr-none' 
-                        : 'bg-white text-gray-700 rounded-tl-none'
-                      }`}>
-                         {msg.content}
-                      </div>
-                      <div className={`text-[10px] font-bold text-gray-400 uppercase tracking-widest ${msg.type === 'sent' ? 'text-right' : 'text-left'}`}>
-                         {msg.time}
-                         {msg.type === 'sent' && <BsCheck2All className="inline ml-1 text-emerald-500" />}
-                      </div>
-                   </div>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* Message Input */}
-          <div className="p-8 bg-white border-t border-gray-100">
-             <div className="flex items-center gap-4 bg-gray-50 rounded-[2rem] p-2 border border-transparent focus-within:border-emerald-100 focus-within:bg-white transition-all shadow-sm">
-                <button className="p-3 text-gray-400 hover:text-[#1B5E44] transition-colors">
-                   <HiOutlinePaperClip className="text-xl" />
-                </button>
-                <input 
-                  type="text" 
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  placeholder="Write a message..." 
-                  className="flex-grow bg-transparent outline-none text-sm font-medium text-gray-700 py-3"
+          {/* Messages area scrolls while the message typing box stays at the viewport bottom */}
+          <div className="min-h-0 flex-1 overflow-y-auto px-4 py-6 sm:px-8 lg:px-16">
+            <div className="mx-auto flex max-w-5xl flex-col gap-7">
+              {messages.map((message) => (
+                <ChatBubble
+                  key={message.id}
+                  message={message}
+                  workerAvatar={activeConversation.avatar}
                 />
-                <button className="p-3 text-gray-400 hover:text-[#1B5E44] transition-colors">
-                   <HiOutlineEmojiHappy className="text-xl" />
-                </button>
-                <button className="bg-[#1B5E44] text-white p-3 rounded-2xl shadow-xl shadow-emerald-900/20 hover:bg-[#005a39] transition-all transform hover:scale-105">
-                   <IoMdSend className="text-xl" />
-                </button>
-             </div>
+              ))}
+            </div>
           </div>
+
+          {/* Message typing box */}
+          <footer className="shrink-0 border-t border-slate-200 bg-white px-4 py-3 sm:px-6">
+            <div className="mx-auto flex max-w-6xl items-center gap-3 rounded-xl bg-slate-100 px-4 py-2">
+              <button
+                type="button"
+                className="cursor-pointer text-slate-500 transition hover:text-emerald-700"
+                aria-label="Attach file"
+              >
+                <Paperclip size={22} />
+              </button>
+
+              <input
+                type="text"
+                value={messageInput}
+                onChange={(event) => setMessageInput(event.target.value)}
+                placeholder="Write a message..."
+                className="h-10 min-w-0 flex-1 bg-transparent text-sm text-slate-700 outline-none placeholder:text-slate-400"
+              />
+
+              <button
+                type="button"
+                className="cursor-pointer text-slate-500 transition hover:text-emerald-700"
+                aria-label="Emoji"
+              >
+                <Smile size={22} />
+              </button>
+
+              <button
+                type="button"
+                className="flex h-12 w-12 cursor-pointer items-center justify-center rounded-lg bg-emerald-700 text-white transition hover:bg-emerald-800"
+                aria-label="Send message"
+              >
+                <Send size={24} fill="currentColor" />
+              </button>
+            </div>
+          </footer>
         </section>
       </main>
-      
-      <Footer />
+
+      <CustomerFooter />
     </div>
   );
-};
-
-export default ChatPage;
-
-
+}
