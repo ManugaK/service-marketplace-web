@@ -154,21 +154,14 @@ function BankAccountForm({ initialData, onSubmit, onCancel, submitLabel }) {
 
     const nextErrors = {};
 
-    if (!formData.bankName.trim()) {
-      nextErrors.bankName = 'Bank name is required';
-    }
-
+    if (!formData.bankName.trim()) nextErrors.bankName = 'Bank name is required';
     if (!formData.accountHolder.trim()) {
       nextErrors.accountHolder = 'Account holder name is required';
     }
-
     if (!/^\d{8,16}$/.test(formData.accountNumber.trim())) {
       nextErrors.accountNumber = 'Enter a valid account number';
     }
-
-    if (!formData.branch.trim()) {
-      nextErrors.branch = 'Branch is required';
-    }
+    if (!formData.branch.trim()) nextErrors.branch = 'Branch is required';
 
     setErrors(nextErrors);
 
@@ -437,12 +430,7 @@ export default function WorkerEarnings() {
   function handleUpdateAccount(accountData) {
     setBankAccounts((current) =>
       current.map((account) =>
-        account.id === editingAccount.id
-          ? {
-              ...account,
-              ...accountData,
-            }
-          : account
+        account.id === editingAccount.id ? { ...account, ...accountData } : account
       )
     );
 
@@ -579,7 +567,7 @@ export default function WorkerEarnings() {
           />
         </section>
 
-        <section className="mt-7 grid gap-7 xl:grid-cols-[minmax(0,1fr)_370px]">
+        <section className="mt-7 grid gap-7 lg:grid-cols-[minmax(0,1fr)_340px] 2xl:grid-cols-[minmax(0,1fr)_370px]">
           <div className="space-y-7">
             <div className="overflow-hidden rounded-xl border border-emerald-900/20 bg-white shadow-sm">
               <div className="flex flex-col gap-3 border-b border-slate-200 px-6 py-5 sm:flex-row sm:items-center sm:justify-between">
@@ -680,12 +668,16 @@ export default function WorkerEarnings() {
                 <div className="space-y-4 text-sm">
                   <div className="flex items-center justify-between">
                     <span className="text-slate-600">Gross Revenue</span>
-                    <span className="font-medium text-slate-950">LKR 44,500</span>
+                    <span className="font-medium text-slate-950">
+                      LKR 44,500
+                    </span>
                   </div>
 
                   <div className="flex items-center justify-between">
                     <span className="text-slate-600">Commission (5%)</span>
-                    <span className="font-medium text-red-600">- LKR 2,225</span>
+                    <span className="font-medium text-red-600">
+                      - LKR 2,225
+                    </span>
                   </div>
 
                   <div className="flex items-center justify-between">
@@ -695,7 +687,9 @@ export default function WorkerEarnings() {
 
                   <div className="flex items-center justify-between border-t border-slate-200 pt-4">
                     <span className="font-bold text-slate-950">Net Earnings</span>
-                    <span className="font-bold text-emerald-700">LKR 42,000</span>
+                    <span className="font-bold text-emerald-700">
+                      LKR 42,000
+                    </span>
                   </div>
                 </div>
               </div>
