@@ -1,159 +1,224 @@
-import React from 'react';
+import React, { useState } from 'react';
+import {
+  BadgeCheck,
+  CalendarCheck2,
+  CheckCircle2,
+  ChevronRight,
+  CircleDollarSign,
+  MapPin,
+  MessageSquare,
+  ShieldCheck,
+  Star,
+  Target,
+} from 'lucide-react';
 import WorkerLayout from '../../components/layout/WorkerLayout';
-import { HiOutlineChartBar, HiOutlineCash, HiOutlineUserGroup, HiOutlineCalendar } from 'react-icons/hi';
-import { BsArrowRight } from 'react-icons/bs';
 
-const WorkerDashboard = () => {
-  const upcomingJobs = [
-    { id: 1, customer: 'John Doe', service: 'Full House Painting', time: 'Tomorrow, 09:00 AM', status: 'Upcoming', amount: '85,000' },
-    { id: 2, customer: 'Maria Silva', service: 'Door Touchup', time: 'Oct 26, 02:00 PM', status: 'Confirmed', amount: '5,000' },
-  ];
+function DashboardCard({ children, className = '' }) {
+  return (
+    <div className={`rounded-xl border border-emerald-900/20 bg-white shadow-sm ${className}`}>
+      {children}
+    </div>
+  );
+}
 
-  const recentReviews = [
-    { name: 'Amila Munasinghe', rating: 5, comment: 'Kasun did an amazing job with our living room. Highly recommended!', date: '2 weeks ago' },
-  ];
+function Toggle({ checked, onChange }) {
+  return (
+    <button
+      type="button"
+      onClick={() => onChange(!checked)}
+      className={`relative h-9 w-16 rounded-full transition ${checked ? 'bg-emerald-700' : 'bg-slate-300'}`}
+      aria-pressed={checked}
+    >
+      <span
+        className={`absolute top-1 h-7 w-7 rounded-full bg-white transition ${checked ? 'left-8' : 'left-1'}`}
+      />
+    </button>
+  );
+}
+
+function StatusCard({ icon: Icon, label, value, iconClass = 'bg-emerald-50 text-emerald-700' }) {
+  return (
+    <DashboardCard className="flex min-h-24 items-center gap-5 p-6">
+      <div className={`grid h-12 w-12 shrink-0 place-items-center rounded-full ${iconClass}`}>
+        <Icon size={22} />
+      </div>
+      <div>
+        <p className="text-xs font-medium uppercase tracking-wide text-slate-500">{label}</p>
+        <h3 className="text-2xl font-semibold text-slate-950">{value}</h3>
+      </div>
+    </DashboardCard>
+  );
+}
+
+function JobRequest({ title, location, price }) {
+  return (
+    <DashboardCard className="p-5">
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <h3 className="text-lg font-medium text-slate-950">{title}</h3>
+          <p className="mt-1 flex items-center gap-1 text-sm text-slate-500">
+            <MapPin size={14} /> {location}
+          </p>
+        </div>
+        <p className="text-lg font-medium text-slate-950">LKR {price}</p>
+      </div>
+      <div className="mt-5 grid gap-2 sm:grid-cols-2">
+        <button className="rounded-lg bg-emerald-700 px-4 py-2.5 text-sm font-medium text-white hover:bg-emerald-800">
+          Accept
+        </button>
+        <button className="rounded-lg border border-slate-200 bg-white px-4 py-2.5 text-sm font-medium text-slate-600 hover:bg-slate-50">
+          Decline
+        </button>
+      </div>
+    </DashboardCard>
+  );
+}
+
+function UpcomingJob({ time, customer, job, img, tomorrow = false }) {
+  return (
+    <DashboardCard className="overflow-hidden">
+      <div className="flex items-center justify-between border-b border-slate-100 bg-slate-50 px-6 py-3">
+        <p className="text-xs font-medium uppercase text-slate-500">{time}</p>
+        <span className="rounded-full bg-emerald-100 px-4 py-1 text-[10px] font-bold uppercase text-emerald-700">
+          Confirmed
+        </span>
+      </div>
+      <div className="p-6">
+        <div className="mb-5 flex items-center gap-4">
+          <img src={img} alt={customer} className="h-12 w-12 rounded-full object-cover" />
+          <div>
+            <h3 className="text-lg font-medium text-slate-950">{customer}</h3>
+            <p className="text-sm text-slate-500">Job: {job}</p>
+          </div>
+        </div>
+        <div className="flex items-center gap-3">
+          <button className="flex-1 rounded-lg bg-emerald-50 px-4 py-2.5 text-sm font-medium text-emerald-700 hover:bg-emerald-100">
+            <CheckCircle2 size={15} className="mr-2 inline" /> Mark Complete
+          </button>
+          <button className="grid h-10 w-10 place-items-center rounded-lg border border-slate-200 text-slate-500 hover:text-emerald-700">
+            <MessageSquare size={16} />
+          </button>
+          <button className="grid h-10 w-10 place-items-center rounded-lg border border-slate-200 text-slate-500 hover:text-emerald-700">
+            <Target size={16} />
+          </button>
+        </div>
+      </div>
+    </DashboardCard>
+  );
+}
+
+export default function WorkerDashboard() {
+  const [available, setAvailable] = useState(true);
 
   return (
     <WorkerLayout>
-      <header className="flex items-center justify-between mb-12">
-         <div>
-            <h1 className="text-4xl font-black text-gray-900 mb-2">Worker Dashboard 🛠️</h1>
-            <p className="text-gray-500 font-medium">Here's what's happening with your business today.</p>
-         </div>
-         <div className="flex gap-4">
-            <button className="bg-[#1B5E44] text-white px-8 py-4 rounded-2xl font-black shadow-xl shadow-emerald-900/20 hover:bg-[#005a39] transition-all transform hover:-translate-y-1">
-               Update Availability
-            </button>
-         </div>
-      </header>
-
-      {/* Stats Overview */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
-         {[
-           { label: 'Total Earnings', value: 'LKR 142k', icon: <HiOutlineCash />, color: 'bg-emerald-50 text-emerald-600' },
-           { label: 'Completed Jobs', value: '148', icon: <HiOutlineChartBar />, color: 'bg-blue-50 text-blue-600' },
-           { label: 'Profile Views', value: '1.2k', icon: <HiOutlineUserGroup />, color: 'bg-purple-50 text-purple-600' },
-           { label: 'Active Rating', value: '4.9/5', icon: <HiOutlineCalendar />, color: 'bg-amber-50 text-amber-600' },
-         ].map((stat, i) => (
-           <div key={i} className="bg-white p-8 rounded-[2.5rem] border border-gray-100 shadow-sm">
-              <div className={`w-14 h-14 rounded-2xl ${stat.color} flex items-center justify-center text-2xl mb-6`}>
-                 {stat.icon}
+      <div className="mx-auto w-full max-w-[1560px]">
+        <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+          <h2 className="text-2xl font-bold text-slate-950">Thursday, May 23, 2024</h2>
+          <DashboardCard className="px-5 py-3">
+            <div className="flex items-center gap-6">
+              <div>
+                <p className="font-medium text-slate-950">Pro Plan · Active</p>
+                <p className="text-xs text-slate-400">Renews June 12</p>
               </div>
-              <p className="text-3xl font-black text-gray-900 mb-1">{stat.value}</p>
-              <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">{stat.label}</p>
-           </div>
-         ))}
-      </div>
-
-      <div className="grid lg:grid-cols-3 gap-8">
-         {/* Job Queue */}
-         <div className="lg:col-span-2 space-y-8">
-            <section className="bg-white rounded-[2.5rem] border border-gray-100 p-10 shadow-sm">
-               <div className="flex items-center justify-between mb-10">
-                  <h2 className="text-2xl font-bold text-gray-900">Upcoming Jobs</h2>
-                  <button className="text-sm font-bold text-[#1B5E44] flex items-center gap-2">View Calendar <BsArrowRight /></button>
-               </div>
-               
-               <div className="space-y-6">
-                  {upcomingJobs.map(job => (
-                     <div key={job.id} className="flex items-center justify-between p-8 bg-gray-50 rounded-[2rem] border border-transparent hover:border-[#1B5E44]/10 transition-all group relative overflow-hidden">
-                        <div className="absolute top-0 left-0 bottom-0 w-1 bg-[#1B5E44]"></div>
-                        <div className="flex items-center gap-8">
-                           <div className="w-16 h-16 rounded-2xl bg-white shadow-sm flex flex-col items-center justify-center">
-                              <span className="text-[10px] font-bold text-gray-400 uppercase tracking-tighter">OCT</span>
-                              <span className="text-xl font-black text-[#1B5E44] leading-none">24</span>
-                           </div>
-                           <div>
-                              <h4 className="font-black text-gray-900 group-hover:text-[#1B5E44] transition-colors text-lg">{job.customer}</h4>
-                              <p className="text-sm text-gray-500 font-medium flex items-center gap-2">
-                                 {job.service} • <span className="text-[#1B5E44] font-bold">{job.time}</span>
-                              </p>
-                           </div>
-                        </div>
-                        <div className="text-right">
-                           <p className="text-lg font-black text-gray-900 mb-2">LKR {job.amount}</p>
-                           <button className="px-6 py-2.5 bg-white border border-gray-200 rounded-xl text-xs font-bold text-gray-700 hover:border-[#1B5E44] hover:text-[#1B5E44] transition-all">
-                              Manage Job
-                           </button>
-                        </div>
-                     </div>
-                  ))}
-               </div>
-            </section>
-
-            {/* Performance Graph Placeholder */}
-            <section className="bg-white rounded-[2.5rem] border border-gray-100 p-10 shadow-sm">
-               <h2 className="text-2xl font-bold text-gray-900 mb-8">Earnings Overview</h2>
-               <div className="h-64 w-full bg-gradient-to-b from-emerald-50 to-white rounded-3xl flex items-end justify-between px-10 pb-6 relative overflow-hidden border border-emerald-50">
-                  <div className="absolute inset-0 flex items-center justify-center">
-                     <p className="text-emerald-200 font-black text-6xl opacity-10 uppercase tracking-[1em] rotate-12">Performance</p>
-                  </div>
-                  {[40, 70, 45, 90, 65, 80, 100].map((h, i) => (
-                     <div key={i} className="w-8 bg-[#1B5E44] rounded-t-lg transition-all hover:scale-x-110 cursor-pointer" style={{ height: `${h}%` }}></div>
-                  ))}
-               </div>
-               <div className="flex justify-between mt-4 px-10 text-[10px] font-bold text-gray-400 uppercase tracking-widest">
-                  <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
-               </div>
-            </section>
-         </div>
-
-         {/* Sidebar */}
-         <aside className="space-y-8">
-            {/* Profile Completeness */}
-            <div className="bg-[#1B5E44] p-10 rounded-[2.5rem] text-white shadow-xl shadow-emerald-900/20">
-               <h3 className="text-xl font-bold mb-6">Profile Strength</h3>
-               <div className="flex items-center gap-4 mb-6">
-                  <div className="relative w-20 h-20">
-                     <svg className="w-full h-full transform -rotate-90">
-                        <circle cx="40" cy="40" r="36" stroke="currentColor" strokeWidth="8" fill="transparent" className="text-emerald-900/30" />
-                        <circle cx="40" cy="40" r="36" stroke="currentColor" strokeWidth="8" fill="transparent" strokeDasharray="226" strokeDashoffset="45" className="text-white" />
-                     </svg>
-                     <span className="absolute inset-0 flex items-center justify-center font-black text-lg">80%</span>
-                  </div>
-                  <div>
-                     <p className="font-bold">Almost there!</p>
-                     <p className="text-xs text-emerald-100/70">Add your certificates to reach 100%.</p>
-                  </div>
-               </div>
-               <button className="w-full py-4 bg-white text-[#1B5E44] rounded-2xl font-black text-sm shadow-lg hover:shadow-emerald-900/40 transition-all">
-                  Complete Profile
-               </button>
+              <button className="text-xs font-semibold uppercase text-emerald-700 hover:underline">Manage</button>
             </div>
+          </DashboardCard>
+        </div>
 
-            {/* Recent Reviews */}
-            <div className="bg-white p-10 rounded-[2.5rem] border border-gray-100 shadow-sm">
-               <h3 className="text-xl font-bold text-gray-900 mb-8">Recent Feedback</h3>
-               <div className="space-y-8">
-                  {recentReviews.map((rev, i) => (
-                     <div key={i} className="relative">
-                        <div className="flex gap-1 mb-3">
-                           {[1,2,3,4,5].map(star => (
-                              <svg key={star} className="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" /></svg>
-                           ))}
-                        </div>
-                        <p className="text-sm text-gray-600 italic leading-relaxed mb-4">"{rev.comment}"</p>
-                        <div className="flex items-center justify-between">
-                           <span className="text-xs font-black text-gray-900">{rev.name}</span>
-                           <span className="text-[10px] font-bold text-gray-400">{rev.date}</span>
-                        </div>
-                     </div>
-                  ))}
-               </div>
-               <button 
-                  onClick={() => navigate('/worker/reviews')}
-                  className="w-full mt-10 py-4 border border-gray-100 rounded-2xl text-gray-500 font-bold hover:bg-gray-50 transition-all text-xs"
-               >
-                  Read All Reviews
-               </button>
+        <div className="grid gap-6 xl:grid-cols-3 2xl:gap-8">
+          <StatusCard icon={CheckCircle2} label="Status" value="Active" />
+          <StatusCard icon={Star} label="Badge" value="Featured" iconClass="bg-amber-50 text-amber-500" />
+          <DashboardCard className="p-6">
+            <div className="flex items-start justify-between">
+              <p className="text-xs font-medium uppercase tracking-wide text-slate-500">Priority Score</p>
+              <p className="text-base font-bold text-emerald-700">87<span className="text-slate-950">/100</span></p>
             </div>
-         </aside>
+            <div className="mt-4 h-2 rounded-full bg-slate-200">
+              <div className="h-2 w-[87%] rounded-full bg-emerald-700" />
+            </div>
+          </DashboardCard>
+        </div>
+
+        <div className="mt-8 grid gap-6 xl:grid-cols-[minmax(0,1fr)_320px] 2xl:grid-cols-[minmax(0,1fr)_380px] 2xl:gap-8">
+          <div className="rounded-xl bg-gradient-to-br from-emerald-700 to-emerald-900 p-8 text-white shadow-lg shadow-emerald-900/10 2xl:p-10">
+            <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
+              <div>
+                <p className="text-sm font-medium uppercase tracking-[0.22em] text-emerald-100">Earnings this month</p>
+                <h2 className="mt-5 text-4xl font-bold tracking-tight sm:text-5xl">LKR 42,000</h2>
+              </div>
+              <button className="inline-flex items-center justify-center gap-3 rounded-lg border border-white/25 bg-white/10 px-6 py-4 font-medium transition hover:bg-white/20">
+                View earnings <ChevronRight size={21} />
+              </button>
+            </div>
+            <div className="mt-8 grid max-w-lg grid-cols-3 gap-6">
+              <div>
+                <p className="text-sm text-emerald-100">Completed Jobs</p>
+                <p className="mt-1 text-2xl font-bold">12</p>
+              </div>
+              <div>
+                <p className="text-sm text-emerald-100">Avg. Rating</p>
+                <p className="mt-1 text-2xl font-bold">4.9 ★</p>
+              </div>
+              <div>
+                <p className="text-sm text-emerald-100">Response Rate</p>
+                <p className="mt-1 text-2xl font-bold">94%</p>
+              </div>
+            </div>
+          </div>
+
+          <DashboardCard className="flex flex-col items-center justify-center p-8 text-center">
+            <div className="mb-5 grid h-16 w-16 place-items-center rounded-full bg-emerald-50 text-emerald-700">
+              <CalendarCheck2 size={30} />
+            </div>
+            <h3 className="font-medium text-slate-950">Availability</h3>
+            <p className="mt-3 max-w-[230px] leading-relaxed text-slate-500">
+              Are you ready to accept new bookings today?
+            </p>
+            <div className="mt-7 flex items-center gap-4">
+              <span className={`font-medium ${available ? 'text-slate-400' : 'text-slate-950'}`}>OFFLINE</span>
+              <Toggle checked={available} onChange={setAvailable} />
+              <span className={`font-medium ${available ? 'text-emerald-700' : 'text-slate-400'}`}>AVAILABLE</span>
+            </div>
+          </DashboardCard>
+        </div>
+
+        <div className="mt-10 grid gap-8 xl:grid-cols-[minmax(0,1fr)_minmax(420px,0.95fr)] 2xl:grid-cols-[minmax(0,1fr)_minmax(520px,0.9fr)] 2xl:gap-10">
+          <section>
+            <div className="mb-5 flex items-center justify-between">
+              <h2 className="text-base font-medium text-slate-950">New Job Requests (3)</h2>
+              <button className="text-sm font-medium text-emerald-700 hover:underline">View All</button>
+            </div>
+            <div className="space-y-4">
+              <JobRequest title="Electrical Wiring Repair" location="Nugegoda, Colombo" price="4,500" />
+              <JobRequest title="Ceiling Fan Installation" location="Maharagama" price="2,200" />
+              <JobRequest title="Main Switch Replacement" location="Mount Lavinia" price="3,800" />
+            </div>
+          </section>
+
+          <section>
+            <div className="mb-5 flex items-center justify-between">
+              <h2 className="text-base font-medium text-slate-950">Upcoming Jobs</h2>
+              <button className="text-sm font-medium text-emerald-700 hover:underline">View Schedule</button>
+            </div>
+            <div className="space-y-5">
+              <UpcomingJob
+                time="Today, 2:00 PM"
+                customer="Mrs. Samanthi Silva"
+                job="Kitchen Lighting Overhaul"
+                img="https://i.pravatar.cc/120?img=47"
+              />
+              <UpcomingJob
+                time="Tomorrow, 10:00 AM"
+                customer="Mr. Aruna Gunawardena"
+                job="Garden Lamp Installation"
+                img="https://i.pravatar.cc/120?img=13"
+                tomorrow
+              />
+            </div>
+          </section>
+        </div>
       </div>
     </WorkerLayout>
   );
-};
-
-export default WorkerDashboard;
-
-
-
+}
