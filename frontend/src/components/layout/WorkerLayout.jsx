@@ -16,11 +16,11 @@ const sidebarItems = [
   { name: 'Dashboard', icon: LayoutGrid, path: '/worker/dashboard' },
   { name: 'My Jobs', icon: BriefcaseBusiness, path: '/worker/jobs' },
   { name: 'Earnings', icon: CircleDollarSign, path: '/worker/earnings' },
-  { name: 'Messages', icon: MessagesSquare, path: '/chat' },
+  { name: 'Messages', icon: MessagesSquare, path: '/worker/messages' },
   { name: 'Subscription', icon: Settings, path: '/worker/subscription' },
 ];
 
-export default function WorkerLayout({ children }) {
+export default function WorkerLayout({ children, noMainPadding = false }) {
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -95,15 +95,18 @@ export default function WorkerLayout({ children }) {
               <button
                 className="text-slate-700 transition hover:text-emerald-700"
                 aria-label="Notifications"
+                type="button"
               >
                 <Bell size={22} />
               </button>
 
               <button
-                className="text-slate-700 transition hover:text-emerald-700"
+                className="rounded-full bg-emerald-50 p-2 text-emerald-700 transition hover:bg-emerald-100"
                 aria-label="Messages"
+                type="button"
+                onClick={() => navigate('/worker/messages')}
               >
-                <MessageSquare size={23} />
+                <MessageSquare size={22} />
               </button>
 
               <img
@@ -147,7 +150,13 @@ export default function WorkerLayout({ children }) {
             </div>
           )}
 
-          <main className="flex-1 px-5 py-8 sm:px-8 lg:px-10 xl:px-12 2xl:px-16 2xl:py-10">
+          <main
+            className={
+              noMainPadding
+                ? 'flex-1'
+                : 'flex-1 px-5 py-8 sm:px-8 lg:px-10 xl:px-12 2xl:px-16 2xl:py-10'
+            }
+          >
             {children}
           </main>
 
