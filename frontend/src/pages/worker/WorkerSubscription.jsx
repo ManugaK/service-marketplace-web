@@ -44,31 +44,11 @@ const freeComparison = [
 ];
 
 const featureRows = [
-  {
-    feature: 'Lead Invitations',
-    free: '5 / Month',
-    pro: 'Unlimited',
-  },
-  {
-    feature: 'Commission Rate',
-    free: '10%',
-    pro: '5% Fixed',
-  },
-  {
-    feature: 'Skill Badges',
-    free: 'Max 2',
-    pro: 'Unlimited',
-  },
-  {
-    feature: 'Profile Analytics',
-    free: 'Basic',
-    pro: 'Advanced',
-  },
-  {
-    feature: 'Lead Fees',
-    free: 'Pay-per-lead',
-    pro: 'Zero',
-  },
+  { feature: 'Lead Invitations', free: '5 / Month', pro: 'Unlimited' },
+  { feature: 'Commission Rate', free: '10%', pro: '5% Fixed' },
+  { feature: 'Skill Badges', free: 'Max 2', pro: 'Unlimited' },
+  { feature: 'Profile Analytics', free: 'Basic', pro: 'Advanced' },
+  { feature: 'Lead Fees', free: 'Pay-per-lead', pro: 'Zero' },
 ];
 
 function ScoreRow({ label, points }) {
@@ -475,7 +455,7 @@ export default function WorkerSubscription() {
   return (
     <WorkerLayout>
       <div className="mx-auto w-full max-w-[1280px]">
-        <div className="grid gap-8 xl:grid-cols-[minmax(0,760px)_320px] 2xl:grid-cols-[minmax(0,820px)_340px]">
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,760px)_320px] 2xl:grid-cols-[minmax(0,820px)_340px]">
           <main className="space-y-9">
             <div>
               <h1 className="text-3xl font-bold tracking-tight text-slate-950">
@@ -502,7 +482,6 @@ export default function WorkerSubscription() {
 
           <aside className="space-y-6">
             <PriorityScoreCard plan={currentPlan} />
-
             <LeadFeeModelCard plan={currentPlan} />
           </aside>
         </div>
