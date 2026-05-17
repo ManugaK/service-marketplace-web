@@ -232,6 +232,7 @@ function PortfolioCard({ item, onRemove }) {
 }
 
 function ReviewCard() {
+   const navigate = useNavigate();
   return (
     <section className="overflow-hidden rounded-xl border border-emerald-900/20 bg-white shadow-sm">
       <div className="grid gap-6 p-6 lg:grid-cols-[170px_minmax(0,1fr)]">
@@ -293,11 +294,11 @@ function ReviewCard() {
       </div>
 
       <button
-        type="button"
-        onClick={() => alert('Opening all reviews page...')}
-        className="w-full bg-blue-50 px-5 py-4 text-sm font-bold text-emerald-700 transition hover:bg-emerald-50"
+      type="button"
+      onClick={() => navigate('/worker/reviews')}
+      className="w-full bg-blue-50 px-5 py-4 text-sm font-bold text-emerald-700 transition hover:bg-emerald-50"
       >
-        View All Reviews
+      View All Reviews
       </button>
     </section>
   );
