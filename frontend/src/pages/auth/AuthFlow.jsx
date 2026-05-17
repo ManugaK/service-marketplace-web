@@ -124,7 +124,7 @@ export default function AuthFlow({ initialView = 'login', entryMode = 'signin' }
 
   const handleVerifyOtp = () => {
     if (selectedRole === 'worker') {
-      navigate('/worker/dashboard');
+      navigate('/worker/register');
       return;
     }
 
