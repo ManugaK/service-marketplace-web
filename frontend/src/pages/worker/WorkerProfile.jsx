@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Bell,
   Camera,
@@ -9,12 +10,9 @@ import {
   Globe2,
   HelpCircle,
   ImagePlus,
-  Languages,
-  Pencil,
   ShieldCheck,
   Star,
   Trash2,
-  Upload,
   X,
 } from 'lucide-react';
 import WorkerLayout from '../../components/layout/WorkerLayout';
@@ -257,7 +255,9 @@ function ReviewCard() {
               <div className="h-2 flex-1 overflow-hidden rounded-full bg-slate-100">
                 <div
                   className="h-full rounded-full bg-emerald-500"
-                  style={{ width: index === 0 ? '95%' : index === 1 ? '8%' : '0%' }}
+                  style={{
+                    width: index === 0 ? '95%' : index === 1 ? '8%' : '0%',
+                  }}
                 />
               </div>
             </div>
@@ -284,8 +284,9 @@ function ReviewCard() {
             </div>
 
             <p className="mt-2 leading-relaxed text-slate-600">
-              “Kasun did an amazing job with our kitchen leak. He was professional,
-              on time, and left the place spotless. Highly recommended!”
+              “Kasun did an amazing job with our kitchen leak. He was
+              professional, on time, and left the place spotless. Highly
+              recommended!”
             </p>
           </div>
         </div>
@@ -299,83 +300,6 @@ function ReviewCard() {
         View All Reviews
       </button>
     </section>
-  );
-}
-
-function PersonalDetailsModal({ onClose }) {
-  return (
-    <Modal title="Manage Personal Details" onClose={onClose}>
-      <div className="grid gap-5 sm:grid-cols-2">
-        <div>
-          <label className="text-xs font-bold uppercase tracking-wide text-slate-600">
-            Full Name
-          </label>
-          <input
-            defaultValue="Kasun Silva"
-            className="mt-2 h-12 w-full rounded-lg border border-slate-300 px-4 outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-100"
-          />
-        </div>
-
-        <div>
-          <label className="text-xs font-bold uppercase tracking-wide text-slate-600">
-            Service Title
-          </label>
-          <input
-            defaultValue="Licensed General Contractor"
-            className="mt-2 h-12 w-full rounded-lg border border-slate-300 px-4 outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-100"
-          />
-        </div>
-
-        <div>
-          <label className="text-xs font-bold uppercase tracking-wide text-slate-600">
-            Location
-          </label>
-          <input
-            defaultValue="Colombo, Sri Lanka"
-            className="mt-2 h-12 w-full rounded-lg border border-slate-300 px-4 outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-100"
-          />
-        </div>
-
-        <div>
-          <label className="text-xs font-bold uppercase tracking-wide text-slate-600">
-            Phone
-          </label>
-          <input
-            defaultValue="+94 77 123 4567"
-            className="mt-2 h-12 w-full rounded-lg border border-slate-300 px-4 outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-100"
-          />
-        </div>
-
-        <div className="sm:col-span-2">
-          <label className="text-xs font-bold uppercase tracking-wide text-slate-600">
-            About
-          </label>
-          <textarea
-            defaultValue="Experienced contractor providing reliable home repair and renovation services."
-            rows={4}
-            className="mt-2 w-full resize-none rounded-lg border border-slate-300 px-4 py-3 outline-none focus:border-emerald-600 focus:ring-4 focus:ring-emerald-100"
-          />
-        </div>
-      </div>
-
-      <div className="mt-6 flex justify-end gap-3 border-t border-slate-200 pt-5">
-        <button
-          type="button"
-          onClick={onClose}
-          className="rounded-lg border border-slate-300 px-6 py-3 text-sm font-bold text-slate-600 hover:bg-slate-50"
-        >
-          Cancel
-        </button>
-
-        <button
-          type="button"
-          onClick={onClose}
-          className="rounded-lg bg-emerald-700 px-6 py-3 text-sm font-bold text-white hover:bg-emerald-800"
-        >
-          Save Changes
-        </button>
-      </div>
-    </Modal>
   );
 }
 
@@ -429,7 +353,7 @@ function NotificationPreferencesModal({ onClose }) {
   );
 }
 
-function PaymentDetailsModal({ onClose }) {
+function PaymentDetailsModal({ onClose, onManageAccount }) {
   return (
     <Modal title="Payment Details" onClose={onClose}>
       <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
@@ -445,6 +369,7 @@ function PaymentDetailsModal({ onClose }) {
       <div className="mt-5 grid gap-3 sm:grid-cols-2">
         <button
           type="button"
+          onClick={onManageAccount}
           className="rounded-lg border border-slate-300 px-5 py-3 text-sm font-bold text-slate-600 hover:bg-slate-50"
         >
           Manage Account
@@ -452,6 +377,7 @@ function PaymentDetailsModal({ onClose }) {
 
         <button
           type="button"
+          onClick={onManageAccount}
           className="rounded-lg bg-emerald-700 px-5 py-3 text-sm font-bold text-white hover:bg-emerald-800"
         >
           Add New Account
@@ -508,7 +434,8 @@ function HelpCenterModal({ onClose }) {
         <div className="rounded-xl border border-slate-200 p-4">
           <h3 className="font-bold text-slate-950">Worker Guide</h3>
           <p className="mt-1 text-sm text-slate-500">
-            Learn how to improve your profile, respond to jobs, and increase bookings.
+            Learn how to improve your profile, respond to jobs, and increase
+            bookings.
           </p>
         </div>
 
@@ -544,13 +471,16 @@ function AnalyticsModal({ onClose }) {
       </div>
 
       <p className="mt-5 rounded-xl border border-emerald-100 bg-emerald-50 px-4 py-3 text-sm text-emerald-800">
-        Your profile visibility is 40% higher this month because of your worker badge.
+        Your profile visibility is 40% higher this month because of your worker
+        badge.
       </p>
     </Modal>
   );
 }
 
 export default function WorkerProfile() {
+  const navigate = useNavigate();
+
   const [services, setServices] = useState(initialServices);
   const [portfolio, setPortfolio] = useState(initialPortfolio);
   const [modal, setModal] = useState(null);
@@ -581,6 +511,15 @@ export default function WorkerProfile() {
 
   function removePortfolio(id) {
     setPortfolio((current) => current.filter((item) => item.id !== id));
+  }
+
+  function goToEditProfile(step = 2) {
+    navigate(`/worker/register?mode=edit&step=${step}`);
+  }
+
+  function goToEarnings() {
+    setModal(null);
+    navigate('/worker/earnings');
   }
 
   return (
@@ -712,7 +651,8 @@ export default function WorkerProfile() {
               <h2 className="text-xl font-bold">Visibility Boost</h2>
 
               <p className="mt-3 text-sm leading-relaxed text-emerald-50">
-                Increase your profile visibility by 40% with our Premium Worker badge.
+                Increase your profile visibility by 40% with our Premium Worker
+                badge.
               </p>
 
               <button
@@ -726,7 +666,7 @@ export default function WorkerProfile() {
           </aside>
 
           <main className="space-y-8">
-            <ProfileCompleteness onManage={() => setModal('personal')} />
+            <ProfileCompleteness onManage={() => goToEditProfile(2)} />
 
             <section>
               <div className="mb-5 flex items-center justify-between gap-4">
@@ -736,7 +676,7 @@ export default function WorkerProfile() {
 
                 <button
                   type="button"
-                  onClick={() => alert('Opening service management panel...')}
+                  onClick={() => goToEditProfile(4)}
                   className="text-sm font-bold text-emerald-700 hover:underline"
                 >
                   Manage All
@@ -794,16 +734,15 @@ export default function WorkerProfile() {
         </div>
       </div>
 
-      {modal === 'personal' && (
-        <PersonalDetailsModal onClose={() => setModal(null)} />
-      )}
-
       {modal === 'notifications' && (
         <NotificationPreferencesModal onClose={() => setModal(null)} />
       )}
 
       {modal === 'payment' && (
-        <PaymentDetailsModal onClose={() => setModal(null)} />
+        <PaymentDetailsModal
+          onClose={() => setModal(null)}
+          onManageAccount={goToEarnings}
+        />
       )}
 
       {modal === 'language' && <LanguageModal onClose={() => setModal(null)} />}
