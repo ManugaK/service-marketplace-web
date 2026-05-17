@@ -341,11 +341,18 @@ export default function WorkerLayout({ children, noMainPadding = false }) {
                 <MessageSquare size={22} />
               </button>
 
-              <img
-                src="https://i.pravatar.cc/120?img=12"
-                alt="Kasun"
-                className="h-10 w-10 rounded-full border-4 border-emerald-700 object-cover"
-              />
+              <button
+                type="button"
+                onClick={() => navigate('/worker/profile')}
+                className="rounded-full"
+                aria-label="Open worker profile"
+              >
+                <img
+                  src="https://i.pravatar.cc/120?img=12"
+                  alt="Kasun"
+                  className="h-10 w-10 rounded-full border-4 border-emerald-700 object-cover transition hover:ring-4 hover:ring-emerald-100"
+                />
+              </button>
             </div>
           </header>
 
