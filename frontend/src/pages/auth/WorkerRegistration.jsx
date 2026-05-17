@@ -190,7 +190,7 @@ function StepTwo({ onBack, onNext }) {
     <>
       <ProgressHeader step={2} title="Personal Details" percent={25} />
 
-      <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_390px] 2xl:grid-cols-[minmax(0,1fr)_430px] 2xl:gap-8">
+      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_390px] 2xl:grid-cols-[minmax(0,1fr)_430px] 2xl:gap-8">
         <Card className="p-6 sm:p-7 2xl:p-9">
           <div className="mb-8">
             <h2 className="text-2xl font-bold tracking-tight text-slate-950 sm:text-3xl">Tell us about yourself</h2>
@@ -429,7 +429,7 @@ function StepThree({ onBack, onNext }) {
     <>
       <ProgressHeader step={3} title="Upload your documents" percent={50} />
 
-      <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_360px] 2xl:grid-cols-[minmax(0,1fr)_410px] 2xl:gap-8">
+      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_360px] 2xl:grid-cols-[minmax(0,1fr)_410px] 2xl:gap-8">
         <div className="space-y-6">
           <div className="flex items-center gap-3 rounded-lg border border-amber-300 bg-amber-50 px-4 py-4 text-amber-800">
             <CircleEllipsis size={20} />
@@ -599,7 +599,7 @@ function StepFour({ onBack, onSubmit }) {
     <>
       <ProgressHeader step={4} title="Set your service packages" percent={75} />
 
-      <div className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_400px] 2xl:grid-cols-[minmax(0,1fr)_480px] 2xl:gap-8">
+      <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_400px] 2xl:grid-cols-[minmax(0,1fr)_480px] 2xl:gap-8">
         <div>
           <div className="relative rounded-xl border-2 border-emerald-700 bg-white p-6 pt-8 shadow-sm 2xl:p-8 2xl:pt-10">
             <span className="absolute -top-4 left-8 rounded-full bg-emerald-700 px-5 py-1.5 text-xs font-bold uppercase tracking-widest text-white">
