@@ -7,10 +7,13 @@ import CustomerDashboard from './pages/customer/CustomerDashboard';
 import CustomerProfile from './pages/customer/CustomerProfile';
 
 import WorkerDashboard from './pages/worker/WorkerDashboard';
+import WorkerJobs from './pages/worker/WorkerJobs';
+import WorkerEarnings from './pages/worker/WorkerEarnings';
 import WorkerProfile from './pages/worker/WorkerProfile';
 import WorkerPublicProfile from './pages/worker/WorkerPublicProfile';
 import WorkerReviews from './pages/worker/WorkerReviews';
 import WorkerSubscription from './pages/worker/WorkerSubscription';
+import WorkerRegistration from './pages/auth/WorkerRegistration';
 
 import ChatPage from './pages/chat/ChatPage';
 import BookingDetails from './pages/booking/BookingDetails';
@@ -42,7 +45,10 @@ function App() {
           <Route path="/customer/dashboard" element={<CustomerDashboard />} />
 
           {/* Worker Routes */}
+          <Route path="/worker/register" element={<WorkerRegistration />} />
           <Route path="/worker/dashboard" element={<WorkerDashboard />} />
+          <Route path="/worker/jobs" element={<WorkerJobs />} />
+          <Route path="/worker/earnings" element={<WorkerEarnings />} />
           <Route path="/worker/profile" element={<WorkerProfile />} />
           <Route path="/worker/reviews" element={<WorkerReviews />} />
           <Route path="/worker/subscription" element={<WorkerSubscription />} />
