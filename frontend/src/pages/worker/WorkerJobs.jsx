@@ -20,7 +20,6 @@ const tabs = [
 const jobRequests = [
   {
     id: 1,
-    type: 'request',
     customer: 'Nimal Karunaratne',
     rating: '4.8',
     avatar: 'https://i.pravatar.cc/120?img=12',
@@ -36,7 +35,6 @@ const jobRequests = [
   },
   {
     id: 2,
-    type: 'request',
     customer: 'Sherumi Perera',
     rating: '4.9',
     avatar: 'https://i.pravatar.cc/120?img=49',
@@ -55,7 +53,6 @@ const jobRequests = [
 const activeJobs = [
   {
     id: 3,
-    type: 'active',
     customer: 'Janaka Silva',
     rating: '4.7',
     avatar: 'https://i.pravatar.cc/120?img=59',
@@ -70,7 +67,6 @@ const activeJobs = [
 const completedJobs = [
   {
     id: 4,
-    type: 'completed',
     customer: 'Ayesha Fernando',
     rating: '5.0',
     avatar: 'https://i.pravatar.cc/120?img=47',
@@ -86,7 +82,6 @@ const completedJobs = [
 const cancelledJobs = [
   {
     id: 5,
-    type: 'cancelled',
     customer: 'Ruwan Jayasinghe',
     rating: '4.6',
     avatar: 'https://i.pravatar.cc/120?img=33',
@@ -148,10 +143,10 @@ function RequestJobCard({ job }) {
   return (
     <article className="overflow-hidden rounded-xl border border-emerald-900/20 bg-white shadow-sm">
       <div className="border-l-4 border-emerald-700 p-5 sm:p-6 2xl:p-7">
-        <div className="grid gap-6 xl:grid-cols-[260px_minmax(0,1fr)_170px] 2xl:grid-cols-[300px_minmax(0,1fr)_190px]">
+        <div className="grid gap-6 lg:grid-cols-[230px_minmax(0,1fr)_160px] 2xl:grid-cols-[300px_minmax(0,1fr)_190px]">
           <CustomerBlock job={job} />
 
-          <div className="grid gap-6 border-slate-200 sm:grid-cols-2 xl:border-l xl:px-7 2xl:px-8">
+          <div className="grid gap-6 border-slate-200 sm:grid-cols-2 lg:border-l lg:px-6 2xl:px-8">
             <DetailBlock label="Service">{job.service}</DetailBlock>
 
             <DetailBlock label="Location">
@@ -168,8 +163,8 @@ function RequestJobCard({ job }) {
             </DetailBlock>
           </div>
 
-          <div className="flex flex-row items-start justify-between gap-3 border-slate-200 xl:flex-col xl:items-end xl:border-l xl:pl-7 2xl:pl-8">
-            <div className="text-left xl:text-right">
+          <div className="flex flex-row items-start justify-between gap-3 border-slate-200 lg:flex-col lg:items-end lg:border-l lg:pl-6 2xl:pl-8">
+            <div className="text-left lg:text-right">
               <span className="inline-flex rounded-full bg-emerald-50 px-4 py-1 text-xs font-bold text-emerald-700">
                 {job.badge}
               </span>
@@ -192,16 +187,25 @@ function RequestJobCard({ job }) {
 
         <div className="mt-6 border-t border-slate-200 pt-5">
           <div className="flex flex-col gap-3 sm:flex-row sm:justify-end">
-            <button className="rounded-lg border border-red-500 px-8 py-3 text-sm font-bold text-red-600 transition hover:bg-red-50">
+            <button
+              type="button"
+              className="rounded-lg border border-red-500 px-8 py-3 text-sm font-bold text-red-600 transition hover:bg-red-50"
+            >
               Decline
             </button>
 
-            <button className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-8 py-3 text-sm font-semibold text-slate-600 transition hover:border-emerald-600 hover:text-emerald-700">
+            <button
+              type="button"
+              className="inline-flex items-center justify-center gap-2 rounded-lg border border-slate-300 bg-white px-8 py-3 text-sm font-semibold text-slate-600 transition hover:border-emerald-600 hover:text-emerald-700"
+            >
               <MessageSquareText size={17} />
               Chat
             </button>
 
-            <button className="rounded-lg bg-emerald-700 px-8 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-emerald-800">
+            <button
+              type="button"
+              className="rounded-lg bg-emerald-700 px-8 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-emerald-800"
+            >
               Accept Job
             </button>
           </div>
@@ -215,10 +219,10 @@ function ActiveJobCard({ job }) {
   return (
     <article className="rounded-xl border border-emerald-900/20 bg-emerald-50/50 shadow-sm">
       <div className="p-5 sm:p-6 2xl:p-7">
-        <div className="grid gap-6 xl:grid-cols-[260px_minmax(0,1fr)_190px] 2xl:grid-cols-[300px_minmax(0,1fr)_220px]">
+        <div className="grid gap-6 lg:grid-cols-[230px_minmax(0,1fr)_180px] 2xl:grid-cols-[300px_minmax(0,1fr)_220px]">
           <CustomerBlock job={job} />
 
-          <div className="grid gap-6 border-slate-200 sm:grid-cols-2 xl:border-l xl:px-7 2xl:px-8">
+          <div className="grid gap-6 border-slate-200 sm:grid-cols-2 lg:border-l lg:px-6 2xl:px-8">
             <DetailBlock label="Service">{job.service}</DetailBlock>
 
             <DetailBlock label="Location">
@@ -235,19 +239,25 @@ function ActiveJobCard({ job }) {
             </DetailBlock>
           </div>
 
-          <div className="flex flex-col items-start gap-4 border-slate-200 xl:items-end xl:border-l xl:pl-7 2xl:pl-8">
+          <div className="flex flex-col items-start gap-4 border-slate-200 lg:items-end lg:border-l lg:pl-6 2xl:pl-8">
             <span className="inline-flex rounded-full bg-emerald-700 px-4 py-1 text-xs font-bold text-white">
               In Progress
             </span>
 
-            <button className="inline-flex items-center gap-1 text-sm font-bold text-emerald-700 hover:underline">
+            <button
+              type="button"
+              className="inline-flex items-center gap-1 text-sm font-bold text-emerald-700 hover:underline"
+            >
               <Phone size={15} />
               Call customer
             </button>
 
             <div className="flex-1" />
 
-            <button className="mt-3 w-full rounded-lg bg-emerald-700 px-7 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-emerald-800 xl:w-auto">
+            <button
+              type="button"
+              className="mt-3 w-full rounded-lg bg-emerald-700 px-7 py-3 text-sm font-bold text-white shadow-sm transition hover:bg-emerald-800 lg:w-auto"
+            >
               Mark as Complete
             </button>
           </div>
@@ -261,10 +271,10 @@ function CompletedJobCard({ job }) {
   return (
     <article className="rounded-xl border border-emerald-900/20 bg-white shadow-sm">
       <div className="p-5 sm:p-6 2xl:p-7">
-        <div className="grid gap-6 xl:grid-cols-[260px_minmax(0,1fr)_190px] 2xl:grid-cols-[300px_minmax(0,1fr)_220px]">
+        <div className="grid gap-6 lg:grid-cols-[230px_minmax(0,1fr)_180px] 2xl:grid-cols-[300px_minmax(0,1fr)_220px]">
           <CustomerBlock job={job} />
 
-          <div className="grid gap-6 border-slate-200 sm:grid-cols-2 xl:border-l xl:px-7 2xl:px-8">
+          <div className="grid gap-6 border-slate-200 sm:grid-cols-2 lg:border-l lg:px-6 2xl:px-8">
             <DetailBlock label="Service">{job.service}</DetailBlock>
 
             <DetailBlock label="Location">
@@ -281,7 +291,7 @@ function CompletedJobCard({ job }) {
             </DetailBlock>
           </div>
 
-          <div className="flex flex-col items-start gap-4 border-slate-200 xl:items-end xl:border-l xl:pl-7 2xl:pl-8">
+          <div className="flex flex-col items-start gap-4 border-slate-200 lg:items-end lg:border-l lg:pl-6 2xl:pl-8">
             <span className="inline-flex rounded-full bg-emerald-100 px-4 py-1 text-xs font-bold text-emerald-700">
               Completed
             </span>
@@ -305,10 +315,10 @@ function CancelledJobCard({ job }) {
   return (
     <article className="rounded-xl border border-red-100 bg-white shadow-sm">
       <div className="p-5 sm:p-6 2xl:p-7">
-        <div className="grid gap-6 xl:grid-cols-[260px_minmax(0,1fr)_190px] 2xl:grid-cols-[300px_minmax(0,1fr)_220px]">
+        <div className="grid gap-6 lg:grid-cols-[230px_minmax(0,1fr)_180px] 2xl:grid-cols-[300px_minmax(0,1fr)_220px]">
           <CustomerBlock job={job} />
 
-          <div className="grid gap-6 border-slate-200 sm:grid-cols-2 xl:border-l xl:px-7 2xl:px-8">
+          <div className="grid gap-6 border-slate-200 sm:grid-cols-2 lg:border-l lg:px-6 2xl:px-8">
             <DetailBlock label="Service">{job.service}</DetailBlock>
 
             <DetailBlock label="Location">
@@ -325,12 +335,15 @@ function CancelledJobCard({ job }) {
             </DetailBlock>
           </div>
 
-          <div className="flex flex-col items-start gap-4 border-slate-200 xl:items-end xl:border-l xl:pl-7 2xl:pl-8">
+          <div className="flex flex-col items-start gap-4 border-slate-200 lg:items-end lg:border-l lg:pl-6 2xl:pl-8">
             <span className="inline-flex rounded-full bg-red-50 px-4 py-1 text-xs font-bold text-red-600">
               Cancelled
             </span>
 
-            <button className="rounded-lg border border-slate-300 bg-white px-6 py-2.5 text-sm font-semibold text-slate-600 transition hover:border-emerald-600 hover:text-emerald-700">
+            <button
+              type="button"
+              className="rounded-lg border border-slate-300 bg-white px-6 py-2.5 text-sm font-semibold text-slate-600 transition hover:border-emerald-600 hover:text-emerald-700"
+            >
               View Details
             </button>
           </div>
