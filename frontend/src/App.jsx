@@ -9,6 +9,7 @@ import CustomerProfile from './pages/customer/CustomerProfile';
 import WorkerDashboard from './pages/worker/WorkerDashboard';
 import WorkerJobs from './pages/worker/WorkerJobs';
 import WorkerEarnings from './pages/worker/WorkerEarnings';
+import WorkerMessages from './pages/worker/WorkerMessages';
 import WorkerProfile from './pages/worker/WorkerProfile';
 import WorkerPublicProfile from './pages/worker/WorkerPublicProfile';
 import WorkerReviews from './pages/worker/WorkerReviews';
@@ -49,6 +50,7 @@ function App() {
           <Route path="/worker/dashboard" element={<WorkerDashboard />} />
           <Route path="/worker/jobs" element={<WorkerJobs />} />
           <Route path="/worker/earnings" element={<WorkerEarnings />} />
+          <Route path="/worker/messages" element={<WorkerMessages />} />
           <Route path="/worker/profile" element={<WorkerProfile />} />
           <Route path="/worker/reviews" element={<WorkerReviews />} />
           <Route path="/worker/subscription" element={<WorkerSubscription />} />
