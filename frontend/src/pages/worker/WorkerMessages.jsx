@@ -213,7 +213,11 @@ function MessageBubble({ message, selectedConversation }) {
         />
       )}
 
-      <div className={`max-w-[82%] sm:max-w-[70%] ${isWorker ? 'text-right' : ''}`}>
+      <div
+        className={`max-w-[82%] sm:max-w-[70%] ${
+          isWorker ? 'text-right' : ''
+        }`}
+      >
         <div
           className={`rounded-2xl px-5 py-4 text-sm leading-relaxed shadow-sm sm:text-base ${
             isWorker
@@ -242,8 +246,9 @@ export default function WorkerMessages() {
   const [messages, setMessages] = useState(initialMessages);
 
   const selectedConversation =
-    conversations.find((conversation) => conversation.id === activeConversationId) ||
-    conversations[0];
+    conversations.find(
+      (conversation) => conversation.id === activeConversationId
+    ) || conversations[0];
 
   const filteredConversations = useMemo(() => {
     return conversations.filter((conversation) => {
@@ -282,9 +287,7 @@ export default function WorkerMessages() {
   return (
     <WorkerLayout noMainPadding>
       <div className="flex h-[calc(100vh-72px)] min-h-[620px] overflow-hidden bg-slate-50">
-        {/* Profiles / conversations section */}
-        <section className="hidden w-[360px] shrink-0 border-r border-slate-200 bg-white md:flex md:flex-col xl:w-[400px]">
-          {/* This part does NOT scroll */}
+        <section className="hidden w-[340px] shrink-0 border-r border-slate-200 bg-white md:flex md:flex-col lg:w-[360px] 2xl:w-[400px]">
           <div className="shrink-0 border-b border-slate-100 px-6 py-7">
             <div className="flex items-center justify-between">
               <h1 className="text-2xl font-bold text-slate-950">Messages</h1>
@@ -327,7 +330,6 @@ export default function WorkerMessages() {
             </div>
           </div>
 
-          {/* Only profiles scroll here */}
           <div className="min-h-0 flex-1 overflow-y-auto">
             {filteredConversations.map((conversation) => (
               <ConversationItem
@@ -340,9 +342,7 @@ export default function WorkerMessages() {
           </div>
         </section>
 
-        {/* Chat section */}
         <section className="flex min-w-0 flex-1 flex-col bg-slate-50">
-          {/* This part does NOT scroll */}
           <div className="shrink-0 border-b border-slate-200 bg-white">
             <div className="flex items-center justify-between px-5 py-3 sm:px-7">
               <div className="flex min-w-0 items-center gap-3">
@@ -396,7 +396,6 @@ export default function WorkerMessages() {
             </div>
           </div>
 
-          {/* Only chat messages scroll here */}
           <div className="min-h-0 flex-1 overflow-y-auto px-5 py-6 sm:px-7">
             <div className="mx-auto max-w-5xl space-y-7">
               <div className="flex justify-center">
@@ -415,7 +414,6 @@ export default function WorkerMessages() {
             </div>
           </div>
 
-          {/* Message box stays at bottom of chat viewport */}
           <form
             onSubmit={handleSendMessage}
             className="shrink-0 border-t border-slate-200 bg-white px-4 py-4 sm:px-6"
