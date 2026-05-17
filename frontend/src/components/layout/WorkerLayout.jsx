@@ -51,8 +51,7 @@ const initialNotifications = [
     id: 3,
     group: 'TODAY',
     title: 'Payment Received',
-    message:
-      "$2,450.00 for 'Mobile App Redesign' credited to your wallet.",
+    message: "$2,450.00 for 'Mobile App Redesign' credited to your wallet.",
     time: '8h ago',
     unread: false,
     icon: CreditCard,
@@ -114,10 +113,7 @@ function NotificationPanel({
 
   const groupedNotifications = visibleNotifications.reduce(
     (groups, notification) => {
-      if (!groups[notification.group]) {
-        groups[notification.group] = [];
-      }
-
+      if (!groups[notification.group]) groups[notification.group] = [];
       groups[notification.group].push(notification);
       return groups;
     },
